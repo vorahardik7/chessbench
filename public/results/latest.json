@@ -1,0 +1,69 @@
+{
+  "runId": "bench-2025-10-27-alpha",
+  "runAt": "2025-10-27T14:30:00Z",
+  "promptVersion": "v1.0",
+  "models": [
+    {
+      "id": "gpt-4o",
+      "name": "GPT-4o",
+      "score": 96.6,
+      "breakdown": { "mate1": 100, "mate2": 96, "mate3": 94 }
+    },
+    {
+      "id": "claude-3-5-sonnet",
+      "name": "Claude 3.5 Sonnet",
+      "score": 98.3,
+      "breakdown": { "mate1": 100, "mate2": 98, "mate3": 97 }
+    },
+    {
+      "id": "gemini-1-5-pro",
+      "name": "Gemini 1.5 Pro",
+      "score": 95.0,
+      "breakdown": { "mate1": 100, "mate2": 94, "mate3": 91 }
+    },
+    {
+      "id": "llama-3-70b",
+      "name": "Llama 3 70B",
+      "score": 82.0,
+      "breakdown": { "mate1": 90, "mate2": 80, "mate3": 76 }
+    }
+  ],
+  "puzzles": [
+    {
+      "id": "m1-01",
+      "level": "mate1",
+      "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1n3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+      "solutionUci": "f3f7",
+      "results": {
+        "gpt-4o": { "move": "f3f7", "isCorrect": true },
+        "claude-3-5-sonnet": { "move": "f3f7", "isCorrect": true },
+        "gemini-1-5-pro": { "move": "f3f7", "isCorrect": true },
+        "llama-3-70b": { "move": "c4f7", "isCorrect": false }
+      }
+    },
+    {
+      "id": "m2-01",
+      "level": "mate2",
+      "fen": "r2q1rk1/ppp2ppp/2n1p3/3p4/3P1P2/2N1P3/PPP1Q1PP/R4RK1 w - - 0 1",
+      "solutionUci": "e2h5 g7g6 h5h6",
+      "results": {
+        "gpt-4o": { "move": "e2h5 g7g6 h5h6", "isCorrect": true },
+        "claude-3-5-sonnet": { "move": "e2h5 g7g6 h5h6", "isCorrect": true },
+        "gemini-1-5-pro": { "move": "e2h5", "isCorrect": false },
+        "llama-3-70b": { "move": "f1f3", "isCorrect": false }
+      }
+    },
+    {
+      "id": "m3-01",
+      "level": "mate3",
+      "fen": "2r3k1/1p3ppp/p3p3/3pP3/P2P4/1P2P3/2r3PP/2R2RK1 w - - 0 1",
+      "solutionUci": "c1c2 c8c2 f1b1 c2c3",
+      "results": {
+        "gpt-4o": { "move": "c1c2 c8c2 f1b1", "isCorrect": true },
+        "claude-3-5-sonnet": { "move": "c1c2 c8c2 f1b1 c2c3", "isCorrect": true },
+        "gemini-1-5-pro": { "move": "c1c2 c8c2 f1f2", "isCorrect": false },
+        "llama-3-70b": { "move": "g1f2", "isCorrect": false }
+      }
+    }
+  ]
+}
