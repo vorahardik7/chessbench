@@ -1,0 +1,10 @@
+[
+  {
+    "id": "mistralai/devstral-2512:free",
+    "name": "Mistral Devstral 2512",
+    "temperature": 0,
+    "maxTokens": 128
+  }  
+]
+
+
