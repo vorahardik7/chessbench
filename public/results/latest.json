@@ -1,68 +1,631 @@
 {
-  "runId": "bench-2025-10-27-alpha",
-  "runAt": "2025-10-27T14:30:00Z",
+  "runId": "bench-2025-12-16T20-37-13-612Z",
+  "runAt": "2025-12-16T20:37:13.612Z",
   "promptVersion": "v1.0",
   "models": [
     {
-      "id": "gpt-4o",
-      "name": "GPT-4o",
-      "score": 96.6,
-      "breakdown": { "mate1": 100, "mate2": 96, "mate3": 94 }
+      "id": "google/gemini-2.0-flash-001",
+      "name": "Gemini 2.0 Flash 001",
+      "score": 50,
+      "breakdown": {
+        "mate1": 50,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 479
     },
     {
-      "id": "claude-3-5-sonnet",
-      "name": "Claude 3.5 Sonnet",
-      "score": 98.3,
-      "breakdown": { "mate1": 100, "mate2": 98, "mate3": 97 }
+      "id": "nex-agi/deepseek-v3.1-nex-n1:free",
+      "name": "DeepSeek V3.1 Nex N1",
+      "score": 50,
+      "breakdown": {
+        "mate1": 50,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 3942
     },
     {
-      "id": "gemini-1-5-pro",
-      "name": "Gemini 1.5 Pro",
-      "score": 95.0,
-      "breakdown": { "mate1": 100, "mate2": 94, "mate3": 91 }
+      "id": "google/gemini-2.5-flash",
+      "name": "Gemini 2.5 Flash",
+      "score": 30,
+      "breakdown": {
+        "mate1": 30,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 527
     },
     {
-      "id": "llama-3-70b",
-      "name": "Llama 3 70B",
-      "score": 82.0,
-      "breakdown": { "mate1": 90, "mate2": 80, "mate3": 76 }
+      "id": "allenai/olmo-3.1-32b-think:free",
+      "name": "Olmo 3.1 32B Think",
+      "score": 0,
+      "breakdown": {
+        "mate1": 0,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 501
     }
   ],
   "puzzles": [
     {
-      "id": "m1-01",
+      "id": "mate1-HR783",
       "level": "mate1",
-      "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1n3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
-      "solutionUci": "f3f7",
+      "fen": "8/p6p/1p6/3P2Q1/2P5/1q3p2/7k/5K2 w - - 4 55",
+      "lastMoveUci": "g3h2",
+      "solutionUci": "g5h4",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "HR783",
+        "url": "https://lichess.org/training/HR783",
+        "themes": [
+          "master",
+          "oneMove",
+          "mateIn1",
+          "endgame",
+          "queenEndgame"
+        ],
+        "rating": 1461,
+        "gameId": "IPJijxFi"
+      },
       "results": {
-        "gpt-4o": { "move": "f3f7", "isCorrect": true },
-        "claude-3-5-sonnet": { "move": "f3f7", "isCorrect": true },
-        "gemini-1-5-pro": { "move": "f3f7", "isCorrect": true },
-        "llama-3-70b": { "move": "c4f7", "isCorrect": false }
+        "nex-agi/deepseek-v3.1-nex-n1:free": {
+          "move": "g5h4",
+          "isCorrect": true,
+          "rawOutput": "g5h4",
+          "latencyMs": 4766,
+          "promptTokens": 166,
+          "completionTokens": 4,
+          "totalTokens": 170
+        },
+        "google/gemini-2.5-flash": {
+          "move": "g5g2",
+          "isCorrect": false,
+          "rawOutput": "Qg2#",
+          "latencyMs": 614,
+          "promptTokens": 167,
+          "completionTokens": 3,
+          "totalTokens": 170
+        },
+        "google/gemini-2.0-flash-001": {
+          "move": "g5g1",
+          "isCorrect": false,
+          "rawOutput": "g5g1\n",
+          "latencyMs": 521,
+          "promptTokens": 165,
+          "completionTokens": 5,
+          "totalTokens": 170
+        },
+        "allenai/olmo-3.1-32b-think:free": {
+          "move": "c4c5",
+          "isCorrect": false,
+          "rawOutput": "Okay, so I need to solve this mate in 1 problem. The FEN given is 8/p6p/1p6/3P2Q1/2P5/1q3p2/7k/5K2 w - - 4 55. Let me parse this FEN first.\n\nBreaking down the FEN:\n\nThe first part is the board positions. Each rank is separated by a slash. Let's list them out from top to bottom (since FEN is from 8th rank to 1st):\n\n8: That's the 8th rank, which is all empty squares. So the first rank (from top) has no pieces.\n\nThen p6p: That's the 7th rank. So a pawn on a7, then six empty squares, and another pawn on h7? Wait, no. Wait, the notation is from left to right, so p6p would be a pawn on a7, then six squares, then a pawn on h7? Wait, no, actually, the first character is the a-file. So p6p would be a pawn on a7, then six empty squares (so b7 to g7 are empty), and then a pawn on h7? Wait, but the length is 8 characters? Let's check: p followed by 6 characters (so total 1+6=7?), but p6p is 3 characters. Wait, no, the number after the p is 6, so it's p followed by six empty squares, then another p. So total length is 1 +6 +1 =8? Wait, no, the number is 6, so it's p followed by six empty squares, then another p. So the 7th rank has pawns on a7 and h7? Because the first character is a7, then after 6 squares, the next is h7? Wait, no, the 7th rank is the second part. Let me confirm:\n\nFEN ranks are from top (8th) to bottom (1st). So the first part is rank 8: all empty. Then rank 7 is p6p. So the 7th rank has a pawn on a7, then six empty squares (so b7 to g7 are empty), and then a pawn on h7? Because the 'p' is at the end. So yes, pawns on a7 and h7 on the 7th rank.\n\nNext rank is 1p6: that's the 6th rank. So a single square with a pawn on b6? Because '1' is one empty square (a6 is empty), then 'p' on b6, then six more squares? Wait, 1p6 would be 1 (a6 empty), then p on b6, then 6 empty squares from c6 to h6? So pawn on b6.\n\nThen 3P2Q1: that's the 5th rank. Let's see: 3 empty squares (d5, e5, f5?), then a capital P (white pawn on g5?), then two empty squares (h5?), then Q (queen on h5? Wait, no. Wait, the order is from a to h. So 3P2Q1: starting from a5. So first three squares (a5, b5, c5) are empty. Then a white pawn on d5? Wait, no, the 'P' is the fourth character. Let's count:\n\nCharacters: '3' is three empty, then 'P' is the fourth square (d5?), then '2' is two empty (e5 and f5), then 'Q' on g5, and '1' is one empty on h5? Wait, but the total length must be 8. Let's see: 3 +1 +2 +1 +1? Wait, 3 (from the '3') plus P (1) is 4, then 2 (two squares) makes 6, then Q (1) is 7, then 1 (one square) makes 8. So yes. So on the 5th rank: a5, b5, c5 empty; d5 has a white pawn? Wait, but the piece is uppercase P, which is white. But the current player is white, as the FEN says w. Wait, but in the position, maybe that's correct. Wait, but let's see the other pieces.\n\nThen next rank is 2P5: that's the 4th rank. So two empty squares (a4 and b4), then a white pawn on c4, then five empty squares from d4 to h4? So pawn on c4.\n\nThen 1q3p2: 3rd rank. '1' is a4? Wait no, the 3",
+          "latencyMs": 559,
+          "promptTokens": 189,
+          "completionTokens": 1024,
+          "totalTokens": 1213
+        }
       }
     },
     {
-      "id": "m2-01",
-      "level": "mate2",
-      "fen": "r2q1rk1/ppp2ppp/2n1p3/3p4/3P1P2/2N1P3/PPP1Q1PP/R4RK1 w - - 0 1",
-      "solutionUci": "e2h5 g7g6 h5h6",
+      "id": "mate1-w3Xtv",
+      "level": "mate1",
+      "fen": "r1bq2nr/ppppk1p1/1b5p/nP1QN3/4P3/2P5/P2P1PPP/RNB1K2R w KQ - 7 12",
+      "lastMoveUci": "d6e7",
+      "solutionUci": "d5f7",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "w3Xtv",
+        "url": "https://lichess.org/training/w3Xtv",
+        "themes": [
+          "middlegame",
+          "oneMove",
+          "mateIn1",
+          "pin"
+        ],
+        "rating": 1478,
+        "gameId": "NjuwutWF"
+      },
       "results": {
-        "gpt-4o": { "move": "e2h5 g7g6 h5h6", "isCorrect": true },
-        "claude-3-5-sonnet": { "move": "e2h5 g7g6 h5h6", "isCorrect": true },
-        "gemini-1-5-pro": { "move": "e2h5", "isCorrect": false },
-        "llama-3-70b": { "move": "f1f3", "isCorrect": false }
+        "nex-agi/deepseek-v3.1-nex-n1:free": {
+          "move": "d5d6",
+          "isCorrect": false,
+          "rawOutput": "d5d6",
+          "latencyMs": 4234,
+          "promptTokens": 179,
+          "completionTokens": 4,
+          "totalTokens": 183
+        },
+        "google/gemini-2.5-flash": {
+          "move": "d5f7",
+          "isCorrect": true,
+          "rawOutput": "d5f7",
+          "latencyMs": 594,
+          "promptTokens": 175,
+          "completionTokens": 4,
+          "totalTokens": 179
+        },
+        "google/gemini-2.0-flash-001": {
+          "move": "d5f7",
+          "isCorrect": true,
+          "rawOutput": "d5f7\n",
+          "latencyMs": 549,
+          "promptTokens": 173,
+          "completionTokens": 5,
+          "totalTokens": 178
+        },
+        "allenai/olmo-3.1-32b-think:free": {
+          "move": "",
+          "isCorrect": false,
+          "rawOutput": "Okay, so I need to solve this mate in 1 problem. The FEN given is r1bq2nr/ppppk1p1/1b5p/nP1QN3/4P3/2P5/P2P1PPP/RNB1K2R w KQ - 7 12. Let me parse this FEN first.\n\nBreaking down the FEN: The first part is the board positions. Let's see each rank from top to bottom. The first rank (white's side) is RNB1K2R. So the pieces are Rook, Knight, Bishop, then a 1 (empty square), King, then two more rooks? Wait, no, wait. Wait, the FEN is written as r1bq2nr for the first rank? Wait no, actually, the FEN is given as \"r1bq2nr/ppppk1p1/1b5p/nP1QN3/4P3/2P5/P2P1PPP/RNB1K2R w KQ - 7 12\". Wait, hold on, the first part is the board. Let me list each rank properly.\n\nWait, the FEN is split by slashes. The first part is the 8th rank (from white's perspective), then down to the 1st. Wait no, actually, in standard FEN, the first part is the 8th rank (the top row from white's side), then each subsequent part is the next rank down. So let's parse each rank:\n\nFirst rank (8th): r1bq2nr. So starting from the left (a8 to h8):\n\na8: r (rook), then 1 (empty), then b (bishop), then q (queen), then 2 (two empty squares), then n (knight), r (rook). Wait, but that's 8 characters? Let's count: r (1), 1 (counts as 1), b (2), q (3), 2 (counts as 2, so total 5), n (6), r (7). Wait that's only 7 squares. Hmm, maybe I miscounted. Let's see: \"r1bq2nr\" has characters: r,1,b,q,2,n,r. That's 7 characters. Wait, that can't be right. Each rank must be 8 characters. So perhaps I made a mistake here. Wait, maybe the first part is \"r1bq2nr\" which is 7 characters? That's impossible. Wait, perhaps I misread the FEN. Let me check again.\n\nThe FEN given is: \"r1bq2nr/ppppk1p1/1b5p/nP1QN3/4P3/2P5/P2P1PPP/RNB1K2R w KQ - 7 12\"\n\nWait, let's split each part:\n\nFirst part: r1bq2nr → that's 7 characters? Let's count each character:\n\nr (1), 1 (counts as 1 square, so total 2), b (3), q (4), 2 (counts as 2, total 6), n (7), r (8). Oh right! Because the numbers represent empty squares. So \"r1bq2nr\" is:\n\na8: r, then 1 empty (so b8 is empty?), then b8 is b (bishop)? Wait no, the first character is a8. Let's parse it step by step:\n\nThe first rank (8th) is \"r1bq2nr\". Breaking it down:\n\n- 'r' → a8 is a rook.\n- '1' → next square (b8) is empty.\n- 'b' → c8 is a bishop.\n- 'q' → d8 is a queen.\n- '2' → e8 and f8 are empty.\n- 'n' → g8 is a knight.\n- 'r' → h8 is a rook.\n\nSo that's 8 squares: a8(r), b8(empty), c8(b), d8(q), e8(empty), f8(empty), g8(n), h8(r). Okay, that works.\n\nNext rank (7th): ppppk1p1. So:\n\na7: p (black pawn), b7:p, c7:p, d7:p, e7:k (black king?), wait no, 'k' is a king? Wait, in FEN, uppercase is white, lowercase is black. So here, the 7th rank is ppppk1p1. So:\n\na7: p (black pawn), b7:p, c7:p, d7:p, e7:k (black king), f7:1 (empty), g",
+          "latencyMs": 463,
+          "promptTokens": 199,
+          "completionTokens": 1024,
+          "totalTokens": 1223
+        }
       }
     },
     {
-      "id": "m3-01",
-      "level": "mate3",
-      "fen": "2r3k1/1p3ppp/p3p3/3pP3/P2P4/1P2P3/2r3PP/2R2RK1 w - - 0 1",
-      "solutionUci": "c1c2 c8c2 f1b1 c2c3",
+      "id": "mate1-Amf99",
+      "level": "mate1",
+      "fen": "8/2b2p2/5p2/2p2P1p/2P2P2/1p2K3/7R/2k5 w - - 0 47",
+      "lastMoveUci": "b4b3",
+      "solutionUci": "h2h1",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "Amf99",
+        "url": "https://lichess.org/training/Amf99",
+        "themes": [
+          "mateIn1",
+          "oneMove",
+          "endgame"
+        ],
+        "rating": 1434,
+        "gameId": "RjYrwqY3"
+      },
       "results": {
-        "gpt-4o": { "move": "c1c2 c8c2 f1b1", "isCorrect": true },
-        "claude-3-5-sonnet": { "move": "c1c2 c8c2 f1b1 c2c3", "isCorrect": true },
-        "gemini-1-5-pro": { "move": "c1c2 c8c2 f1f2", "isCorrect": false },
-        "llama-3-70b": { "move": "g1f2", "isCorrect": false }
+        "nex-agi/deepseek-v3.1-nex-n1:free": {
+          "move": "h2h1",
+          "isCorrect": true,
+          "rawOutput": "Rh2h1",
+          "latencyMs": 4773,
+          "promptTokens": 172,
+          "completionTokens": 4,
+          "totalTokens": 176
+        },
+        "google/gemini-2.5-flash": {
+          "move": "h2h1",
+          "isCorrect": true,
+          "rawOutput": "h2h1",
+          "latencyMs": 529,
+          "promptTokens": 172,
+          "completionTokens": 4,
+          "totalTokens": 176
+        },
+        "google/gemini-2.0-flash-001": {
+          "move": "h2h1",
+          "isCorrect": true,
+          "rawOutput": "h2h1\n",
+          "latencyMs": 544,
+          "promptTokens": 170,
+          "completionTokens": 5,
+          "totalTokens": 175
+        },
+        "allenai/olmo-3.1-32b-think:free": {
+          "move": "",
+          "isCorrect": false,
+          "rawOutput": "Okay, so I need to solve this mate in 1 problem. The FEN given is 8/2b2p2/5p2/2p2P1p/2P2P2/1p2K3/7R/2k5 w - - 0 47. Let me parse this FEN first.\n\nBreaking down the FEN: The first part is the board. Each slash separates the ranks from 8 down to 1. Let's write out each rank:\n\n8th rank: 8 (all empty)\n7th: 2b2p2 → that's two empty squares, then a bishop (b), two empty, then a pawn (p), and another two empty? Wait, let's count. The numbers are the counts. So 2b2p2 would be: 2 empty, then b, then 2 empty, then p, then 2 empty. But since it's the 7th rank, which is the second rank from the bottom (since ranks are 8 to 1). Wait, actually, in FEN, the first part is rank 8, then 7, down to 1. So the 7th rank here is the second from the top? Wait no, no. Let me clarify:\n\nThe FEN's first part is the board description, starting with rank 8 (the top for white, since white is to move here, as the turn is 'w'). So:\n\nRank 8: 8 → all empty squares.\n\nRank 7: 2b2p2 → Let's parse this. The numbers and letters. So starting from the left (a-file to h-file). The first two squares are empty (2), then a bishop on the third square (b is the piece, so that's c3? Wait, no. Wait, the rank is from left to right, so the first character is a1? Wait no, in FEN, each rank is from left (a-file) to right (h-file). So for rank 7, the first character is a7, then b7, etc. So \"2b2p2\" would be:\n\na7: empty, b7: empty, c7: bishop (since 'b' is the piece), then d7: empty, e7: empty, f7: pawn (p), then g7 and h7 are empty? Wait, the '2' after the p? Wait, the string is \"2b2p2\". Let's break it down step by step:\n\n- '2' → two empty squares (a7 and b7)\n- 'b' → bishop on c7\n- '2' → two empty (d7 and e7)\n- 'p' → pawn on f7\n- '2' → two empty (g7 and h7). So yes, that's correct. So on rank 7, there's a bishop on c7 and a pawn on f7.\n\nContinuing:\n\nRank 6: 5p2 → five empty, then a pawn, then two empty. So starting from a6: five empties (a6 to e6), then f6 has a pawn, and g6 and h6 are empty.\n\nRank 5: 2p2P1p → Let's parse. '2' → two empties (a5 and b5), then 'p' (pawn on c5), '2' → d5 and e5 empty, then 'P' (white pawn on f5), '1' → g5 empty, then 'p' (black pawn on h5). Wait, but the order is left to right. So:\n\na5: empty, b5: empty, c5: black pawn (since lowercase p), d5: empty, e5: empty, f5: white pawn (uppercase P), g5: empty, h5: black pawn. Wait, but the string is \"2p2P1p\". Let's count the characters: 2 (two), p (1), 2 (two), P (1), 1 (one), p (1). Total length: 2+1+2+1+1+1=8? Wait 2+1 is 3, +2 is 5, +1 is 6, +1 is 7, +1 is 8. Yes. So that's correct.\n\nRank 4: 2p2P1p → Wait, no, the FEN given is: the next part after rank 5 is \"2p2P1p\" for rank 5? Wait let me check the original FEN again. The user wrote:\n\nFEN: 8/2b2p2/5p2/2p2P1p/2P2P2/1p2K3/7R/2",
+          "latencyMs": 358,
+          "promptTokens": 195,
+          "completionTokens": 1024,
+          "totalTokens": 1219
+        }
+      }
+    },
+    {
+      "id": "mate1-CjHvU",
+      "level": "mate1",
+      "fen": "8/p4Q1p/6p1/7k/2Ppq2P/7K/P4R1P/8 b - - 0 46",
+      "lastMoveUci": "g3h4",
+      "solutionUci": "e4g4",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "CjHvU",
+        "url": "https://lichess.org/training/CjHvU",
+        "themes": [
+          "mateIn1",
+          "oneMove",
+          "endgame"
+        ],
+        "rating": 1401,
+        "gameId": "cmls6BbQ"
+      },
+      "results": {
+        "nex-agi/deepseek-v3.1-nex-n1:free": {
+          "move": "e4f3",
+          "isCorrect": false,
+          "rawOutput": "e4f3",
+          "latencyMs": 1432,
+          "promptTokens": 164,
+          "completionTokens": 4,
+          "totalTokens": 168
+        },
+        "google/gemini-2.5-flash": {
+          "move": "e4e1",
+          "isCorrect": false,
+          "rawOutput": "e4e1",
+          "latencyMs": 450,
+          "promptTokens": 166,
+          "completionTokens": 4,
+          "totalTokens": 170
+        },
+        "google/gemini-2.0-flash-001": {
+          "move": "e4h1",
+          "isCorrect": false,
+          "rawOutput": "e4h1\n",
+          "latencyMs": 416,
+          "promptTokens": 164,
+          "completionTokens": 5,
+          "totalTokens": 169
+        },
+        "allenai/olmo-3.1-32b-think:free": {
+          "move": "a7a6",
+          "isCorrect": false,
+          "rawOutput": "Okay, so I need to solve this mate in 1 problem. The FEN given is 8/p4Q1p/6p1/7k/2Ppq2P/7K/P4R1P/8 b - - 0 46. Let me parse this FEN first.\n\nBreaking down the FEN: The first part is the board. Let's see each rank from top to bottom. The first rank is 8, which means all empty. Then the second rank is p4Q1p. So that's a pawn, then four empty squares, a queen, then a pawn. Wait, actually, the notation is from left to right, so starting from the a-file. So the second rank (since it's the second part of the FEN) would be the 7th rank in chess terms? Wait no, FEN ranks are from top (8th rank) down. Wait, actually, the FEN is written as starting from the 8th rank. Let me confirm: The FEN is given as:\n\n8/p4Q1p/6p1/7k/2Ppq2P/7K/P4R1P/8 b - - 0 46\n\nSo the first part is the 8th rank: all empty (8). Then the 7th rank is p4Q1p. So on the 7th rank, the pieces are: a pawn on a7? Wait, no. Wait, the first character is the a-file. So for the 7th rank (second part of FEN), the squares are a7 to h7. So p4Q1p would be: a7 is empty? Wait, no. Let's parse each part:\n\nThe second rank in FEN (the first after the 8) is the 7th rank. The string \"p4Q1p\" means:\n\na7: p (black pawn), then four empty squares (so b7, c7, d7 are empty), then Q on e7, then 1 empty square (f7), then p on g7? Wait, no. Wait, the digits are counts. So \"p4Q1p\" breaks down as:\n\nFirst character 'p' is a black pawn on a7. Then '4' means four empty squares (b7, c7, d7, e7?), but wait, no. Wait, the '4' is the number of empty squares between the first piece and the next. So starting from a7, the first square is a pawn, then 4 empty squares (so b7, c7, d7, e7 are empty), then the next piece is Q on f7? Because after the 4, the next is Q, so that's the 5th square from a7? Wait, let's count:\n\na7: p (black pawn)\nThen 4 squares: b7, c7, d7, e7 are empty.\nThen Q on f7 (since the next character is Q)\nThen '1' means one empty square (g7)\nThen 'p' on h7.\n\nSo the 7th rank has black pawns on a7 and h7, a queen on f7, and the rest empty.\n\nNext rank is 6p1: that's the 6th rank. So \"6p1\" would be: starting from a6, six empty squares, then a black pawn on g6? Wait, let's see: \"6p1\" is 6 empty, then p, then 1 empty? Wait no, the digits are counts between pieces. So \"6p1\" would be: first 6 empty squares (a6 to f6), then a black pawn on g6, then 1 empty square (h6). So the 6th rank has a black pawn on g6.\n\nThen the next rank is 7k: that's the 5th rank. \"7k\" means seven empty squares and then a black king on h5? Wait, no. Wait, 7k would be 7 empty squares followed by a black king. So starting from a5, all squares a5 to g5 are empty, and the king is on h5? Because the 'k' is the last character. So black king is on h5.\n\nNext rank: 2Ppq2P. That's the 4th rank. Let's parse: \"2Ppq2P\". Breaking down:\n\nFirst two empty squares (a4 and b4), then a white pawn on c4 (P), then a black pawn on d4 (p), then a white queen on e4 (Q), then two empty squares (f4 and g4), then a white pawn on h4 (P). Wait, but the letters are case-sensitive. So uppercase is white, lowercase is black. So",
+          "latencyMs": 561,
+          "promptTokens": 187,
+          "completionTokens": 1024,
+          "totalTokens": 1211
+        }
+      }
+    },
+    {
+      "id": "mate1-pU7ND",
+      "level": "mate1",
+      "fen": "1Qb1k2r/4npp1/p4q1p/3P4/P5P1/1P5P/6B1/4R1K1 w k - 4 36",
+      "lastMoveUci": "d7c8",
+      "solutionUci": "b8c8",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "pU7ND",
+        "url": "https://lichess.org/training/pU7ND",
+        "themes": [
+          "middlegame",
+          "oneMove",
+          "mateIn1",
+          "pin"
+        ],
+        "rating": 1477,
+        "gameId": "chPgnOS1"
+      },
+      "results": {
+        "nex-agi/deepseek-v3.1-nex-n1:free": {
+          "move": "b8c8",
+          "isCorrect": true,
+          "rawOutput": "b8c8",
+          "latencyMs": 3365,
+          "promptTokens": 175,
+          "completionTokens": 4,
+          "totalTokens": 179
+        },
+        "google/gemini-2.5-flash": {
+          "move": "",
+          "isCorrect": false,
+          "rawOutput": "Qb8f6",
+          "latencyMs": 439,
+          "promptTokens": 176,
+          "completionTokens": 4,
+          "totalTokens": 180
+        },
+        "google/gemini-2.0-flash-001": {
+          "move": "e1e8",
+          "isCorrect": false,
+          "rawOutput": "e1e8\n",
+          "latencyMs": 477,
+          "promptTokens": 174,
+          "completionTokens": 5,
+          "totalTokens": 179
+        },
+        "allenai/olmo-3.1-32b-think:free": {
+          "move": "h8a8",
+          "isCorrect": false,
+          "rawOutput": "Okay, so I need to solve this mate in 1 problem. The FEN given is 1Qb1k2r/4npp1/p4q1p/3P4/P5P1/1P5P/6B1/4R1K1 w k - 4 36. Let me parse this FEN first.\n\nBreaking down the FEN: The first part is the board positions. Let's see each rank from top to bottom. The first rank (white's side) is \"1Qb1k2r\". That means the pieces are: a1 is empty (1), then Q on b1, then b1 is Q, then c1 is empty (1), d1 is b? Wait, no, wait. Wait, the FEN notation is from left to right, each character representing a square. So the first rank (8th rank for white) would be:\n\na8: 1 (empty), b8: Q, c8: empty (1), d8: b? Wait, no, the letters are the pieces. Wait, the first part is \"1Qb1k2r\". Let's parse each character:\n\n1 (empty square), Q (queen on b8?), then b? Wait, no, the letters are the piece types. So the first rank (from white's perspective, which is the 8th rank) is:\n\na8: empty (1), b8: Q (white queen), c8: empty (1), d8: b? Wait, no, the next character is 'b', but 'b' is not a piece. Wait, hold on, maybe I'm miscounting. Let me write it out step by step.\n\nThe FEN is: \"1Qb1k2r/4npp1/p4q1p/3P4/P5P1/1P5P/6B1/4R1K1\"\n\nBreaking down each rank:\n\n1st rank (from top, which is white's back rank? Wait no, in FEN, the first part is the 8th rank (for white), then down to 1st. So:\n\nRank 8 (white's back rank): \"1Qb1k2r\"\n\nBreaking this into squares a8 to h8:\n\na8: '1' (empty)\nb8: '",
+          "latencyMs": 427,
+          "promptTokens": 198,
+          "completionTokens": 500,
+          "totalTokens": 698
+        }
+      }
+    },
+    {
+      "id": "mate1-vdzFN",
+      "level": "mate1",
+      "fen": "1r3r1k/R6n/1Bp2nQ1/2Pp2pp/3P3b/4PpNq/4NP2/2R3K1 w - - 4 37",
+      "lastMoveUci": "g8h8",
+      "solutionUci": "g6g7",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "vdzFN",
+        "url": "https://lichess.org/training/vdzFN",
+        "themes": [
+          "oneMove",
+          "mateIn1",
+          "master",
+          "middlegame"
+        ],
+        "rating": 1489,
+        "gameId": "Z2sfGAzJ"
+      },
+      "results": {
+        "nex-agi/deepseek-v3.1-nex-n1:free": {
+          "move": "g6g7",
+          "isCorrect": true,
+          "rawOutput": "g6g7",
+          "latencyMs": 3739,
+          "promptTokens": 179,
+          "completionTokens": 4,
+          "totalTokens": 183
+        },
+        "google/gemini-2.5-flash": {
+          "move": "g6h6",
+          "isCorrect": false,
+          "rawOutput": "g6h6",
+          "latencyMs": 464,
+          "promptTokens": 177,
+          "completionTokens": 4,
+          "totalTokens": 181
+        },
+        "google/gemini-2.0-flash-001": {
+          "move": "g6g7",
+          "isCorrect": true,
+          "rawOutput": "g6g7\n",
+          "latencyMs": 513,
+          "promptTokens": 175,
+          "completionTokens": 5,
+          "totalTokens": 180
+        },
+        "allenai/olmo-3.1-32b-think:free": {
+          "move": "h6a6",
+          "isCorrect": false,
+          "rawOutput": "Okay, so I need to solve this mate in 1 problem. The FEN given is 1r3r1k/R6n/1Bp2nQ1/2Pp2pp/3P3b/4PpNq/4NP2/2R3K1 w - - 4 37. Let me parse this FEN first to understand the position.\n\nBreaking down the FEN:\n\nThe first part is the piece placement. Let's go row by row starting from the 8th rank (since FEN is from top to bottom, white's perspective).\n\nFirst rank (8th for white, but in FEN it's the first part): \"1r3r1k\" – so on the 8th rank, there's a rook on a1? Wait, no. Wait, the FEN notation is from left to right, starting with the 8th rank. So the first part is the 8th rank. Let's see:\n\n1r3r1k: The numbers and letters. The first character is '1', meaning one empty square, then 'r' (a rook on b8?), then '3' (three empty squares), then 'r' (another rook on f8?), then '1' (one empty), and 'k' (king on g8). Wait, but the color? The next part is the second rank: \"R6n\" – so on the 7th rank, there's a rook on a7, then six empty squares, and a knight on h7? Wait, no, the second part is the 7th rank. Let me list all ranks properly.\n\nWait, FEN is from top to bottom, so first part is rank 8 (for white, but since it's white's turn, but the position is given as is). Let me list each rank:\n\nRank 8 (from FEN first part): \"1r3r1k\" – so squares a8 is empty (1), then b8 is rook (r), then c8, d8, e8 are empty (3), then f8 is rook (r), then g8 is empty (1), and h8 is king (k). Wait, but the color? The pieces are lowercase, so that's black's pieces. Because in FEN, lowercase letters are black pieces. So on rank 8, black has a rook on b8, rook on f8, and king on h8. The rest are empty.\n\nThen rank 7: \"R6n\" – uppercase R is white's rook on a7, then six empty squares, and n is a knight on h7? Wait, \"R6n\" would be: a7 is R (white rook), then b7 to g7 are empty (6 squares), and h7 is n (black knight). So white has a rook on a7, black has a knight on h7 on the 7th rank.\n\nRank 6: \"1Bp2nQ1\" – starting from a6. '1' is empty, then B (black bishop on b6?), then p (black pawn on c6?), then 2 empty, n (black knight on e6?), Q (white queen on f6?), then 1 empty. Wait, let's parse step by step:\n\n1Bp2nQ1: The characters are 1, B, p, 2, n, Q, 1. So:\n\na6: empty (1)\nb6: B (black bishop)\nc6: p (black pawn)\nd6: empty (part of the '2'? Wait, after c6 is p, then next is '2', so two empty squares: d6 and e6? Then n is on f6? Wait no, let's see:\n\nBreaking down \"1Bp2nQ1\":\n\nPositions a6 to h6:\n\na6: 1 (empty)\nb6: B\nc6: p\nThen '2' means two empty squares: d6 and e6 are empty.\nThen 'n' is on f6 (black knight)\nThen 'Q' is on g6 (white queen)\nThen '1' is h6 empty.\n\nSo on rank 6, white has a queen on g6, and black has bishop on b6, pawn on c6, knight on f6.\n\nContinuing:\n\nRank 5: \"2Pp2pp\" – starting from a5. '2' empty, P (white pawn on c5?), then p (black pawn on d5?), then '2' empty (e5 and f5?), then pp (black pawns on g5 and h5). Wait:\n\nBreaking down \"2Pp2pp\":\n\na5: empty (2? Wait, '2' is two",
+          "latencyMs": 613,
+          "promptTokens": 202,
+          "completionTokens": 1024,
+          "totalTokens": 1226
+        }
+      }
+    },
+    {
+      "id": "mate1-b8B0x",
+      "level": "mate1",
+      "fen": "2kr4/4P3/pBP5/8/1KP1r3/1P6/p7/8 w - - 0 57",
+      "lastMoveUci": "h8d8",
+      "solutionUci": "e7d8q",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "b8B0x",
+        "url": "https://lichess.org/training/b8B0x",
+        "themes": [
+          "endgame",
+          "advancedPawn",
+          "master",
+          "oneMove",
+          "promotion",
+          "mateIn1"
+        ],
+        "rating": 1411,
+        "gameId": "KzjSMpPX"
+      },
+      "results": {
+        "nex-agi/deepseek-v3.1-nex-n1:free": {
+          "move": "c6c7",
+          "isCorrect": false,
+          "rawOutput": "c6c7",
+          "latencyMs": 3049,
+          "promptTokens": 161,
+          "completionTokens": 4,
+          "totalTokens": 165
+        },
+        "google/gemini-2.5-flash": {
+          "move": "e7e8q",
+          "isCorrect": false,
+          "rawOutput": "e7e8q",
+          "latencyMs": 507,
+          "promptTokens": 163,
+          "completionTokens": 5,
+          "totalTokens": 168
+        },
+        "google/gemini-2.0-flash-001": {
+          "move": "e7e8q",
+          "isCorrect": false,
+          "rawOutput": "e7e8q\n",
+          "latencyMs": 454,
+          "promptTokens": 161,
+          "completionTokens": 6,
+          "totalTokens": 167
+        },
+        "allenai/olmo-3.1-32b-think:free": {
+          "move": "",
+          "isCorrect": false,
+          "rawOutput": "Okay, so I need to solve this mate in 1 problem. The FEN given is 2kr4/4P3/pBP5/8/1KP1r3/1P6/p7/8 w - - 0 57. Let me parse this FEN first.\n\nBreaking down the FEN: The first part is the board positions. Let's see each rank from top to bottom (since FEN is from white's perspective). \n\nFirst rank (8th for white): 2kr4. That means two empty squares, then a king, then a rook, and four more empty squares. Wait, actually, the numbers represent empty squares. So starting from the left (a8 to h8), it's two empty, then the white king (K), then a rook (R), then four empty? Wait, but 2 +1 +1 +4 = 8? 2+1 is 3, plus 1 is 4, plus 4 is 8. So the first rank (8th) has K on g8 and R on h8? Wait, no. Wait, the order is from a to h. So the first part is the 8th rank. So \"2kr4\" would be: starting from a8, two empty squares (so a8 and b8 are empty), then the king is on c8? Wait, no. Wait, the notation is that each character is a square. So \"2\" is two empty squares, then 'k' is a black king on the next square, then 'r' is a black rook, then '4' is four more empty squares. Wait, but the FEN is for the current position. Wait, the color is given as 'w' meaning it's white's turn. But the problem is to find a mate in 1, so probably white is to move and deliver checkmate.\n\nWait, let me confirm the FEN components. The FEN is: \n\n2kr4/4P3/pBP5/8/1KP1r3/1P6/p7/8 w - - 0 57\n\nBreaking down each rank:\n\nRank 8 (from top): 2kr4. So starting from a8: two empty, then a black king (k), then a black rook (r), then four empty squares. So the black king is on c8, and the black rook is on d8? Because after two empties (a8, b8), then c8 is k, d8 is r, then e8 to h8 are four squares? Wait, 2 +1 +1 +4 = 8? 2+1 is 3, plus 1 is 4, plus 4 is 8. So yes. So on rank 8: c8 is black king, d8 is black rook, and the rest are empty except a8 and b8.\n\nThen rank 7: 4P3. So four empty, then a white pawn (P), then three empty. So the white pawn is on e7? Because starting from a7: four empties (a7 to d7), then e7 is P, then f7, g7, h7 are empty? Wait, 4 +1 +3 = 8? 4+1 is 5, plus 3 is 8. So yes. So white pawn on e7.\n\nRank 6: pBP5. So starting from a6: a black pawn (p), then empty, then a white bishop (B), then five empty? Wait, p B then 5? So p is on a6, then b6 is empty, c6 is B (white bishop), then d6 to h6 are five squares? Wait, 1 (p) +1 (space) +1 (B) +5 = 8? 1+1+1+5=8. So yes. So white bishop on c6, black pawn on a6.\n\nRank 5: 8, so all empty.\n\nRank 4: 1KP1r3. So starting from a4: one empty, then white king (K), then P (white pawn?), wait no, the letters are uppercase for white, lowercase for black. Wait, the FEN uses uppercase for white pieces. So \"1KP1r3\" would be: a4 is empty, then b4 is white king (K), c4 is empty? Wait, no. Let's parse: \"1\" is one empty square (a4), then \"K\" is white king on b4, then \"P\" is white pawn on c4? Wait, but the next is \"1\" so after K, there's a 'P'? Wait, the string is \"1KP1r3\". Breaking it down: 1 (",
+          "latencyMs": 499,
+          "promptTokens": 184,
+          "completionTokens": 1024,
+          "totalTokens": 1208
+        }
+      }
+    },
+    {
+      "id": "mate1-ZmOQt",
+      "level": "mate1",
+      "fen": "2rB1k2/p4ppp/1p2p3/1Bb1N2b/1n6/1Q5P/PPq2PP1/4RK1R b - - 0 24",
+      "lastMoveUci": "h4d8",
+      "solutionUci": "c2f2",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "ZmOQt",
+        "url": "https://lichess.org/training/ZmOQt",
+        "themes": [
+          "oneMove",
+          "mateIn1",
+          "middlegame"
+        ],
+        "rating": 1403,
+        "gameId": "L60oJGLx"
+      },
+      "results": {
+        "nex-agi/deepseek-v3.1-nex-n1:free": {
+          "move": "c2f2",
+          "isCorrect": true,
+          "rawOutput": "c2f2",
+          "latencyMs": 4449,
+          "promptTokens": 178,
+          "completionTokens": 4,
+          "totalTokens": 182
+        },
+        "google/gemini-2.5-flash": {
+          "move": "c2d1",
+          "isCorrect": false,
+          "rawOutput": "c2d1",
+          "latencyMs": 596,
+          "promptTokens": 176,
+          "completionTokens": 4,
+          "totalTokens": 180
+        },
+        "google/gemini-2.0-flash-001": {
+          "move": "c2f2",
+          "isCorrect": true,
+          "rawOutput": "c2f2\n",
+          "latencyMs": 482,
+          "promptTokens": 176,
+          "completionTokens": 5,
+          "totalTokens": 181
+        },
+        "allenai/olmo-3.1-32b-think:free": {
+          "move": "a7a7",
+          "isCorrect": false,
+          "rawOutput": "Okay, so I need to solve this mate in 1 problem. The FEN given is 2rB1k2/p4ppp/1p2p3/1Bb1N2b/1n6/1Q5P/PPq2PP1/4RK1R b - - 0 24. Let me parse this FEN first to understand the position.\n\nStarting with the first part: the piece placement. The first rank (from white's perspective) is \"2rB1k2\". Wait, actually, FEN is from the current player's perspective. Since the turn is black's (the 'b' at the end), the first rank is actually the 8th rank from white's side. Let me clarify:\n\nThe FEN ranks are listed from top to bottom, starting with the 8th rank (black's back rank) down to the 1st (white's back rank). But since it's black's turn, the current player is black, so the first part is the 8th rank from white's view, which is black's first rank. Wait, no, actually, the FEN is always from the top (white's perspective) regardless of whose turn it is. So the first part is the 8th rank (black's back rank), then down to the 1st rank (white's back rank). But the turn is black's, so they are to move next.\n\nLet me write out the board:\n\nThe FEN is: 2rB1k2/p4ppp/1p2p3/1Bb1N2b/1n6/1Q5P/PPq2PP1/4RK1R b - - 0 24\n\nBreaking down each rank:\n\n1. 2rB1k2: This is the 8th rank (from white's side). So starting from the left (a8 to h8):\n\na8: 2 (empty squares), then r (rook), B (bishop), 1 (empty), k (king), 2 (empty). Wait, let's count the numbers and letters. The string is \"2rB1k2\". So:\n\nPositions: 1: '2' (two empty squares), then 'r' (a rook on b8?), then 'B' (bishop on c8?), then '1' (one empty), 'k' (king on e8?), then '2' (two empties). Wait, let's count the characters. The length should be 8. Let's see: 2 (counts as 2), then r (1), B (1), 1 (1), k (1), 2 (2). Total: 2+1+1+1+1+2 = 8? Wait 2+1 is 3, +1 is 4, +1 is 5, +1 is 6, +2 is 8. Yes. So the squares are:\n\na8: empty (since the first two are empty), then b8 is r (black rook), c8 is B (black bishop), then d8 is empty (the '1'), e8 is k (black king), f8 and g8 are empty (the '2'). Wait, but the '2' at the end would be two squares, so after e8 (king), the next two are f8 and g8 empty, and h8 is also empty? Wait, no. Let's see:\n\nBreaking down \"2rB1k2\":\n\nStarting from a8:\n\n- The first '2' means two empty squares: a8 and b8? Wait no, because the next character is 'r', which would be on b8. Wait, no. Let's parse step by step:\n\nThe first part is the 8th rank. The string is \"2rB1k2\". Each number represents empty squares, letters are pieces.\n\nStarting from the left (a8):\n\n- '2' → two empty squares: a8 and b8 are empty.\n\nThen 'r' → c8 is a black rook.\n\nThen 'B' → d8 is a black bishop.\n\nThen '1' → one empty square: e8 is empty.\n\nThen 'k' → f8 is the black king.\n\nThen '2' → two empty squares: g8 and h8 are empty.\n\nWait, but that would make the king on f8? But the FEN's next part is the 7th rank: \"p4ppp\". Let's see the other ranks to confirm.\n\nContinuing:\n\nSecond rank (7th from white, so 7th rank): \"p4ppp\". So starting from a7:\n\na7 is 'p' (black pawn), then '4' → four empty squares (b7 to e7 empty), then 'pp",
+          "latencyMs": 576,
+          "promptTokens": 202,
+          "completionTokens": 1024,
+          "totalTokens": 1226
+        }
+      }
+    },
+    {
+      "id": "mate1-S3tXw",
+      "level": "mate1",
+      "fen": "rnb2rk1/ppp2ppp/8/8/3qnR1N/1B3Q2/PPPP3p/RNB4K b - - 3 12",
+      "lastMoveUci": "d1f3",
+      "solutionUci": "d4g1",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "S3tXw",
+        "url": "https://lichess.org/training/S3tXw",
+        "themes": [
+          "oneMove",
+          "mateIn1",
+          "opening"
+        ],
+        "rating": 1390,
+        "gameId": "SntHAilq"
+      },
+      "results": {
+        "nex-agi/deepseek-v3.1-nex-n1:free": {
+          "move": "h2h1q",
+          "isCorrect": false,
+          "rawOutput": "h2h1q",
+          "latencyMs": 4645,
+          "promptTokens": 170,
+          "completionTokens": 5,
+          "totalTokens": 175
+        },
+        "google/gemini-2.5-flash": {
+          "move": "",
+          "isCorrect": false,
+          "rawOutput": "Qxf4",
+          "latencyMs": 581,
+          "promptTokens": 164,
+          "completionTokens": 3,
+          "totalTokens": 167
+        },
+        "google/gemini-2.0-flash-001": {
+          "move": "d4g1",
+          "isCorrect": true,
+          "rawOutput": "d4g1\n",
+          "latencyMs": 464,
+          "promptTokens": 164,
+          "completionTokens": 5,
+          "totalTokens": 169
+        },
+        "allenai/olmo-3.1-32b-think:free": {
+          "move": "a7a5",
+          "isCorrect": false,
+          "rawOutput": "Okay, so I need to solve this mate in 1 problem. The FEN given is rnb2rk1/ppp2ppp/8/8/3qnR1N/1B3Q2/PPPP3p/RNB4K b - - 3 12. Let me parse this FEN first.\n\nFirst, breaking down the FEN:\n\nThe position is for Black to move, since the turn is 'b'. The pieces are:\n\nWhite's pieces: Let's see. The first part is the ranks from top to bottom. The first rank (8th) is rnb2rk1. So that's rook, knight, bishop, two empty squares, rook, knight, king? Wait, no. Wait, the order is from left to right, so the first rank (for white) would be the back rank. Wait, actually in FEN, the first part is the 8th rank (from white's perspective), then 7th, etc. But since it's black's turn, maybe the position is from black's side? Wait no, FEN is always from white's perspective. So the first rank is white's back rank. But in this case, the FEN starts with rnb2rk1, which would be the 8th rank. Let's list all the pieces:\n\nRank 8 (white's back rank): r n b . . r k . (Wait, but the string is \"rnb2rk1\". Let's count the characters. r n b 2 (so two empty squares), then r k 1 (one empty). So the pieces are: rook on a8, knight on b8, bishop on c8, then two empty squares (d8 and e8), then rook on f8, king on g8, and empty h8? Wait, but the last character is '1', so after the king, there's one empty square. So the order is a8 to h8: r, n, b, (d8 empty), (e8 empty), r, k, (h8 empty). Wait, but the king is on g8? Because the sequence is r n b . . r k . So positions: a8: r, b8:n, c8:b, d8: empty, e8: empty, f8:r, g8:k, h8: empty. So white's king is on g8? But then the next part is the 7th rank: ppp2ppp. So pawns on a7, b7, c7, then two empty, then d7, e7, f7, g7? Wait, ppp2ppp is 8 characters: p p p . . p p p. So a7, b7, c7 are pawns, then d7 and e7 empty, then f7, g7, h7 pawns. So white has pawns on a7, b7, c7, f7, g7, h7. Wait, but the 7th rank is from white's perspective, so that's the second rank from black's side. Hmm.\n\nThen the 6th rank is all empty (8/). 5th rank is 3qnR1N. Let's see: 3 is three empty squares, then q (queen on d5?), n (knight on e5?), R (rook on f5?), then 1 (one empty). Wait, the string is \"3qnR1N\". So starting from a5: three empty (a5, b5, c5), then d5: q (black queen?), but wait, the color is black's turn, but the FEN's piece letters are case-insensitive? Wait no, in FEN, uppercase is white, lowercase is black. Wait the FEN here: the pieces are given as lowercase for black? Wait no, the FEN's first part lists all pieces regardless of color, but the color is determined by the turn. Wait no, actually in FEN, the letters are uppercase for white, lowercase for black. So in the given FEN, the pieces are:\n\nLooking at the 5th rank (from white's perspective, which is rank 5): \"3qnR1N\". So breaking it down: the first three are empty (so a5, b5, c5 empty). Then 'q' is a black queen on d5? Because lowercase q is black queen. Then 'n' is black knight on e5. Then 'R' is white rook on f5? Because uppercase R is white. Then '1' is one empty square (g5 empty), and then 'N' is white knight on h5? Because uppercase N is white knight. Wait, but the turn is black's, so maybe that's possible. But this seems a",
+          "latencyMs": 522,
+          "promptTokens": 192,
+          "completionTokens": 1024,
+          "totalTokens": 1216
+        }
+      }
+    },
+    {
+      "id": "mate1-fVTm6",
+      "level": "mate1",
+      "fen": "5b1k/p6r/2q5/2P1pQ2/P7/7P/5PP1/2R3K1 w - - 0 30",
+      "lastMoveUci": "f6e5",
+      "solutionUci": "f5f8",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "fVTm6",
+        "url": "https://lichess.org/training/fVTm6",
+        "themes": [
+          "endgame",
+          "oneMove",
+          "mateIn1",
+          "hangingPiece"
+        ],
+        "rating": 1507,
+        "gameId": "bzaPNSHD"
+      },
+      "results": {
+        "nex-agi/deepseek-v3.1-nex-n1:free": {
+          "move": "f5f7",
+          "isCorrect": false,
+          "rawOutput": "f5f7",
+          "latencyMs": 4970,
+          "promptTokens": 168,
+          "completionTokens": 4,
+          "totalTokens": 172
+        },
+        "google/gemini-2.5-flash": {
+          "move": "f5f8",
+          "isCorrect": true,
+          "rawOutput": "f5f8",
+          "latencyMs": 492,
+          "promptTokens": 168,
+          "completionTokens": 4,
+          "totalTokens": 172
+        },
+        "google/gemini-2.0-flash-001": {
+          "move": "f5h7",
+          "isCorrect": false,
+          "rawOutput": "f5h7\n",
+          "latencyMs": 368,
+          "promptTokens": 168,
+          "completionTokens": 5,
+          "totalTokens": 173
+        },
+        "allenai/olmo-3.1-32b-think:free": {
+          "move": "",
+          "isCorrect": false,
+          "rawOutput": "Okay, so I need to solve this mate in 1 problem. The FEN given is 5b1k/p6r/2q5/2P1pQ2/P7/7P/5PP1/2R3K1 w - - 0 30. Let me parse this FEN first to understand the position.\n\nBreaking down the FEN:\n\nThe first part is the piece placement. Let's split each rank:\n\n8th rank (white's side): 5b1k. That means starting from the left (a8), there are 5 empty squares, then a bishop (b), then 1 empty, then a king (k). So the pieces are: a8 is empty, b8 is a black bishop, then c8 is empty, d8 is empty, e8 empty, f8 empty, g8 empty, h8 is the black king? Wait, no, wait. Wait, the FEN notation is from left to right, starting with the 8th rank. So \"5b1k\" would be: first 5 squares empty, then a bishop on the 6th square (so b8?), then 1 empty, then a king on the 8th square? Wait, no, let's count. Let's see:\n\nEach rank is 8 squares. So \"5b1k\" is 5 +1 +1 = 7 characters, but that's only 7 squares. Wait, maybe I'm miscounting. Let's see:\n\nThe first part is the 8th rank (from white's perspective, which is the top rank for black). The FEN part for the 8th rank is \"5b1k\". Breaking it down:\n\nDigits represent empty squares. So \"5\" means 5 empty squares. Then \"b\" is a black bishop. Then \"1\" is 1 empty square, then \"k\" is a black king. So total squares: 5 +1 +1 +1 (for the king) = 8? Wait, 5 +1 (for the bishop) is 6, then +1 (the '1') is 7, then the 'k' is the 8th. So the 8th rank has a black bishop on b8, and the black king on h8? Wait, because the order is from a8 to h8. So starting at a8: first 5 squares (a8 to e8) are empty. Then f8 is the bishop (since 5 squares take us to f8?), wait no. Wait, the first number is 5, so squares a8 to e8 (5 squares) are empty. Then the next character is 'b', which is on f8? Because after 5 empty, the next square is f8. Then '1' is one empty square (g8), then 'k' is on h8. So black's king is on h8, and a bishop on f8? Wait, but the FEN is written as \"5b1k\", so the pieces are on f8 (bishop) and h8 (king). But that would mean the black king is on h8, and the bishop is on f8. But in standard chess, the king can't be in check, but maybe in this position it's allowed because it's a puzzle.\n\nNow moving to the next rank: 7th rank (g7 for white, but in FEN it's the next part). The FEN part is \"p6r\". So that's a pawn on a7? Let's see: \"p\" is a black pawn (since it's lowercase), then \"6\" means 6 empty squares, then \"r\" is a black rook. So the 7th rank (from white's view, which is the second rank from the bottom for black) has a black pawn on a7, then 6 empty squares, and a rook on h7? Because the 'r' is the last character. So a7 has a black pawn, and h7 has a black rook. Wait, but the order is from left to right. So \"p6r\" would be: a7 is pawn, then b7 to g7 are empty (6 squares), and h7 is the rook. So black has a pawn on a7 and a rook on h7 on the 7th rank.\n\nThird rank (6th from white's perspective): \"2q5\". So two empty squares, then a black queen (q), then five empty. So the queen is on c6? Because starting from a6: first two squares (a6 and b6) empty, then c6 is the queen, then d6 to h6 are empty? Wait, 2 +1 +5 = 8? 2 empty, then queen, then 5 empty: total",
+          "latencyMs": 436,
+          "promptTokens": 191,
+          "completionTokens": 1024,
+          "totalTokens": 1215
+        }
       }
     }
   ]

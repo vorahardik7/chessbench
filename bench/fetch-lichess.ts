@@ -1,184 +1,311 @@
 import path from "path";
 import { Chess } from "chess.js";
 import type { BenchPuzzle, MateLevel, PuzzleSource } from "./types";
-import { writeJsonFile, uniqBy } from "./utils";
+import { loadDotEnv, writeJsonFile } from "./utils";
 
-type LichessPuzzleNextResponse = {
-  puzzle?: {
+const PUZZLES_PER_LEVEL = 10;
+const REQUEST_DELAY_MS = 2000;
+const RATE_LIMIT_WAIT_MS = 65000;
+const BATCH_SIZE = 50;
+
+type LichessPuzzle = {
+  puzzle: {
     id: string;
-    rating?: number;
-    themes?: string[];
-    solution?: string[]; // usually UCI list
-    initialPly?: number;
-    fen?: string;
+    rating: number;
+    plays: number;
+    solution: string[];
+    themes: string[];
+    initialPly: number;
   };
-  game?: {
-    id?: string;
-    pgn?: string;
+  game: {
+    id: string;
+    pgn: string;
   };
 };
 
-function requiredPlies(level: MateLevel): number {
-  if (level === "mate1") return 1;
-  if (level === "mate2") return 3;
-  return 5;
+type LichessBatchResponse = {
+  puzzles: LichessPuzzle[];
+};
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function normalizeUciLine(line: string): string {
-  return line
-    .trim()
-    .split(/\s+/g)
-    .filter(Boolean)
-    .join(" ");
+/**
+ * Number of plies (half-moves) to score for each level.
+ * - mate1: 1 move
+ * - mate2: 2 moves (player, then player again after opponent responds) = 3 plies
+ * - mate3: 3 moves = 5 plies
+ */
+function requiredPlies(level: MateLevel): number {
+  if (level === "mate1") return 1;
+  if (level === "mate2") return 3; // player-opp-player (3 plies)
+  return 5; // player-opp-player-opp-player (5 plies)
 }
 
 function isUciMove(tok: string): boolean {
   return /^[a-h][1-8][a-h][1-8][qrbn]?$/i.test(tok.trim());
 }
 
-function uciListToLine(moves: string[], take: number): string | null {
-  const cleaned = moves.map((m) => m.trim()).filter(Boolean);
-  if (cleaned.length < take) return null;
-  const first = cleaned.slice(0, take);
-  if (!first.every(isUciMove)) return null;
-  return normalizeUciLine(first.join(" "));
-}
-
-function computeFenFromPgn(pgn: string, initialPly: number): string {
-  const full = new Chess();
-  // chess.js typings vary by version; `loadPgn` may return void even though it can throw.
-  // We treat parsing failures as exceptions and validate by ensuring we have a move list.
-  full.loadPgn(pgn);
-  const moves = full.history({ verbose: true });
-  if (!Array.isArray(moves) || moves.length === 0) {
-    throw new Error("Failed to parse PGN from Lichess response.");
-  }
-
-  const replay = new Chess();
-  const slice = moves.slice(0, Math.max(0, Math.min(initialPly, moves.length)));
-  for (const m of slice) replay.move(m);
-  return replay.fen();
-}
-
-async function fetchPuzzleNext(params: Record<string, string | number | undefined>) {
-  const url = new URL("https://lichess.org/api/puzzle/next");
-  for (const [k, v] of Object.entries(params)) {
-    if (v === undefined) continue;
-    url.searchParams.set(k, String(v));
-  }
-
-  const res = await fetch(url.toString(), {
-    headers: {
-      Accept: "application/json",
-      "User-Agent": "chessbench (owner-run benchmark runner)",
-    },
-  });
-
-  if (!res.ok) {
-    const body = await res.text().catch(() => "");
-    throw new Error(`Lichess puzzle fetch failed: ${res.status} ${res.statusText} ${body}`);
-  }
-
-  return (await res.json()) as LichessPuzzleNextResponse;
-}
-
-async function getOnePuzzle(level: MateLevel, difficulty: string): Promise<BenchPuzzle> {
-  // Lichess docs/usage varies between `theme` and `angle`. We try `theme` first,
-  // then fall back to `angle` if needed.
-  const theme = level === "mate1" ? "mateIn1" : level === "mate2" ? "mateIn2" : "mateIn3";
-
-  let json: LichessPuzzleNextResponse;
+function applyUciMove(chess: Chess, uci: string): boolean {
+  const from = uci.slice(0, 2);
+  const to = uci.slice(2, 4);
+  const promotion = uci.length > 4 ? uci[4] : undefined;
   try {
-    json = await fetchPuzzleNext({ theme, difficulty });
+    const result = chess.move({ from, to, promotion });
+    return !!result;
   } catch {
-    json = await fetchPuzzleNext({ angle: theme, difficulty });
+    return false;
   }
+}
 
-  const pid = json.puzzle?.id;
-  if (!pid) throw new Error("Lichess response missing puzzle.id");
+function tokenizePgnMoves(pgn: string): string[] {
+  // Lichess `game.pgn` from puzzle batch is usually just a SAN move list separated by spaces.
+  // But be defensive: filter out move numbers and game result markers.
+  const toks = pgn.trim().split(/\s+/g).filter(Boolean);
+  const isMoveNumber = (t: string) => /^\d+\.(\.\.)?$/.test(t) || /^\d+\.\.\.$/.test(t) || /^\d+\.$/.test(t);
+  const isResult = (t: string) => t === "1-0" || t === "0-1" || t === "1/2-1/2" || t === "*";
 
-  const sol = json.puzzle?.solution ?? [];
-  const take = requiredPlies(level);
-  const solutionUci = uciListToLine(sol, take);
-  if (!solutionUci) {
-    throw new Error(`Puzzle ${pid} did not include a usable UCI solution line for ${level}`);
-  }
+  return toks.filter((t) => !isMoveNumber(t) && !isResult(t));
+}
 
-  const fullSolutionUci = uciListToLine(sol, sol.length) ?? normalizeUciLine(sol.join(" "));
+function positionAfterPlies(
+  gamePgn: string,
+  plies: number,
+): { fen: string; lastMoveUci?: string } | null {
+  const moves = tokenizePgnMoves(gamePgn);
+  const take = Math.max(0, Math.min(plies, moves.length));
+  const chess = new Chess();
+  let lastMoveUci: string | undefined = undefined;
 
-  let fen = json.puzzle?.fen;
-  if (!fen) {
-    const pgn = json.game?.pgn;
-    const initialPly = json.puzzle?.initialPly;
-    if (!pgn || typeof initialPly !== "number") {
-      throw new Error(`Puzzle ${pid} missing fen and missing pgn/initialPly to derive fen`);
+  for (let i = 0; i < take; i++) {
+    const san = moves[i]!;
+    try {
+      // chess.js default parser is permissive; good for common SAN variants.
+      const mv = chess.move(san);
+      const promo = typeof mv.promotion === "string" ? mv.promotion.toLowerCase() : "";
+      lastMoveUci = `${mv.from}${mv.to}${promo}`;
+    } catch {
+      return null;
     }
-    fen = computeFenFromPgn(pgn, initialPly);
   }
+
+  return { fen: chess.fen(), lastMoveUci };
+}
+
+function puzzlePosFromGameAndSolution(raw: LichessPuzzle): { fen: string; lastMoveUci?: string } | null {
+  const { game, puzzle } = raw;
+  const first = puzzle.solution?.[0];
+  if (!first || !isUciMove(first)) return null;
+
+  // Primary guess: initialPly is the puzzle start ply.
+  // Be robust: try a small +/- 1 window and pick the first where solution[0] is legal.
+  const candidates = [
+    puzzle.initialPly,
+    puzzle.initialPly - 1,
+    puzzle.initialPly + 1,
+  ].filter((n, idx, arr) => Number.isFinite(n) && n >= 0 && arr.indexOf(n) === idx);
+
+  for (const plies of candidates) {
+    const pos = positionAfterPlies(game.pgn, plies);
+    if (!pos) continue;
+    const chess = new Chess(pos.fen);
+    if (applyUciMove(chess, first)) return pos;
+  }
+
+  return null;
+}
+
+function parsePuzzle(raw: LichessPuzzle, level: MateLevel): BenchPuzzle | null {
+  const puzzle = raw.puzzle;
+  const game = raw.game;
+  const solution = puzzle.solution;
+
+  const need = requiredPlies(level);
+
+  // Need at least the scored line length.
+  if (!Array.isArray(solution) || solution.length < need) {
+    return null;
+  }
+
+  // Validate all solution moves are valid UCI
+  if (!solution.every(isUciMove)) {
+    return null;
+  }
+
+  const pos = puzzlePosFromGameAndSolution(raw);
+  if (!pos) return null;
+
+  // Take exactly the required plies for scoring.
+  const solutionUci = solution.slice(0, need).join(" ");
 
   const source: PuzzleSource = {
     provider: "lichess",
-    puzzleId: pid,
-    url: `https://lichess.org/training/${pid}`,
-    themes: json.puzzle?.themes,
-    rating: json.puzzle?.rating,
-    gameId: json.game?.id,
+    puzzleId: puzzle.id,
+    url: `https://lichess.org/training/${puzzle.id}`,
+    themes: puzzle.themes,
+    rating: puzzle.rating,
+    gameId: game.id,
   };
 
   return {
-    id: `${level}-${pid}`,
+    id: `${level}-${puzzle.id}`,
     level,
-    fen,
+    fen: pos.fen,
+    lastMoveUci: pos.lastMoveUci,
     solutionUci,
-    fullSolutionUci,
     source,
   };
 }
 
-async function collect(level: MateLevel, count: number): Promise<BenchPuzzle[]> {
-  const puzzles: BenchPuzzle[] = [];
-  const difficulty = "normal";
+async function fetchBatch(theme: string): Promise<LichessPuzzle[]> {
+  // Use mateIn1 theme and request 50 puzzles (max allowed)
+  const url = `https://lichess.org/api/puzzle/batch/${theme}?nb=${BATCH_SIZE}`;
+  const token = process.env.LICHESS_TOKEN?.trim();
 
-  // Try more than needed to avoid duplicates / bad solutions.
-  const maxAttempts = count * 10;
-  for (let attempt = 0; attempt < maxAttempts && puzzles.length < count; attempt++) {
+  const res = await fetch(url, {
+    headers: {
+      Accept: "application/json",
+      "User-Agent": "chessbench (personal benchmark runner, contact: github.com/chessbench)",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
+
+  if (res.status === 429) {
+    throw new Error("RATE_LIMITED");
+  }
+
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(`Lichess API error: ${res.status} ${res.statusText} ${body}`);
+  }
+
+  const json = (await res.json()) as LichessBatchResponse;
+  return json.puzzles ?? [];
+}
+
+async function collectPuzzles(level: MateLevel, count: number): Promise<BenchPuzzle[]> {
+  const theme = level === "mate1" ? "mateIn1" : level === "mate2" ? "mateIn2" : "mateIn3";
+  const collected: BenchPuzzle[] = [];
+  const seenIds = new Set<string>();
+  let retries = 0;
+  const maxRetries = 5;
+
+  console.log(`Fetching ${level} puzzles (theme: ${theme})...`);
+
+  while (collected.length < count && retries < maxRetries) {
     try {
-      const p = await getOnePuzzle(level, difficulty);
-      puzzles.push(p);
+      const batch = await fetchBatch(theme);
+      console.log(`  Received ${batch.length} puzzles from Lichess`);
+
+      let parsedCount = 0;
+      for (const raw of batch) {
+        if (seenIds.has(raw.puzzle.id)) continue;
+        seenIds.add(raw.puzzle.id);
+
+        const parsed = parsePuzzle(raw, level);
+        if (parsed) {
+          collected.push(parsed);
+          parsedCount++;
+          if (collected.length >= count) break;
+        }
+      }
+
+      console.log(`  Parsed ${parsedCount} valid puzzles, total: ${collected.length}/${count}`);
+
+      if (collected.length < count) {
+        console.log(`  Waiting ${REQUEST_DELAY_MS}ms before next request...`);
+        await sleep(REQUEST_DELAY_MS);
+      }
     } catch (err) {
-      // Skip and keep trying
-      console.warn(String(err));
+      if (String(err).includes("RATE_LIMITED")) {
+        console.log(`  Rate limited! Waiting ${RATE_LIMIT_WAIT_MS / 1000}s before retry...`);
+        await sleep(RATE_LIMIT_WAIT_MS);
+        retries++;
+      } else {
+        console.error(`  Error: ${String(err)}`);
+        retries++;
+        await sleep(REQUEST_DELAY_MS * 2);
+      }
     }
   }
 
-  const unique = uniqBy(puzzles, (p) => p.id);
-  if (unique.length < count) {
-    throw new Error(`Only collected ${unique.length}/${count} unique puzzles for ${level}`);
+  if (collected.length < count) {
+    console.warn(`  Warning: Only collected ${collected.length}/${count} puzzles for ${level}`);
   }
-  return unique.slice(0, count);
+
+  return collected.slice(0, count);
+}
+
+async function verifyPuzzles(
+  puzzles: BenchPuzzle[],
+): Promise<{ valid: number; invalid: string[]; sampleInvalid?: { id: string; fen: string; solutionUci: string } }> {
+  const invalid: string[] = [];
+  let valid = 0;
+  let sampleInvalid: { id: string; fen: string; solutionUci: string } | undefined = undefined;
+
+  for (const p of puzzles) {
+    const chess = new Chess(p.fen);
+    const firstMove = p.solutionUci.split(" ")[0];
+    if (!firstMove) {
+      invalid.push(p.id);
+      if (!sampleInvalid) sampleInvalid = { id: p.id, fen: p.fen, solutionUci: p.solutionUci };
+      continue;
+    }
+
+    if (applyUciMove(chess, firstMove)) {
+      valid++;
+    } else {
+      invalid.push(p.id);
+      if (!sampleInvalid) sampleInvalid = { id: p.id, fen: p.fen, solutionUci: p.solutionUci };
+    }
+  }
+
+  return { valid, invalid, sampleInvalid };
 }
 
 async function main() {
+  await loadDotEnv();
   const root = process.cwd();
   const outDir = path.join(root, "bench");
 
-  const mate1 = await collect("mate1", 10);
-  const mate2 = await collect("mate2", 10);
-  const mate3 = await collect("mate3", 10);
+  console.log("=".repeat(60));
+  console.log("Lichess Puzzle Fetcher");
+  console.log("=".repeat(60));
+  console.log(`Target: ${PUZZLES_PER_LEVEL} mate-in-1 puzzles\n`);
 
-  await writeJsonFile(path.join(outDir, "puzzles.mate1.json"), mate1);
-  await writeJsonFile(path.join(outDir, "puzzles.mate2.json"), mate2);
-  await writeJsonFile(path.join(outDir, "puzzles.mate3.json"), mate3);
+  const mate1 = await collectPuzzles("mate1", PUZZLES_PER_LEVEL);
+  console.log("");
 
-  console.log("Wrote puzzle sets:");
-  console.log("- bench/puzzles.mate1.json");
-  console.log("- bench/puzzles.mate2.json");
-  console.log("- bench/puzzles.mate3.json");
+  // Verify puzzles before writing
+  console.log("Verifying puzzles...");
+  const v1 = await verifyPuzzles(mate1);
+  
+  console.log(`  mate1: ${v1.valid}/${mate1.length} valid`);
+
+  if (v1.valid === 0) {
+    console.error("\nERROR: No valid puzzles collected. Try again later.");
+    if (v1.sampleInvalid) {
+      console.error(`Sample invalid puzzle:\n  id=${v1.sampleInvalid.id}\n  fen=${v1.sampleInvalid.fen}\n  sol=${v1.sampleInvalid.solutionUci}`);
+    }
+    process.exit(1);
+  }
+
+  console.log("\nWriting puzzle files...");
+  
+  if (mate1.length > 0) {
+    await writeJsonFile(path.join(outDir, "puzzles.mate1.json"), mate1);
+    console.log(`  ✓ bench/puzzles.mate1.json (${mate1.length} puzzles)`);
+  }
+
+  console.log("");
+  console.log("=".repeat(60));
+  console.log("Summary:");
+  console.log(`  Mate-in-1: ${mate1.length} puzzles (${v1.valid} verified)`);
+  console.log("=".repeat(60));
 }
 
 main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
-
-

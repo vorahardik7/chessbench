@@ -18,8 +18,8 @@ export type BenchPuzzle = {
   id: string;
   level: MateLevel;
   fen: string;
+  lastMoveUci?: string; // last move played in the source game before the puzzle starts (often opponent's blunder)
   solutionUci: string; // space-separated UCI line used for scoring
-  fullSolutionUci?: string; // optional full line from source
   source?: PuzzleSource;
 };
 

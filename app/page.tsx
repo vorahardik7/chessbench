@@ -1,6 +1,9 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+import { unstable_noStore as noStore } from 'next/cache';
 import BenchmarkExplorer from './components/BenchmarkExplorer';
+
+export const dynamic = 'force-dynamic';
 
 async function getLatestResults() {
   const filePath = path.join(process.cwd(), 'public/results/latest.json');
@@ -14,12 +17,22 @@ async function getLatestResults() {
 }
 
 export default async function Home() {
+  // Ensure we always read the latest JSON after running bench scripts (avoid RSC caching).
+  noStore();
   const data = await getLatestResults();
 
   if (!data) {
     return (
       <div className="min-h-screen flex items-center justify-center text-neutral-500">
         No benchmark data found. Please run the benchmark script.
+      </div>
+    );
+  }
+
+  if (!Array.isArray(data.models) || data.models.length === 0 || !Array.isArray(data.puzzles) || data.puzzles.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-neutral-500">
+        Benchmark data is incomplete. Please run <code className="mx-1 px-2 py-1 rounded bg-neutral-800 text-xs">bun run bench:run</code>.
       </div>
     );
   }

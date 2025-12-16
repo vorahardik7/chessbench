@@ -1,10 +1,10 @@
 [
   {
-    "id": "mistralai/devstral-2512:free",
-    "name": "Mistral Devstral 2512",
+    "id": "allenai/olmo-3.1-32b-think:free",
+    "name": "Olmo 3.1 32B Think",
     "temperature": 0,
-    "maxTokens": 128
-  }  
+    "maxTokens": 500
+  }
 ]
 
 

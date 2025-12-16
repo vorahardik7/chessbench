@@ -2,13 +2,14 @@
 
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { DrawShape } from '@lichess-org/chessground/draw';
+import { Chess } from 'chess.js';
 import {
   CheckCircle2,
   XCircle,
   Trophy,
   Target,
   BarChart3,
-  DollarSign,
   Clock,
   Puzzle,
   TrendingUp,
@@ -44,6 +45,7 @@ type PuzzleData = {
   id: string;
   level: string;
   fen: string;
+  lastMoveUci?: string;
   solutionUci: string;
   results: Record<string, ModelResult>;
 };
@@ -63,20 +65,6 @@ type BenchmarkData = {
   puzzles: PuzzleData[];
 };
 
-// Approximate OpenRouter pricing (USD per 1M tokens)
-const MODEL_PRICING: Record<string, { input: number; output: number }> = {
-  'openai/gpt-4o': { input: 2.5, output: 10 },
-  'openai/gpt-4.1': { input: 2, output: 8 },
-  'openai/o4-mini': { input: 1.1, output: 4.4 },
-  'anthropic/claude-3.5-sonnet': { input: 3, output: 15 },
-  'anthropic/claude-3.5-haiku': { input: 0.8, output: 4 },
-  'google/gemini-1.5-pro': { input: 1.25, output: 5 },
-  'google/gemini-2.0-flash': { input: 0.1, output: 0.4 },
-  'meta-llama/llama-3.1-70b-instruct': { input: 0.52, output: 0.75 },
-  'mistralai/mixtral-8x7b-instruct': { input: 0.24, output: 0.24 },
-  'qwen/qwen-2.5-72b-instruct': { input: 0.29, output: 0.29 },
-};
-
 const CHART_COLORS = {
   primary: '#fbbf24',
   success: '#22c55e',
@@ -86,6 +74,30 @@ const CHART_COLORS = {
 };
 
 const BREAKDOWN_COLORS = ['#22c55e', '#3b82f6', '#f97316'];
+
+// Convert UCI line to SAN notation
+function uciLineToSan(fen: string, uciLine: string): string {
+  if (!uciLine.trim()) return '';
+  const moves = uciLine.trim().split(/\s+/g).filter(Boolean);
+  try {
+    const chess = new Chess(fen);
+    const sanMoves: string[] = [];
+    for (const uci of moves) {
+      const from = uci.slice(0, 2);
+      const to = uci.slice(2, 4);
+      const promotion = uci.length > 4 ? uci[4] : undefined;
+      const move = chess.move({ from, to, promotion });
+      if (move) {
+        sanMoves.push(move.san);
+      } else {
+        return uciLine; // fallback to UCI if any move fails
+      }
+    }
+    return sanMoves.join(' ');
+  } catch {
+    return uciLine;
+  }
+}
 
 // ============================================================================
 // CUSTOM DROPDOWN COMPONENT
@@ -297,13 +309,22 @@ function MultiSelectDropdown({
 // ============================================================================
 // CHART TOOLTIP
 // ============================================================================
-function CustomTooltip({ active, payload, label }: any) {
+type ChartPayloadItem = { name?: string; value?: number | string; color?: string };
+function CustomTooltip({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  payload?: ChartPayloadItem[];
+  label?: string;
+}) {
   if (!active || !payload || payload.length === 0) return null;
   return (
     <div className="rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-3 shadow-xl">
       <div className="text-sm font-semibold text-neutral-100 mb-2">{label}</div>
       <div className="space-y-1">
-        {payload.map((p: any, idx: number) => (
+        {payload.map((p, idx: number) => (
           <div key={idx} className="flex items-center justify-between gap-4 text-sm">
             <div className="flex items-center gap-2 text-neutral-300">
               <span
@@ -322,7 +343,7 @@ function CustomTooltip({ active, payload, label }: any) {
   );
 }
 
-function CustomLabel(props: any) {
+function CustomLabel(props: { x: number; y: number; width: number; value?: number | string | null }) {
   const { x, y, width, value } = props;
   if (value === null || value === undefined) return null;
   return (
@@ -367,8 +388,18 @@ function PuzzlesTab({ data }: { data: BenchmarkData }) {
   }, [data.puzzles, levelFilter]);
 
   const shapes = useMemo(() => {
-    const s: any[] = [];
+    const s: DrawShape[] = [];
     if (!selectedPuzzle) return s;
+
+    // Show opponent's last move leading into the puzzle (if available)
+    const last = selectedPuzzle.lastMoveUci;
+    if (last && last.length >= 4) {
+      s.push({
+        orig: last.substring(0, 2),
+        dest: last.substring(2, 4),
+        brush: 'blue',
+      });
+    }
 
     const solutionMoves = selectedPuzzle.solutionUci.split(' ');
     const firstSolutionMove = solutionMoves[0];
@@ -394,6 +425,12 @@ function PuzzlesTab({ data }: { data: BenchmarkData }) {
 
     return s;
   }, [selectedPuzzle, modelResult]);
+
+  const lastMoveHighlight = useMemo(() => {
+    const last = selectedPuzzle?.lastMoveUci;
+    if (!last || last.length < 4) return undefined;
+    return [last.substring(0, 2), last.substring(2, 4)] as const;
+  }, [selectedPuzzle]);
 
   const modelStats = useMemo(() => {
     let correct = 0;
@@ -509,9 +546,14 @@ function PuzzlesTab({ data }: { data: BenchmarkData }) {
                     fen={selectedPuzzle.fen} 
                     orientation={selectedPuzzle.fen.includes(' w ') ? 'white' : 'black'}
                     shapes={shapes}
+                    lastMove={lastMoveHighlight}
               className="rounded-lg shadow-2xl shadow-black/60"
             />
             <div className="mt-4 flex items-center justify-center gap-4 text-xs">
+              <div className="flex items-center gap-1.5">
+                <span className="w-3 h-3 rounded-sm bg-blue-500" />
+                <span className="text-neutral-400">Opponent last move</span>
+              </div>
               <div className="flex items-center gap-1.5">
                 <span className="w-3 h-3 rounded-sm bg-green-500" />
                 <span className="text-neutral-400">Correct move</span>
@@ -528,6 +570,12 @@ function PuzzlesTab({ data }: { data: BenchmarkData }) {
                 <div>
               <div className="text-xs text-neutral-500 uppercase tracking-wider mb-1">Puzzle</div>
               <div className="text-2xl font-bold text-neutral-100">{selectedPuzzle.id}</div>
+              {selectedPuzzle.lastMoveUci && (
+                <div className="mt-2 text-xs text-neutral-500">
+                  Opponent last move:{' '}
+                  <span className="font-mono text-neutral-300">{selectedPuzzle.lastMoveUci}</span>
+                </div>
+              )}
               <div
                 className={`inline-block mt-2 px-2 py-1 rounded text-xs font-bold uppercase ${
                   selectedPuzzle.level === 'mate1'
@@ -547,7 +595,7 @@ function PuzzlesTab({ data }: { data: BenchmarkData }) {
 
                     <div className="p-4 rounded-lg bg-green-900/10 border border-green-900/30">
               <div className="text-xs text-green-500 font-bold uppercase mb-1">Solution</div>
-                        <div className="font-mono text-lg text-green-400">{selectedPuzzle.solutionUci}</div>
+                        <div className="font-mono text-lg text-green-400">{uciLineToSan(selectedPuzzle.fen, selectedPuzzle.solutionUci)}</div>
                     </div>
 
             <div
@@ -576,7 +624,7 @@ function PuzzlesTab({ data }: { data: BenchmarkData }) {
                   modelResult?.isCorrect ? 'text-green-400' : 'text-red-400'
                 }`}
               >
-                {modelResult?.move || 'No output'}
+                {modelResult?.move ? uciLineToSan(selectedPuzzle.fen, modelResult.move) : 'No output'}
                         </div>
                         {!modelResult?.isCorrect && (
                 <div className="mt-2 text-xs text-red-400/70">Incorrect move or format</div>
@@ -604,7 +652,7 @@ function PuzzlesTab({ data }: { data: BenchmarkData }) {
 // BENCHMARKS TAB
 // ============================================================================
 function BenchmarksTab({ data }: { data: BenchmarkData }) {
-  const [activeChart, setActiveChart] = useState<'overall' | 'breakdown' | 'latency' | 'cost'>('overall');
+  const [activeChart, setActiveChart] = useState<'overall' | 'breakdown' | 'latency'>('overall');
   const [selectedModels, setSelectedModels] = useState<Set<string>>(
     () => new Set(data.models.map((m) => m.id))
   );
@@ -650,38 +698,10 @@ function BenchmarksTab({ data }: { data: BenchmarkData }) {
       }));
   }, [filteredModels]);
 
-  const costData = useMemo(() => {
-    const modelCosts: { name: string; cost: number; id: string }[] = [];
-
-    for (const model of filteredModels) {
-      let totalCost = 0;
-      const pricing = MODEL_PRICING[model.id] ?? { input: 1, output: 1 };
-
-      for (const puzzle of data.puzzles) {
-        const result = puzzle.results[model.id];
-        if (result) {
-          const promptTokens = result.promptTokens ?? 200;
-          const completionTokens = result.completionTokens ?? 20;
-          totalCost += (promptTokens / 1_000_000) * pricing.input;
-          totalCost += (completionTokens / 1_000_000) * pricing.output;
-        }
-      }
-
-      modelCosts.push({
-        name: model.name,
-        cost: Math.round(totalCost * 10000) / 10000,
-        id: model.id,
-      });
-    }
-
-    return modelCosts.sort((a, b) => a.cost - b.cost);
-  }, [filteredModels, data.puzzles]);
-
   const chartTabs = [
     { key: 'overall', label: 'Overall', icon: BarChart3 },
     { key: 'breakdown', label: 'Breakdown', icon: Target },
     { key: 'latency', label: 'Latency', icon: Clock },
-    { key: 'cost', label: 'Cost', icon: DollarSign },
   ] as const;
 
   return (
@@ -883,40 +903,11 @@ function BenchmarksTab({ data }: { data: BenchmarkData }) {
                 </>
               )}
 
-              {activeChart === 'cost' && (
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={costData} margin={{ top: 30, right: 20, left: 20, bottom: 80 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                    <XAxis
-                      dataKey="name"
-                      tick={{ fill: '#a3a3a3', fontSize: 11 }}
-                      axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
-                      tickLine={false}
-                      angle={-40}
-                      textAnchor="end"
-                      height={80}
-                    />
-                    <YAxis
-                      tick={{ fill: '#a3a3a3', fontSize: 11 }}
-                      axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
-                      tickLine={false}
-                      tickFormatter={(v) => `$${v}`}
-                    />
-                    <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.03)' }} />
-                    <Bar dataKey="cost" name="Est. Cost ($)" radius={[6, 6, 0, 0]} maxBarSize={50}>
-                      {costData.map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={CHART_COLORS.success} fillOpacity={0.9 - index * 0.05} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              )}
             </>
           )}
         </div>
 
         <div className="mt-4 text-xs text-neutral-500 text-center">
-          {activeChart === 'cost' && 'Cost estimates based on OpenRouter pricing. Actual costs may vary.'}
           {activeChart === 'breakdown' && 'Grouped bars show accuracy for each mate depth (1, 2, 3).'}
           {activeChart === 'overall' && 'Overall score = average of mate-in-1/2/3 accuracy.'}
           {activeChart === 'latency' && 'Lower is better. Latency measured from API call to response.'}

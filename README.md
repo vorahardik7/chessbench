@@ -1,103 +1,190 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ChessBench
 
-## ChessBench workflow (owner-run snapshots)
+A benchmark suite for evaluating Large Language Models (LLMs) on chess puzzle solving. Models are tested on mate-in-1, mate-in-2, and mate-in-3 puzzles from Lichess, with strict UCI (Universal Chess Interface) move format validation.
 
-ChessBench is designed to publish **only the latest benchmark snapshot** (no DB). You run the benchmark locally, it regenerates `public/results/latest.json`, and you deploy/commit that file.
+## Features
 
-### 1) Configure environment
+- **Strict UCI Format**: Models must output moves in UCI notation (e.g., `e2e4`, `g1f3`)
+- **Puzzle Caching**: Results are cached per model ID - test models one at a time without losing previous results
+- **Visual Interface**: Interactive web UI showing puzzle positions, model responses, and performance metrics
+- **Lichess Integration**: Puzzles fetched directly from Lichess puzzle database
 
-Create a local `.env` (not committed) with:
+## Quick Start
 
-- `OPENROUTER_API_KEY=...`
+### 1. Setup Environment
 
-### 2) Fetch puzzles from Lichess (10 per level)
+Create a `.env` file in the project root:
 
-This generates:
+```bash
+OPENROUTER_API_KEY=your_api_key_here
+```
 
-- `bench/puzzles.mate1.json`
-- `bench/puzzles.mate2.json`
-- `bench/puzzles.mate3.json`
+### 2. Fetch Puzzles
 
-Command:
+Fetch puzzles from Lichess (currently fetches 10 mate-in-1 puzzles):
 
 ```bash
 bun run bench:fetch-puzzles
 ```
 
-### 3) Configure models (10–15 models)
+This generates:
+- `bench/puzzles.mate1.json` - Mate-in-1 puzzles (currently active)
+- `bench/puzzles.mate2.json` - Mate-in-2 puzzles (planned, see below)
+- `bench/puzzles.mate3.json` - Mate-in-3 puzzles (planned, see below)
 
-Edit:
+**Note**: Currently only mate-in-1 puzzles are tested. To enable mate-in-2 and mate-in-3:
+1. Uncomment the corresponding lines in `bench/run.ts` (lines 322-323)
+2. Update `bench/fetch-lichess.ts` to fetch mate2/mate3 puzzles
+3. Re-run `bun run bench:fetch-puzzles`
 
-- `bench/models.json`
+### 3. Configure Models
 
-You can add/remove models freely; rerun the benchmark to regenerate the snapshot.
+Edit `bench/models.json` to add models you want to test:
 
-### 4) Run benchmark (writes latest snapshot)
+```json
+[
+  {
+    "id": "model-provider/model-name:free",
+    "name": "Model Display Name",
+    "temperature": 0,
+    "maxTokens": 128
+  }
+]
+```
 
-This generates/overwrites:
+**Model Caching**: The benchmark runner automatically caches results per model ID. If you:
+- Add a new model → Only that model will be tested
+- Remove a model from `models.json` → Its cached results remain visible
+- Re-run with existing models → Skips models that already have complete results
 
-- `public/results/latest.json`
+### 4. Run Benchmark
 
-Command:
+Run the benchmark to test models on puzzles:
 
 ```bash
 bun run bench:run
 ```
 
-Optional concurrency control (default is 3):
+This generates/updates:
+- `public/results/latest.json` - Benchmark results (read by the web UI)
+
+**Optional**: Control concurrency (default is 3):
 
 ```bash
-BENCH_CONCURRENCY=3 bun run bench:run
+BENCH_CONCURRENCY=5 bun run bench:run
 ```
 
-### 4b) Estimate cost of the latest run
+### 5. View Results
 
-After you run the benchmark, you can estimate cost using OpenRouter model pricing + the token usage returned by the API:
-
-```bash
-bun run bench:cost
-```
-
-Notes:
-
-- If `latest.json` was generated before token-usage fields were added, rerun `bun run bench:run` once to populate token counts.
-- Pricing is fetched from OpenRouter’s model listing; it can change over time.
-
-### 5) Publish
-
-Commit `public/results/latest.json` and deploy (e.g. Vercel).
-
-## Getting Started
-
-First, run the development server:
+Start the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view:
+- **Puzzles Tab**: Browse puzzles, see model responses, view board positions
+- **Benchmarks Tab**: Leaderboard, performance charts (overall, breakdown, latency)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 6. Publish
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Commit `public/results/latest.json` and deploy (e.g., Vercel).
 
-## Learn More
+## Puzzle Format
 
-To learn more about Next.js, take a look at the following resources:
+Puzzles are stored in JSON format with the following structure:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```json
+{
+  "id": "mate1-HR783",
+  "level": "mate1",
+  "fen": "8/p6p/1p6/3P2Q1/2P5/1q3p2/7k/5K2 w - - 4 55",
+  "lastMoveUci": "g3h2",
+  "solutionUci": "g5h4",
+  "source": {
+    "provider": "lichess",
+    "puzzleId": "HR783",
+    "url": "https://lichess.org/training/HR783",
+    "themes": ["master", "oneMove", "mateIn1", "endgame", "queenEndgame"],
+    "rating": 1461,
+    "gameId": "IPJijxFi"
+  }
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Fields**:
+- `id`: Unique puzzle identifier
+- `level`: Puzzle difficulty (`mate1`, `mate2`, `mate3`)
+- `fen`: Position in FEN notation (position after opponent's last move)
+- `lastMoveUci`: Opponent's last move in UCI format (shown on board)
+- `solutionUci`: Correct solution in UCI format (space-separated for multi-move puzzles)
+- `source`: Metadata from Lichess including puzzle URL, themes, and rating
 
-## Deploy on Vercel
+**Scoring**:
+- Models must output the exact UCI move sequence (case-insensitive)
+- For mate-in-1: 1 move (e.g., `g5h4`)
+- For mate-in-2: 3 plies (e.g., `e2h5 g7g6 h5h6`)
+- For mate-in-3: 5 plies (e.g., `c1c2 c8c2 f1b1 c2c3`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+chessbench/
+├── app/                    # Next.js application
+│   ├── components/        # React components
+│   │   ├── BenchmarkExplorer.tsx  # Main UI
+│   │   └── ChessBoard.tsx        # Chess board visualization
+│   ├── page.tsx           # Home page
+│   └── layout.tsx         # Root layout
+├── bench/                 # Benchmark scripts
+│   ├── fetch-lichess.ts   # Fetch puzzles from Lichess
+│   ├── run.ts             # Run benchmarks
+│   ├── models.json        # Model configurations
+│   ├── puzzles.mate*.json # Puzzle datasets
+│   ├── types.ts           # TypeScript types
+│   └── utils.ts           # Utility functions
+└── public/
+    └── results/
+        └── latest.json    # Benchmark results (generated)
+```
+
+## Workflow Details
+
+### Model Testing Workflow
+
+1. **First Run**: Test Model A → Results cached in `latest.json`
+2. **Second Run**: Add Model B to `models.json` → Only Model B tested, Model A results preserved
+3. **Third Run**: Remove Model A from `models.json` → Model A still visible (cached), won't be tested again
+4. **Fourth Run**: Re-add Model A → Model A tested again, previous results updated
+
+### Puzzle Updates
+
+If you re-fetch puzzles and puzzle IDs change:
+- Old puzzle results are lost (matched by puzzle ID)
+- Models retain their overall stats based on current puzzle set
+
+## Development
+
+### Prerequisites
+
+- [Bun](https://bun.sh) (or Node.js 18+)
+- OpenRouter API key
+
+### Install Dependencies
+
+```bash
+bun install
+```
+
+### Available Scripts
+
+- `bun dev` - Start development server
+- `bun run bench:fetch-puzzles` - Fetch puzzles from Lichess
+- `bun run bench:run` - Run benchmark tests
+- `bun run lint` - Run ESLint
+- `bun run build` - Build for production
+- `bun start` - Start production server
+
+## License
+
+Private project.

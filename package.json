@@ -8,8 +8,7 @@
     "start": "bun --bun next start",
     "lint": "eslint",
     "bench:fetch-puzzles": "bun run bench/fetch-lichess.ts",
-    "bench:run": "bun run bench/run.ts",
-    "bench:cost": "bun run bench/estimate-cost.ts"
+    "bench:run": "bun run bench/run.ts"
   },
   "dependencies": {
     "@lichess-org/chessground": "^9.9.0",

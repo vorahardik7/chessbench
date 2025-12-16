@@ -1,0 +1,205 @@
+[
+  {
+    "id": "mate2-erHnt",
+    "level": "mate2",
+    "fen": "5k2/5p2/5Npp/p7/4Pn2/P1R4P/3r4/7K w - - 4 39",
+    "lastMoveUci": "g2f4",
+    "solutionUci": "c3c8 f8e7 c8e8",
+    "fullSolutionUci": "c3c8 f8e7 c8e8",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "erHnt",
+      "url": "https://lichess.org/training/erHnt",
+      "themes": [
+        "hookMate",
+        "short",
+        "endgame",
+        "mateIn2"
+      ],
+      "rating": 1543,
+      "gameId": "zgOZCnz8"
+    }
+  },
+  {
+    "id": "mate2-586ra",
+    "level": "mate2",
+    "fen": "6R1/1p3p2/p4N1k/2P1P1pp/PP6/4Q2n/4R2q/5K2 b - - 1 32",
+    "lastMoveUci": "e1e2",
+    "solutionUci": "h2h1 e3g1 h1g1",
+    "fullSolutionUci": "h2h1 e3g1 h1g1",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "586ra",
+      "url": "https://lichess.org/training/586ra",
+      "themes": [
+        "short",
+        "endgame",
+        "mateIn2"
+      ],
+      "rating": 1345,
+      "gameId": "rRhG9ZVL"
+    }
+  },
+  {
+    "id": "mate2-1MJyG",
+    "level": "mate2",
+    "fen": "7k/3N2b1/7p/3Q2p1/2BP4/1p4K1/3q2PP/8 b - - 2 44",
+    "lastMoveUci": "f2g3",
+    "solutionUci": "d2f4 g3h3 f4h4",
+    "fullSolutionUci": "d2f4 g3h3 f4h4",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "1MJyG",
+      "url": "https://lichess.org/training/1MJyG",
+      "themes": [
+        "short",
+        "endgame",
+        "mateIn2"
+      ],
+      "rating": 1297,
+      "gameId": "oUKDDfpz"
+    }
+  },
+  {
+    "id": "mate2-yflXj",
+    "level": "mate2",
+    "fen": "4k3/1p2br2/2p1Q3/8/pP1BP3/8/1qPK2PP/3R3R b - - 0 28",
+    "lastMoveUci": "e3d4",
+    "solutionUci": "f7f2 e2e1 d4e3",
+    "fullSolutionUci": "f7f2 e2e1 d4e3",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "yflXj",
+      "url": "https://lichess.org/training/yflXj",
+      "themes": [
+        "short",
+        "endgame",
+        "mateIn2"
+      ],
+      "rating": 1574,
+      "gameId": "IGe02RUi"
+    }
+  },
+  {
+    "id": "mate2-8hruM",
+    "level": "mate2",
+    "fen": "r5k1/2R2pr1/1nQ1p3/8/4P2R/1PN1q3/1PP5/1KN5 b - - 2 34",
+    "lastMoveUci": "e2c1",
+    "solutionUci": "e3c1 b1a2 c1a1",
+    "fullSolutionUci": "e3c1 b1a2 c1a1",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "8hruM",
+      "url": "https://lichess.org/training/8hruM",
+      "themes": [
+        "mateIn2",
+        "middlegame",
+        "short",
+        "pin"
+      ],
+      "rating": 1322,
+      "gameId": "BsNHBTJV"
+    }
+  },
+  {
+    "id": "mate2-LUhO0",
+    "level": "mate2",
+    "fen": "8/p4ppk/2p5/3p2p1/q7/8/1R2Q3/1K6 w - - 0 46",
+    "lastMoveUci": "g6g5",
+    "solutionUci": "e2h5 h7g8 b2b8",
+    "fullSolutionUci": "e2h5 h7g8 b2b8",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "LUhO0",
+      "url": "https://lichess.org/training/LUhO0",
+      "themes": [
+        "short",
+        "endgame",
+        "mateIn2"
+      ],
+      "rating": 1658,
+      "gameId": "QFRtvfrL"
+    }
+  },
+  {
+    "id": "mate2-CGHtY",
+    "level": "mate2",
+    "fen": "1Q6/5k2/b3p2p/3pPp2/P1pP2pP/1p4P1/1Rrq1PB1/R5K1 b - - 0 34",
+    "lastMoveUci": "d6b8",
+    "solutionUci": "d2f2 g1h2 f2g2",
+    "fullSolutionUci": "d2f2 g1h2 f2g2",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "CGHtY",
+      "url": "https://lichess.org/training/CGHtY",
+      "themes": [
+        "mateIn2",
+        "middlegame",
+        "short",
+        "kingsideAttack"
+      ],
+      "rating": 1316,
+      "gameId": "i5sKntXc"
+    }
+  },
+  {
+    "id": "mate2-OxSvI",
+    "level": "mate2",
+    "fen": "r7/4kpb1/1Q1p3p/4p3/1B3p2/Pb4nP/6PK/1q6 w - - 0 36",
+    "lastMoveUci": "d3b1",
+    "solutionUci": "b6d6 e7e8 d6e7",
+    "fullSolutionUci": "b6d6 e7e8 d6e7",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "OxSvI",
+      "url": "https://lichess.org/training/OxSvI",
+      "themes": [
+        "mateIn2",
+        "middlegame",
+        "short"
+      ],
+      "rating": 1532,
+      "gameId": "XAeTYRM5"
+    }
+  },
+  {
+    "id": "mate2-BHs2O",
+    "level": "mate2",
+    "fen": "4r3/2p4p/p2br3/1p2kpBP/8/2P1p3/PP2KP2/3R2R1 w - - 3 36",
+    "lastMoveUci": "f6e5",
+    "solutionUci": "f2f4 e5e4 d1d4",
+    "fullSolutionUci": "f2f4 e5e4 d1d4",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "BHs2O",
+      "url": "https://lichess.org/training/BHs2O",
+      "themes": [
+        "short",
+        "endgame",
+        "mateIn2"
+      ],
+      "rating": 1446,
+      "gameId": "KPhrysHt"
+    }
+  },
+  {
+    "id": "mate2-JPUvD",
+    "level": "mate2",
+    "fen": "b1k5/p6p/1pP5/1P1Q4/2n2P2/2P2K1P/Pq6/4r3 w - - 0 34",
+    "lastMoveUci": "e4e1",
+    "solutionUci": "d5d7 c8b8 d7d8",
+    "fullSolutionUci": "d5d7 c8b8 d7d8",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "JPUvD",
+      "url": "https://lichess.org/training/JPUvD",
+      "themes": [
+        "short",
+        "endgame",
+        "mateIn2"
+      ],
+      "rating": 1333,
+      "gameId": "czZdZair"
+    }
+  }
+]

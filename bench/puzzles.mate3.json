@@ -1,0 +1,219 @@
+[
+  {
+    "id": "mate3-SygLP",
+    "level": "mate3",
+    "fen": "7r/5r2/8/PP1k4/3p4/3R4/2RK4/8 b - - 4 50",
+    "lastMoveUci": "e2d2",
+    "solutionUci": "f7f2 d2d3 h1d1 c2d2 d1d2",
+    "fullSolutionUci": "f7f2 d2d3 h1d1 c2d2 d1d2",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "SygLP",
+      "url": "https://lichess.org/training/SygLP",
+      "themes": [
+        "exposedKing",
+        "endgame",
+        "master",
+        "rookEndgame",
+        "long",
+        "mateIn3"
+      ],
+      "rating": 1376,
+      "gameId": "trk8v6tC"
+    }
+  },
+  {
+    "id": "mate3-UdGdL",
+    "level": "mate3",
+    "fen": "1r2r1k1/7p/p5pB/1b2RpQ1/8/8/PPq4P/4R1K1 w - - 2 31",
+    "lastMoveUci": "d8e8",
+    "solutionUci": "e5e8 b8e8 e1e8 b5e8 f6f8",
+    "fullSolutionUci": "e5e8 b8e8 e1e8 b5e8 f6f8",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "UdGdL",
+      "url": "https://lichess.org/training/UdGdL",
+      "themes": [
+        "middlegame",
+        "long",
+        "mateIn3"
+      ],
+      "rating": 1335,
+      "gameId": "bQRx0iYY"
+    }
+  },
+  {
+    "id": "mate3-gOHbt",
+    "level": "mate3",
+    "fen": "5r2/6pk/bn4p1/Bp2p3/3pPP2/P2P2q1/BP2K3/R1r2R2 w - - 0 32",
+    "lastMoveUci": "c8c1",
+    "solutionUci": "f1h1 c1h1 a1h1 g3h2 h1h2",
+    "fullSolutionUci": "f1h1 c1h1 a1h1 g3h2 h1h2",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "gOHbt",
+      "url": "https://lichess.org/training/gOHbt",
+      "themes": [
+        "middlegame",
+        "xRayAttack",
+        "long",
+        "mateIn3"
+      ],
+      "rating": 1347,
+      "gameId": "aUEd4zxX"
+    }
+  },
+  {
+    "id": "mate3-Fq50G",
+    "level": "mate3",
+    "fen": "5k2/1R3P2/8/5K2/7p/5P2/1p6/1r6 w - - 1 49",
+    "lastMoveUci": "g8f8",
+    "solutionUci": "f5f6 b1c1 b7b8 c1c8 b8c8",
+    "fullSolutionUci": "f5f6 b1c1 b7b8 c1c8 b8c8",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "Fq50G",
+      "url": "https://lichess.org/training/Fq50G",
+      "themes": [
+        "exposedKing",
+        "endgame",
+        "rookEndgame",
+        "long",
+        "mateIn3"
+      ],
+      "rating": 1421,
+      "gameId": "1cJVhXzZ"
+    }
+  },
+  {
+    "id": "mate3-kWIdD",
+    "level": "mate3",
+    "fen": "r1q2rk1/2p1bppp/1p1P4/pN1Pp3/1P2P2n/P3BP2/4QP1P/R1R3K1 b - - 0 18",
+    "lastMoveUci": "g2f3",
+    "solutionUci": "c8h3 e2f1 h4f3 g1h1 h3h2",
+    "fullSolutionUci": "c8h3 e2f1 h4f3 g1h1 h3h2",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "kWIdD",
+      "url": "https://lichess.org/training/kWIdD",
+      "themes": [
+        "middlegame",
+        "long",
+        "mateIn3",
+        "kingsideAttack"
+      ],
+      "rating": 1417,
+      "gameId": "xnx7dbTG"
+    }
+  },
+  {
+    "id": "mate3-DCWyy",
+    "level": "mate3",
+    "fen": "2rr3k/pp3Qp1/7p/1qb1N3/1P1p1B2/P3P3/5PPP/3R2K1 w - - 1 26",
+    "lastMoveUci": "g8h8",
+    "solutionUci": "e5g6 h8h7 g6f8 d8f8 f7g7",
+    "fullSolutionUci": "e5g6 h8h7 g6f8 d8f8 f7g7",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "DCWyy",
+      "url": "https://lichess.org/training/DCWyy",
+      "themes": [
+        "middlegame",
+        "long",
+        "mateIn3",
+        "kingsideAttack",
+        "pin"
+      ],
+      "rating": 1341,
+      "gameId": "sQ7Ruis5"
+    }
+  },
+  {
+    "id": "mate3-hrEU6",
+    "level": "mate3",
+    "fen": "6k1/3R1p1p/5qp1/2p5/2P1r3/1Q6/P4PPP/R5K1 b - - 0 27",
+    "lastMoveUci": "g3b3",
+    "solutionUci": "f6a1 d7d1 e4e1 d1e1 a1e1",
+    "fullSolutionUci": "f6a1 d7d1 e4e1 d1e1 a1e1",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "hrEU6",
+      "url": "https://lichess.org/training/hrEU6",
+      "themes": [
+        "endgame",
+        "xRayAttack",
+        "long",
+        "mateIn3",
+        "hangingPiece"
+      ],
+      "rating": 1389,
+      "gameId": "gI77At8i"
+    }
+  },
+  {
+    "id": "mate3-8aztK",
+    "level": "mate3",
+    "fen": "r4rk1/pp2Qppp/1qp5/8/8/1BP5/PP3nPP/RNB2RK1 b - - 2 17",
+    "lastMoveUci": "h1g1",
+    "solutionUci": "f2h3 g1h1 b6g1 f1g1 h3f2",
+    "fullSolutionUci": "f2h3 g1h1 b6g1 f1g1 h3f2",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "8aztK",
+      "url": "https://lichess.org/training/8aztK",
+      "themes": [
+        "middlegame",
+        "discoveredCheck",
+        "long",
+        "mateIn3",
+        "sacrifice",
+        "doubleCheck",
+        "kingsideAttack",
+        "smotheredMate"
+      ],
+      "rating": 1423,
+      "gameId": "lrgcd77C"
+    }
+  },
+  {
+    "id": "mate3-tbeHw",
+    "level": "mate3",
+    "fen": "8/1P2p3/8/2kB1b2/5N2/6PP/1r1n1P2/3R2K1 b - - 0 42",
+    "lastMoveUci": "b6b7",
+    "solutionUci": "b2b1 d2d1 b1d1 g1h2 d1h1",
+    "fullSolutionUci": "b2b1 d2d1 b1d1 g1h2 d1h1",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "tbeHw",
+      "url": "https://lichess.org/training/tbeHw",
+      "themes": [
+        "endgame",
+        "long",
+        "mateIn3"
+      ],
+      "rating": 1410,
+      "gameId": "ctzSZz6p"
+    }
+  },
+  {
+    "id": "mate3-nrN1h",
+    "level": "mate3",
+    "fen": "r2qk2r/pb1np1b1/1pp2np1/3p3p/2PP1B1P/4PN2/PPQN1PP1/R3K2R w KQkq - 0 11",
+    "lastMoveUci": "f7g6",
+    "solutionUci": "f3g5 d8e8 g5e6 f8g8 g6g7",
+    "fullSolutionUci": "f3g5 d8e8 g5e6 f8g8 g6g7",
+    "source": {
+      "provider": "lichess",
+      "puzzleId": "nrN1h",
+      "url": "https://lichess.org/training/nrN1h",
+      "themes": [
+        "middlegame",
+        "quietMove",
+        "long",
+        "mateIn3"
+      ],
+      "rating": 1455,
+      "gameId": "4A6KJ5kI"
+    }
+  }
+]
