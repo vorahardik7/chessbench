@@ -24,20 +24,30 @@ export default function ChessBoard({
 }: ChessBoardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [api, setApi] = useState<ReturnType<typeof Chessground> | null>(null);
+  const initialConfigRef = useRef<{
+    fen: string;
+    orientation: 'white' | 'black';
+    shapes: DrawShape[];
+    lastMove?: Config['lastMove'];
+    viewOnly: boolean;
+  }>({ fen, orientation, shapes, lastMove, viewOnly });
 
   useEffect(() => {
     if (!ref.current) return;
 
+    // Use an internal ref for initial values so this effect can safely run once
+    // without capturing props (avoids stale-prop + exhaustive-deps warnings).
+    const initial = initialConfigRef.current;
     const chessgroundApi = Chessground(ref.current, {
-      fen,
-      orientation,
-      viewOnly,
+      fen: initial.fen,
+      orientation: initial.orientation,
+      viewOnly: initial.viewOnly,
       coordinates: false, // Cleaner look for a benchmark
       drawable: {
-        shapes,
+        shapes: initial.shapes,
         autoShapes: [],
       },
-      lastMove,
+      lastMove: initial.lastMove,
       animation: {
         enabled: true,
         duration: 200,
@@ -69,15 +79,18 @@ export default function ChessBoard({
 
   // Update board when props change
   useEffect(() => {
+    // Keep initial config ref up-to-date for completeness (and future-proofing).
+    initialConfigRef.current = { fen, orientation, shapes, lastMove, viewOnly };
     if (api) {
       api.set({
         fen,
         orientation,
-        drawable: { shapes },
+        viewOnly,
+        drawable: { shapes, autoShapes: [] },
         lastMove,
       });
     }
-  }, [fen, orientation, shapes, lastMove, api]);
+  }, [fen, orientation, shapes, lastMove, viewOnly, api]);
 
   return (
     <div className={`relative w-full aspect-square ${className}`}>

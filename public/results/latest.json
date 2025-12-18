@@ -1,6 +1,6 @@
 {
-  "runId": "bench-2025-12-17T21-46-56-039Z",
-  "runAt": "2025-12-17T21:46:56.040Z",
+  "runId": "bench-2025-12-18T03-45-10-373Z",
+  "runAt": "2025-12-18T03:45:10.373Z",
   "promptVersion": "v1.0",
   "models": [
     {
@@ -46,6 +46,28 @@
         "mate3": 0
       },
       "avgLatencyMs": 527
+    },
+    {
+      "id": "nvidia/nemotron-3-nano-30b-a3b:free",
+      "name": "NVIDIA Nemotron 3 Nano 30B A3B",
+      "score": 0,
+      "breakdown": {
+        "mate1": 0,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 311
+    },
+    {
+      "id": "z-ai/glm-4.5-air:free",
+      "name": "Z-AI GLM 4.5 AIR",
+      "score": 0,
+      "breakdown": {
+        "mate1": 0,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 2763
     },
     {
       "id": "allenai/olmo-3.1-32b-think:free",
@@ -127,6 +149,28 @@
           "promptTokens": 179,
           "completionTokens": 4,
           "totalTokens": 183
+        },
+        "z-ai/glm-4.5-air:free": {
+          "move": "c4c5",
+          "isCorrect": false,
+          "isLegal": true,
+          "parseMethod": "san",
+          "rawOutput": "\nLet me analyze the position to find a mate in 1 for White.\n\nFEN: 8/p6p/1p6/3P2Q1/2P5/1q3p2/7k/5K2 w - - 4 55\n\nThis is White's turn to move. Let me visualize the board:\n\n- White pieces:\n  - Queen on d4\n  - Pawn on d3\n  - King on g1\n\n- Black pieces:\n  - Pawn on a7\n  - Pawn on h7\n  - Pawn on b6\n  - Pawn on f3\n  - Pawn on g2 (just moved from g3)\n  - Queen on c3\n  - King on h1\n\nWhite needs to deliver mate in 1 move. Let's check possible moves:\n\n1. Queen moves:\n   - Qd4 to d5: Not mate, Black can play Qc3xd5\n   - Qd4 to e4: Not mate, Black can play Qc3xe4\n   - Qd4 to f6: Not mate, Black can play g2xf6\n   - Qd4 to g7: Not mate, Black can play h7xg7\n   - Qd4 to h8: Not mate, Black can play h7xh8=Q\n   - Qd4 to c5: Not mate, Black can play Qc3xc5\n   - Qd4 to b6: Not mate, Black can play b7xb6\n   - Qd4 to a7: Not mate, Black can play h7xa7\n\n2. Pawn moves:\n   - d3 to d4: Not mate, Black can play Qc3xd4\n   - No other pawn moves available\n\nWait, let me reconsider the position. I might have missed something.\n\nLooking at the board again:\n- White Queen on d4\n- Black King on h1\n- Black Queen on c3\n- Black pawn on g2 (just moved from g3)\n\nThe key is that Black's king is on h1, and the pawn on g2 just moved from g3, which means the g2 square was previously empty. This creates an opportunity for a discovered check.\n\nIf White plays Qd4xg7, then:\n- The queen captures the pawn on g7\n- This",
+          "latencyMs": 4046,
+          "promptTokens": 182,
+          "completionTokens": 500,
+          "totalTokens": 682
+        },
+        "nvidia/nemotron-3-nano-30b-a3b:free": {
+          "move": "b7c6",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "We need to solve mate in 1. Position: FEN: 8/p6p/1p6/3P2Q1/2P5/1q3p2/7k/5K2 w - - 4 55\n\nLet's parse board.\n\nRank 8: \"8\" empty.\n\nRank 7: \"p6p\" => p at a7, then six empty squares? Actually \"p6p\" means pawn at a7, then six empty squares, then pawn at c7? Wait: \"p6p\" length 5? Actually notation: \"p6p\" means pawn on a7, then six empty squares, then pawn on c7? But there are only 8 squares per rank. \"p6p\" expands to: a7 pawn, then squares b7-c6? Let's decode: \"p6p\" = p (a7), then 6 empty squares (b7 through g7), then p (h7)? No, \"6\" means six empty squares, then \"p\" is the next piece after those six empties, which would be the 8th square? Let's map: squares a,b,c,d,e,f,g,h. If we have \"p6p\": first char 'p' at a7. Then \"6\" means six empty squares: b7,c7,d7,e7,f7,g7? That's six squares, leaving h7 as the next char 'p'. So pawn at h7. So rank 7: a7 pawn, h7 pawn, others empty.\n\nRank 6: \"1p6\" => 1 empty at a6, then pawn at b6, then six empty squares c6 through h6? Actually \"6\" means six empties after that, but we only have up to h6, so after b6 we have six empties: c6,d6,e6,f6,g6,h6. So rank6: b6 pawn.\n\nRank5: \"3P2Q1\" => 3 empty squares a5,b5,c5, then 'P' at d5 (white pawn), then '2' empties e5,f5, then 'Q' at g5 (white queen), then '1' empty at h5? Wait count: after Q at g5, there is \"1\" meaning one empty square at",
+          "latencyMs": 409,
+          "promptTokens": 193,
+          "completionTokens": 500,
+          "totalTokens": 693
         }
       }
     },
@@ -196,6 +240,28 @@
           "promptTokens": 187,
           "completionTokens": 4,
           "totalTokens": 191
+        },
+        "z-ai/glm-4.5-air:free": {
+          "move": "d6e7",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "\nI need to find a mate in 1 for the given position. Let me analyze the board first.\n\nFEN: r1bq2nr/ppppk1p1/1b5p/nP1QN3/4P3/2P5/P2P1PPP/RNB1K2R w KQ - 7 12\n\nThis is White's turn to move. The board has:\n- White king on g1\n- White rooks on a1 and h1\n- White knight on b1\n- White bishop on c1\n- White queen on d4\n- White pawns on a2, b2, c3, d4, e4, f2, g2, h2\n- Black king on e8\n- Black rooks on a8 and h8\n- Black knight on g8\n- Black bishop on c8 and f8\n- Black queen on d8\n- Black pawns on a7, b7, c7, d6, e7, f7, g7, h7\n\nThe opponent's last move was d6e7, which means a black pawn moved from d6 to e7.\n\nNow, I need to find a move for White that results in checkmate in one move.\n\nLet me look for checks that could be mate:\n\n1. Queen moves:\n   - Qd4 to h8: This would check the king, but the king can move to f8 or the rook can block on g8.\n   - Qd4 to e5: This would check the king, but the king can move to f8 or the pawn on f7 can capture.\n   - Qd4 to f6: This would check the king, but the king can move to f8 or the pawn on g7 can capture.\n\n2. Rook moves:\n   - Ra1 to a8: This would check the king, but the king can move to d8 or the bishop on c8 can block.\n   - Rh1 to h8: This would check the king, but the king can move to g8 or the pawn on g7 can capture.\n\n3. Knight moves:\n   - Nb1 to d2: No check.\n   - Nb1 to c3: No check.\n\n4. Bishop moves:\n   - Bc1 to h6: This would check the king, but the king",
+          "latencyMs": 502,
+          "promptTokens": 192,
+          "completionTokens": 500,
+          "totalTokens": 692
+        },
+        "nvidia/nemotron-3-nano-30b-a3b:free": {
+          "move": "d6e7",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "We need to solve mate in 1. Position: FEN: r1bq2nr/ppppk1p1/1b5p/nP1QN3/4P3/2P5/P2P1PPP/RNB1K2R w KQ - 7 12\n\nLet's parse board. White to move? It says \"Opponent last move (context): d6e7\". That suggests black moved a pawn from d6 to e7? Actually black pawn from d6 to e7 would be moving forward one square (if black pawn moves downwards from rank 6 to 7). In FEN, black pawn at d6 moved to e7. Let's verify: initial FEN before that move would have black pawn on d6, white pawn on e7? Actually white pawn on e7? Let's reconstruct.\n\nGiven current FEN: r1bq2nr/ppppk1p1/1b5p/nP1QN3/4P3/2P5/P2P1PPP/RNB1K2R w KQ - 7 12\n\nLet's map pieces:\n\nRank 8: \"r1bq2nr\" => a8 rook, b8 empty, c8 bishop, d8 queen, e8 empty, f8 empty, g8 knight, h8 rook? Wait \"r1bq2nr\": r . b q . . n r? Actually \"r1bq2nr\" expands: r, 1 empty, b, q, 2 empty, n, r. So squares: a8 = r, b8 = empty, c8 = b, d8 = q, e8 = empty, f8 = empty, g8 = n, h8 = r. So black pieces: rook a8, bishop c8, queen d8, knight g8, rook h8.\n\nRank 7: \"ppppk1p1\" => p p p p k 1 p 1? Actually \"ppppk1p1\": p p p p k 1 p 1. So a7 pawn, b7 pawn, c7 pawn, d7 pawn, e7 king, f7 empty, g7 pawn, h7 empty. So black king at e7. So black pawn",
+          "latencyMs": 408,
+          "promptTokens": 206,
+          "completionTokens": 500,
+          "totalTokens": 706
         }
       }
     },
@@ -264,6 +330,28 @@
           "promptTokens": 184,
           "completionTokens": 4,
           "totalTokens": 188
+        },
+        "z-ai/glm-4.5-air:free": {
+          "move": "b4b3",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "\nLet me analyze the position to find a mate in 1.\n\nFEN: 8/2b2p2/5p2/2p2P1p/2P2P2/1p2K3/7R/2k5 w - - 0 47\n\nThis is a white to move position. Let me visualize the board:\n\n```\n8 | . . . . . . . . \n7 | . . b . . p . . \n6 | . . . . . p . . \n5 | . . p . . P . p \n4 | . . P . . P . . \n3 | . p . K . . . . \n2 | . . . . . . R . \n1 | . . k . . . . . \n  +-----------------\n    a b c d e f g h\n```\n\nWhite has a king on e3, a rook on h2, and several pawns.\nBlack has a king on c1, a bishop on c7, and several pawns.\n\nThe opponent's last move was b4b3, which means a black pawn moved from b4 to b3.\n\nNow, I need to find a move for white that results in checkmate.\n\nLet me look at possible checks:\n\n1. Rook checks:\n   - The rook on h2 can move to h1, giving check to the black king on c1. But the king can move to b1 or d1 to escape.\n   - The rook can move to h8, but that's not giving check.\n   - The rook can move to a2, but that's not giving check.\n   - The rook can move to b2, giving check to the king. The king can move to b1, d1, or d2 to escape.\n   - The rook can move to c2, giving check to the king. The king can move to b1, d1, or d2 to escape.\n   - The rook can move to d2, giving check to the king. The king can move to b1, d1, or e1 to escape.\n\nNone of these rook moves seem to result in immediate mate.\n\n2. Pawn checks:\n   - The pawn on d4 can move to d5, but that's not giving check.\n   - The pawn on e4 can move to",
+          "latencyMs": 502,
+          "promptTokens": 188,
+          "completionTokens": 500,
+          "totalTokens": 688
+        },
+        "nvidia/nemotron-3-nano-30b-a3b:free": {
+          "move": "a6e6",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "We need to solve mate in 1. Position: FEN: 8/2b2p2/5p2/2p2P1p/2P2P2/1p2K3/7R/2k5 w - - 0 47\n\nLet's decode board.\n\nRank 8: \"8\" empty.\n\nRank 7: \"2b2p2\" => squares a7 empty, b7 empty? Actually \"2\" means two empty squares, then \"b\" black bishop on c7? Wait: Let's map: a7 empty, b7 empty, c7 black bishop? Actually \"2b2p2\": 2 empty, then b (black bishop) on c7? Let's parse: characters: '2' = two empty squares a7,b7; then 'b' = black bishop on c7; then '2' = two empty squares d7,e7; then 'p' = black pawn on f7; then '2' = two empty squares g7,h7. So rank 7: a7 . b7 . c7 black bishop, d7 . e7 . f7 black pawn, g7 . h7 . So pieces: B c7, pawn f7.\n\nRank 6: \"5p2\" => five empty squares a6-e6, then 'p' black pawn on f6, then '2' empty g6,h6. So black pawn at f6.\n\nRank 5: \"2p2P1p\" => '2' empty a5,b5; 'p' black pawn on c5; '2' empty d5,e5; 'P' white pawn on f5; '1' empty g5; 'p' black pawn on h5? Wait \"1p\" means one empty then p? Actually after 'P' we have \"1p\": that's '1' empty square g5, then 'p' black pawn on h5. So black pawn at h5.\n\nRank 4: \"2P2P2\" => '2' empty a4,b4; 'P' white pawn on c4; '2' empty d4,e4; 'P' white pawn on f4; '2' empty g4,h4. So white pawns at c4 and f4.\n\nRank 3: \"1p",
+          "latencyMs": 360,
+          "promptTokens": 199,
+          "completionTokens": 500,
+          "totalTokens": 699
         }
       }
     },
@@ -332,6 +420,28 @@
           "promptTokens": 178,
           "completionTokens": 4,
           "totalTokens": 182
+        },
+        "z-ai/glm-4.5-air:free": {
+          "move": "h7h6",
+          "isCorrect": false,
+          "isLegal": true,
+          "parseMethod": "san",
+          "rawOutput": "\nLet me analyze the position to find a mate in 1 for Black.\n\nFEN: 8/p4Q1p/6p1/7k/2Ppq2P/7K/P4R1P/8 b - - 0 46\n\nThis is Black's turn to move. The board has:\n- Black king on h7\n- Black queen on g7\n- Black pawns on a7, h6, g5\n- White king on g6\n- White pawns on c5, f4, h2\n- White rook on a2\n\nBlack has several pieces that could potentially deliver mate in 1:\n\n1. The queen on g7 could potentially move to a square that attacks the white king and cannot be captured.\n2. The pawn on g5 could potentially promote to a queen or other piece that delivers mate.\n\nLet's check each possibility:\n\nQueen moves:\n- The queen on g7 could move to h8, but the white king can capture it on g6.\n- The queen could move to f6, but the white king can capture it on g6.\n- The queen could move to e5, but the white pawn on f4 can capture it.\n- The queen could move to d4, but the white pawn on c5 can capture it.\n- The queen could move to c3, but the white rook on a2 can capture it.\n- The queen could move to h6, but the white king can capture it on g6.\n- The queen could move to g6, but that's where the white king is.\n\nNone of the queen moves seem to deliver mate in 1.\n\nPawn moves:\n- The pawn on g5 could move to g4, but that doesn't threaten mate.\n- The pawn on g5 could move to g3, but that doesn't threaten mate.\n- The pawn on g5 could move to g2, but that doesn't threaten mate.\n- The pawn on g5 could move to g1, promoting to a queen, rook, bishop, or knight. Let's check each:\n  - g1q: The new queen on g1 would be attacked by the white rook on a2.\n  - g1r: The new rook on g1 would be attacked by the white rook on a2.\n  - g1b: The new bishop on g1 would be",
+          "latencyMs": 256,
+          "promptTokens": 180,
+          "completionTokens": 500,
+          "totalTokens": 680
+        },
+        "nvidia/nemotron-3-nano-30b-a3b:free": {
+          "move": "g3h4",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "We need to solve mate in 1 for side to move? The FEN shows side to move is \"b\". That means Black to move. The opponent last move was g3h4 (presumably White moved a pawn from g3 to h4?). Actually g3h4 is a pawn move from g3 to h4? That would be a pawn moving forward one? But g3 to h4 is a capture? Actually pawns move forward one rank for their color. If it's White's pawn from g3 to h4, that would be a capture? White pawns move up (toward rank 8). From g3 to h4 is a forward diagonal? Actually white pawns move from rank 3 to 4 forward one step (g3->g4) or capture diagonally (g3xh4). So g3h4 could be a capture of something on h4? But the notation \"g3h4\" likely indicates a pawn moved from g3 to h4, maybe a pawn move (non-capture) is just \"g3g4\"? So \"g3h4\" is ambiguous. In algebraic notation, a pawn move to a square is just the destination square, but they wrote \"g3h4\" which looks like a move from g3 to h4, maybe a pawn capture? Actually a pawn from g3 could capture on h4 if there is a piece there. So maybe White captured something on h4 with a pawn from g3. So the last move was a pawn capture from g3 to h4, landing on h4. That would be a white pawn moving to h4. So now it's Black to move, and we need to deliver mate in 1.\n\nLet's parse the position.\n\nFEN: 8/p4Q1p/6p1/7k/2Ppq2P/7K/P4R1P/8 b - - 0 46\n\nLet's set up board.\n\nRank 8: \"8\" empty.\n\nRank 7: \"p4Q1p\" => black pawn on a7, then four empty squares b7-c7-d7, then white queen on e7, then 1 empty? Actually \"p4Q1p\" means: p (a7), 4 (b7-c7-d7-e7? Wait count: after a7",
+          "latencyMs": 214,
+          "promptTokens": 192,
+          "completionTokens": 500,
+          "totalTokens": 692
         }
       }
     },
@@ -401,6 +511,28 @@
           "promptTokens": 188,
           "completionTokens": 10,
           "totalTokens": 198
+        },
+        "z-ai/glm-4.5-air:free": {
+          "move": "d7c8",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "\nLet me analyze the position to find a mate in 1.\n\nFEN: 1Qb1k2r/4npp1/p4q1p/3P4/P5P1/1P5P/6B1/4R1K1 w k - 4 36\n\nThis is White to move, and there's a possibility of castling for Black (k indicates kingside castling is still available).\n\nLet me visualize the board:\n\nRow 8: 1 Q b 1 k 2 r (White Queen on a8, Black Bishop on b8, Black King on e8, Black Rook on h8)\nRow 7: 4 n p p 1 (Black Knight on d7, Black pawns on e7, f7, g7)\nRow 6: p 4 q 1 p (Black pawn on a6, Black Queen on f6, Black pawn on h6)\nRow 5: 3 P 4 (White pawn on d5)\nRow 4: P 5 P 1 (White pawn on a4, White pawn on f4, Black pawn on h4)\nRow 3: 1 P 5 P (White pawn on b3, White pawn on g3)\nRow 2: 6 B 1 (White Bishop on g2)\nRow 1: 4 R 1 K 1 (White Rook on e1, White King on g1)\n\nWhite's pieces:\n- Queen on a8\n- Rook on e1\n- Bishop on g2\n- Pawns on a4, b3, d5, f4, g3\n\nBlack's pieces:\n- King on e8\n- Rook on h8\n- Bishop on b8\n- Knight on d7\n- Queen on f6\n- Pawns on a6, e7, f7, g7, h4\n\nThe opponent's last move was d7c8, which means the Black Knight moved from d7 to c8. This is an unusual move as it puts the Knight on an unprotected square.\n\nNow, let's look for checkmating moves for White:\n\n1. Queen moves:\n   - Qa8-h1: This would put the Black King in check, but the King can move to d8 or f8.\n   - Qa8-e4",
+          "latencyMs": 241,
+          "promptTokens": 191,
+          "completionTokens": 500,
+          "totalTokens": 691
+        },
+        "nvidia/nemotron-3-nano-30b-a3b:free": {
+          "move": "d5d6",
+          "isCorrect": false,
+          "isLegal": true,
+          "parseMethod": "san",
+          "rawOutput": "We need to solve mate in 1. Position: FEN: 1Qb1k2r/4npp1/p4q1p/3P4/P5P1/1P5P/6B1/4R1K1 w k - 4 36\n\nLet's parse board.\n\nWhite pieces: King on g1? Actually \"4R1K1\" at end: squares: a8 empty? Let's map.\n\nFEN: 1Qb1k2r / 4npp1 / p4q1p / 3P4 / P5P1 / 1P5P / 6B1 / 4R1K1 w ...\n\nLet's write ranks 8 to 1.\n\nRank8: \"1Qb1k2r\" => squares: a8 empty, b8 Q, c8 b, d8 k, e8 2? Wait \"1k2r\"? Actually \"1Qb1k2r\": let's parse: 1 empty, Q, b, 1 empty, k, 2 empty, r. So a8 empty, b8 Q, c8 b, d8 empty? Wait need to be careful.\n\nLet's write each rank:\n\n8: \"1Qb1k2r\"\n- count: 1 empty (a8)\n- Q (b8)\n- b (c8)\n- 1 empty (d8)\n- k (e8)\n- 2 empty (f8,g8)\n- r (h8)\n\nSo pieces: Qb at b8, black bishop at c8, black king at e8, black rook at h8.\n\nRank7: \"4npp1\"\n- 4 empty (a7,b7,c7,d7)\n- n (e7) black knight\n- p (f7) black pawn\n- p (g7) black pawn\n- 1 empty (h7)\n\nRank6: \"p4q1p\"\n- p (a6) black pawn\n- 4 empty (b6,c6,d6,e6,f6,g6)\n- q (h6?) Wait \"1p\" at end? Actually \"p4q1p\": after 4 empties, then q, then 1 empty, then p. So squares: a6 black pawn,",
+          "latencyMs": 269,
+          "promptTokens": 202,
+          "completionTokens": 500,
+          "totalTokens": 702
         }
       }
     },
@@ -470,6 +602,28 @@
           "promptTokens": 189,
           "completionTokens": 4,
           "totalTokens": 193
+        },
+        "z-ai/glm-4.5-air:free": {
+          "move": "a7f8",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "\nI need to find a mate in 1 for the white player in this position. Let me analyze the board first.\n\nFEN: 1r3r1k/R6n/1Bp2nQ1/2Pp2pp/3P3b/4PpNq/4NP2/2R3K1 w - - 4 37\n\nThis is a white-to-move position, and I need to find a move that checkmates the black king in one move.\n\nLet me visualize the board:\n\nRow 8 (black back rank): 1 r 3 r 1 k (rook, empty, empty, empty, rook, empty, king)\nRow 7: R 6 n (white rook, empty x6, black knight)\nRow 6: 1 B p 2 n Q 1 (empty, white bishop, black pawn, empty x2, black knight, white queen, empty)\nRow 5: 2 P p 2 p p (white pawn x2, black pawn, empty x2, black pawn x2)\nRow 4: 3 P 3 b (white pawn x3, empty x3, black bishop)\nRow 3: 4 P p N q (empty x4, white pawn, black pawn, white knight, black queen)\nRow 2: 4 N P 2 (empty x4, white knight, white pawn, empty x2)\nRow 1: 2 R 3 K 1 (white pawn x2, white rook, empty x3, white king, empty)\n\nThe black king is on h8. Let me check what squares it can move to:\n- g8: occupied by black rook\n- h7: occupied by black knight\n- g7: empty, but would be attacked by white rook on a7\n- f8: empty, but would be attacked by white rook on a8\n\nSo the king has no legal moves.\n\nNow I need to find a white move that puts the black king in check, and from which the king cannot escape.\n\nLet me check possible checks:\n\n1. Queen moves:\n   - The white queen is on f6. It can check the king by moving to h6, but the king can capture the queen on h8.\n   - The queen can also check by moving to f8, but",
+          "latencyMs": 3912,
+          "promptTokens": 195,
+          "completionTokens": 500,
+          "totalTokens": 695
+        },
+        "nvidia/nemotron-3-nano-30b-a3b:free": {
+          "move": "c8d8",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "We need to solve mate in 1. Position: FEN: 1r3r1k/R6n/1Bp2nQ1/2Pp2pp/3P3b/4PpNq/4NP2/2R3K1 w - - 4 37\n\nLet's parse board.\n\nWhite to move. Let's reconstruct board.\n\nRank 8: \"1r3r1k\" => squares a8 empty? Actually \"1\" means empty a8, then \"r\" at b8? Wait: \"1r3r1k\": characters: '1' empty a8, 'r' black rook on b8, '3' three empties c8 d8 e8, 'r' black rook on f8? Actually after 3 empties, then 'r' at f8, '1' empty g8, 'k' black king on h8. So rank8: a8 empty, b8 black rook, c8 empty, d8 empty, e8 empty, f8 black rook, g8 empty, h8 black king.\n\nRank7: \"R6n\" => 'R' white rook on a7, '6' six empties b7-g7, 'n' black knight on h7.\n\nRank6: \"1Bp2nQ1\" => '1' empty a6, 'B' white bishop on b6, 'p' black pawn on c6, '2' empties d6 e6, 'n' black knight on f6, 'Q' white queen on g6, '1' empty h6.\n\nRank5: \"2Pp2pp\" => '2' empties a5 b5, 'P' white pawn on c5, 'p' black pawn on d5, '2' empties e5 f5, 'p' black pawn on g5, 'p' black pawn on h5.\n\nRank4: \"3P3b\" => '3' empties a4 b4 c4, 'P' white pawn on d4, '3' empties e4 f4 g4, 'b' black bishop on h4.\n\nRank3: \"4PpNq\" => '4' empties a3 b3 c3 d3, 'P'",
+          "latencyMs": 270,
+          "promptTokens": 206,
+          "completionTokens": 500,
+          "totalTokens": 706
         }
       }
     },
@@ -541,6 +695,28 @@
           "promptTokens": 172,
           "completionTokens": 5,
           "totalTokens": 177
+        },
+        "z-ai/glm-4.5-air:free": {
+          "move": "h8d8",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "\nLet me analyze the position to find a mate in 1.\n\nFEN: 2kr4/4P3/pBP5/8/1KP1r3/1P6/p7/8 w - - 0 57\n\nThis is White's turn to move. Let me visualize the board:\n\n```\n  a b c d e f g h\n8| . . k r . . . .|\n7| . . . . P . . .|\n6| p B P . . . . .|\n5| . . . . . . . .|\n4| . K P . r . . .|\n3| . P . . . . . .|\n2| p . . . . . . .|\n1| . . . . . . . .|\n```\n\nWhite pieces:\n- King on e3\n- Pawns on d7, e4, f3, g2\n- Bishop on c6\n\nBlack pieces:\n- King on c8\n- Rook on d8\n- Rook on e4\n- Pawn on a7, b6, g7\n\nThe opponent's last move was h8d8, which means the black rook moved from h8 to d8.\n\nNow, let's look for checkmating moves for White:\n\n1. d7-d8Q+ - This would promote the pawn to a queen and check the black king. However, the black king can capture the queen on d8 (Kxd8), so this is not mate.\n\n2. Bc6-d7+ - This would check the black king with the bishop. The black king could move to b8 or d8, but d8 is attacked by the white pawn on d7, so the king would have to go to b8. This is not mate.\n\n3. Ke3-f4 - This would move the king to f4, but it doesn't deliver check.\n\n4. Ke3-d3 - This would move the king to d3, but it doesn't deliver check.\n\n5. f3-f4 - This would move the pawn to f4, but it doesn't deliver check.\n\n6. g2-g3 - This would move the pawn to g3, but it doesn't deliver check.\n\n7. e4-e5 - This would move the pawn to e5, but it doesn't deliver check.\n\n8. d7-d8",
+          "latencyMs": 4377,
+          "promptTokens": 177,
+          "completionTokens": 500,
+          "totalTokens": 677
+        },
+        "nvidia/nemotron-3-nano-30b-a3b:free": {
+          "move": "c6c7",
+          "isCorrect": false,
+          "isLegal": true,
+          "parseMethod": "san",
+          "rawOutput": "We need to solve mate in 1. Position: FEN: 2kr4/4P3/pBP5/8/1KP1r3/1P6/p7/8 w - - 0 57\n\nLet's parse board.\n\nRank 8: \"2kr4\" => squares a8 empty, b8 empty, c8 k, d8 r, e8 empty, f8 empty, g8 empty, h8 empty? Wait \"2kr4\": 2 empty, then k, r, then 4 empty. So a8 empty, b8 empty, c8 k, d8 r, e8 empty, f8 empty, g8 empty, h8 empty. So black king on c8, black rook on d8.\n\nRank 7: \"4P3\" => 4 empty, P (white pawn) on e7? Actually squares a7,b7,c7,d7 empty, e7 white pawn, then 3 empty: f7,g7,h7 empty.\n\nRank 6: \"pBP5\" => p (black pawn) on a6, B (white bishop) on b6, P (white pawn) on c6, then 5 empty: d6,e6,f6,g6,h6 empty.\n\nRank 5: \"8\" all empty.\n\nRank 4: \"1KP1r3\" => 1 empty a4, K white king on b4, P white pawn on c4, 1 empty d4, r black rook on e4, 3 empty f4,g4,h4.\n\nRank 3: \"1P6\" => 1 empty a3, P white pawn on b3, then 6 empty b3? Actually after that 6 empty squares c3 through h3 empty.\n\nRank 2: \"p7\" => p black pawn on a2, then 7 empty b2..h2.\n\nRank 1: \"8\" all empty.\n\nSide to move: white.\n\nWe need to find a move delivering mate in 1. Let's examine material: White pieces: King b4, pawns at e7, c6, b3, maybe also? Actually white pawn at e7, c6, b3. Also bishop at b6. Rook? No white rook none. Black pieces: King c8,",
+          "latencyMs": 235,
+          "promptTokens": 189,
+          "completionTokens": 500,
+          "totalTokens": 689
         }
       }
     },
@@ -609,6 +785,28 @@
           "promptTokens": 186,
           "completionTokens": 4,
           "totalTokens": 190
+        },
+        "z-ai/glm-4.5-air:free": {
+          "move": "h4d8",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "\nI need to find a mate in 1 for the black side in this position. Let me analyze the FEN:\n\nFEN: 2rB1k2/p4ppp/1p2p3/1Bb1N2b/1n6/1Q5P/PPq2PP1/4RK1R b - - 0 24\n\nThis means:\n- It's Black's turn to move (the 'b' in the FEN)\n- The position is:\n  - White pieces: King on g1, Rook on f1 and h1, Queen on e2, Bishop on c3, Knight on d4, Pawns on a2, b2, c2, f2, g2, h2\n  - Black pieces: King on e8, Rook on d8, Bishop on c7 and f5, Knight on b5, Pawns on a7, b7, d7, e7, f7, g7, h7\n\nThe opponent's last move was h4d8, which means a black piece moved from h4 to d8. Looking at the position, there's a black rook on d8, so this was likely a black rook that moved from h4 to d8.\n\nNow I need to find a move for Black that results in checkmate in one move.\n\nLet me look for checks that Black can deliver:\n\n1. The rook on d8 can check the white king on g1 by moving to g8 (d8g8). But the white king can move to h1 or h2, so this is not mate.\n\n2. The bishop on c7 can check the white king by moving to h2 (c7h2). But the white king can move to h1, and the pawn on g2 can capture the bishop, so this is not mate.\n\n3. The bishop on f5 can check the white king by moving to g4 (f5g4). But the white king can move to h1 or h2, and the pawn on g2 can capture the bishop, so this is not mate.\n\n4. The knight on b5 can check the white king by moving to d4 (b5d4). But the white knight on d4 can capture the black knight, so this is not mate.\n\n5. The queen on e2 is actually",
+          "latencyMs": 4419,
+          "promptTokens": 195,
+          "completionTokens": 500,
+          "totalTokens": 695
+        },
+        "nvidia/nemotron-3-nano-30b-a3b:free": {
+          "move": "h4d8",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "We need to solve mate in 1. Position: FEN: 2rB1k2/p4ppp/1p2p3/1Bb1N2b/1n6/1Q5P/PPq2PP1/4RK1R b - - 0 24\n\nIt's black to move? Actually FEN shows side to move after \"b\". So black to move. Opponent last move was h4d8. That seems weird: h4 to d8? That's a knight? Actually piece on h4 moving to d8? That seems illegal. Maybe it's a pawn promotion? But we just need to find a forced mate in 1 for black.\n\nLet's parse board.\n\nFEN: \"2rB1k2/p4ppp/1p2p3/1Bb1N2b/1n6/1Q5P/PPq2PP1/4RK1R b - - 0 24\"\n\nLet's map ranks 8 to 1.\n\nRank8: \"2rB1k2\" => squares a8 empty, b8 empty, c8 r (black rook), d8 B (white bishop), e8 1? Actually \"1k2\" means e8 empty? Wait \"1k2\" means one empty then k then two empties? Actually notation: numbers indicate empty squares. So \"2rB1k2\": 2 empty, r, B, 1 empty, k, 2 empty. So squares: a8 empty, b8 empty, c8 r (black rook), d8 B (white bishop), e8 empty, f8 k (black king), g8 empty, h8 empty. So black king on f8.\n\nRank7: \"p4ppp\" => p at a7 (black pawn), then 4 empties b7-c7-d7-e7, then p at f7, p at g7, p at h7. So black pawns on a7, f7, g7, h7.\n\nRank6: \"1p2p3\" => 1 empty a6, p at b6, 2 empties c6 d6, p at e6, 3 empties f6 g6 h6. So black pawn at b6, e6.\n\nRank",
+          "latencyMs": 189,
+          "promptTokens": 206,
+          "completionTokens": 500,
+          "totalTokens": 706
         }
       }
     },
@@ -677,6 +875,28 @@
           "promptTokens": 178,
           "completionTokens": 4,
           "totalTokens": 182
+        },
+        "z-ai/glm-4.5-air:free": {
+          "move": "d1f3",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "\nI need to find a mate in 1 for the black side in this position. Let me analyze the FEN:\n\nFEN: rnb2rk1/ppp2ppp/8/8/3qnR1N/1B3Q2/PPPP3p/RNB4K b - - 3 12\n\nThis means:\n- It's black's turn to move\n- The position is as follows:\n  - Black pieces: rnb2rk1 (rook, knight, bishop, king on h8, rook on a8)\n  - White pieces: RNB4K (rook, knight, bishop, king on g1)\n  - There are also pawns and other pieces on the board\n\nLet me visualize the board:\n\n```\n8 r n b . . r k 1\n7 p p p . . p p p\n6 . . . . . . . .\n5 . . . . . . . .\n4 . . . q n R . N\n3 . B . . . Q . .\n2 P P P P . . . p\n1 R N B . . . . K\n  a b c d e f g h\n```\n\nBlack's last move was d1f3, which doesn't make sense in this position. Let me re-examine the FEN.\n\nActually, the FEN shows it's black's turn to move, but the context says \"Opponent last move (context): d1f3\". This suggests that white just moved a piece from d1 to f3. But in the FEN, there's no piece on f3 for white. Let me check again.\n\nLooking at the FEN again: rnb2rk1/ppp2ppp/8/8/3qnR1N/1B3Q2/PPPP3p/RNB4K b - - 3 12\n\nThe 5th rank (3qnR1N) shows:\n- Black queen on d5\n- Black knight on e5\n- White rook on f5\n- White knight on g5\n\nThe 6th rank (1B3Q2) shows:\n- Black bishop on c6\n- White queen on f6\n\nSo white's last move d1f3 doesn't match the current position. There's no piece that could have moved from d1 to f3. Let me assume this is a mistake and focus on finding a mate in 1 for black.\n\nLet's analyze the position for black's possible moves that could lead to mate:\n\n1. Black's queen on d5:\n   - Could move to various squares, checking the white king\n   - For example, Qd1+ would check the king, but white could block with Bf1 or capture with the rook on f5\n   - Qh1+ would check, but white could block with Bf1 or capture with the rook on f5\n   - Qg2+ would check, but white could capture with the knight on g5 or the bishop on c1\n\n2. Black's knight on e5:\n   - Could move to g4, checking the king\n   - White could block with Bf1 or capture with the rook on f5\n\n3. Black's rook on a8:\n   - Could move to a1, checking the king\n   - White could block with Bf1 or capture with the rook on f5\n\n4. Black's bishop on c6:\n   - Could move to f3, checking the king\n   - White could block with Bf1 or capture with the rook on f5\n\n5. Black's pawn on h7:\n   - Could move to h6, but this doesn't check the king\n\n6. Black's pawn on g6:\n   - Could move to g5, but this doesn't check the king\n\n7. Black's pawn on f7:\n   - Could move to f5, but this doesn't check the king\n\n8. Black's pawn on e7:\n   - Could move to e5, but this doesn't check the king\n\n9. Black's pawn on d7:\n   - Could move to d5, but this doesn't check the king\n\n10. Black's pawn on c7:\n    - Could move to c5, but this doesn't check the king\n\n11. Black's pawn on b7:\n    - Could move to b5, but this doesn't check the king\n\n12. Black's pawn on a7:\n    - Could move to a5, but this doesn't check the king\n\nAfter analyzing all possible moves, I don't see a clear mate in 1 for black. Let me double-check:\n\n1. If black plays Qd1+, white can play Bf1 to block.\n2. If black plays Qh1+, white can play Bf1 to block.\n",
+          "latencyMs": 5425,
+          "promptTokens": 185,
+          "completionTokens": 1024,
+          "totalTokens": 1209
+        },
+        "nvidia/nemotron-3-nano-30b-a3b:free": {
+          "move": "d1f3",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "We need to solve mate in 1. Position: FEN: rnb2rk1/ppp2ppp/8/8/3qnR1N/1B3Q2/PPPP3p/RNB4K b - - 3 12. It's Black to move? Actually side to move is indicated by \"b\" after moves? The FEN shows \"b - - 3 12\". In standard FEN, the fifth field is \"b\" meaning black to move? Actually FEN fields: 1) board, 2) side to move, 3) castling rights, 4) en passant target, 5) halfmove clock, 6) fullmove number. So \"b\" means black to move. So it's Black's turn. The opponent's last move was d1f3 (presumably White moved a piece from d1 to f3). That matches: White's knight from d1 to f3? Actually initial position white knights at b1 and g1. But after some moves, a white piece could be on d1 originally? Actually white's queen started on d1, but could have moved. However the opponent's last move is d1f3, which suggests a piece moved from d1 to f3. That could be a white queen moving from d1 to f3? But queen can't go from d1 to f3 (it's a diagonal? d1 to f3 is two squares forward and two to the right? Actually from d1 to f3 is a knight move? No, queen can move like rook or bishop; d1 to f3 is two files right and two ranks up, that's a knight move? Actually that's a (2,2) offset, which is not a queen move; queen can't do that. So maybe it's a pawn from d2 to d3? No. Or maybe it's a white bishop from c1 to d2? Not d1. Could be a white rook from a1 to d1? No. Actually maybe it's a white knight from c3 to d1? But they said opponent last move (context): d1f3. That suggests a move from d1 to f3, which is a knight move? Knight moves in L shape: 2 files 1 rank or 1 file 2 ranks. d",
+          "latencyMs": 562,
+          "promptTokens": 198,
+          "completionTokens": 500,
+          "totalTokens": 698
         }
       }
     },
@@ -746,6 +966,28 @@
           "promptTokens": 179,
           "completionTokens": 4,
           "totalTokens": 183
+        },
+        "z-ai/glm-4.5-air:free": {
+          "move": "d4d5",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "\nLet me analyze the position and find a mate in 1 for White.\n\nFEN: 5b1k/p6r/2q5/2P1pQ2/P7/7P/5PP1/2R3K1 w - - 0 30\n\nThis is White's turn to move. Let me visualize the board:\n\nWhite pieces:\n- King on h1\n- Rook on d1\n- Pawn on d4\n- Pawn on f2\n- Pawn on g2\n- Pawn on h2\n- Queen on e4\n\nBlack pieces:\n- King on g8\n- Rook on h7\n- Queen on c6\n- Bishop on f8\n- Pawn on c7\n- Pawn on e5 (just moved from f6 according to the context)\n\nNow, let's look for checkmating moves for White:\n\n1. Queen moves:\n   - Qe4-d5: This would check the king, but the king can move to h8 or f8.\n   - Qe4-f5: This would check the king, but the king can move to h8 or f8.\n   - Qe4-g6: This would check the king, but the king can move to h8 or f8.\n   - Qe4-h7: This would check the king, but the rook on h7 can capture the queen.\n   - Qe4-e6: This would check the king, but the pawn on e5 can capture the queen.\n   - Qe4-c6: This would check the king, but the queen on c6 can capture the queen.\n   - Qe4-d4: This would check the king, but the king can move to h8 or f8.\n\n2. Rook moves:\n   - Rd1-d7: This would check the king, but the king can move to h8 or f8.\n   - Rd1-d8: This would check the king, but the king can move to h8.\n   - Rd1-h1: This doesn't check the king.\n   - Rd1-e1: This doesn't check the king.\n\n3. Pawn moves:\n   - d4-d5: This doesn't check the king.\n   - f2-f3: This doesn't check the king.\n   - g2-g3: This doesn't check the king.\n   -",
+          "latencyMs": 3946,
+          "promptTokens": 184,
+          "completionTokens": 500,
+          "totalTokens": 684
+        },
+        "nvidia/nemotron-3-nano-30b-a3b:free": {
+          "move": "a8f8",
+          "isCorrect": false,
+          "isLegal": false,
+          "parseMethod": "uci",
+          "rawOutput": "We need to solve mate in 1. Position: FEN: 5b1k/p6r/2q5/2P1pQ2/P7/7P/5PP1/2R3K1 w - - 0 30\n\nLet's parse board.\n\nWhite pieces: King on g1? Actually \"2R3K1\" at end: squares a8 to h8? Let's map.\n\nFEN: rank8: \"5b1k\" => squares: a8 empty, b8 empty, c8 empty, d8 empty, e8 empty, f8 empty? Wait \"5b1k\": that's 5 empty squares then b then 1 empty then k? Actually notation: numbers represent empty squares. \"5b1k\" means 5 empty, then b, then 1 empty, then k. So squares a8-f8? Let's count: 5 empty squares = a8,b8,c8,d8,e8 empty. Then 'b' piece on f8? Actually after 5 empties, next char is 'b' which is a piece on the 6th file: f8 is 'b'? Wait file order: a b c d e f g h. So after 5 empties, the 6th square is f8, which contains 'b' (black bishop). Then '1' means one empty square: g8 empty. Then 'k' is on h8: black king on h8.\n\nRank7: \"p6r\" => p on a7 (black pawn), then 6 empties b7-g7, then r on h7 (black rook).\n\nRank6: \"2q5\" => 2 empties a6,b6, then q on c6 (black queen), then 5 empties d6-h6.\n\nRank5: \"2P1pQ2\" => 2 empties a5,b5, then P on c5 (white pawn), then 1 empty d5, then p on e5 (black pawn), then Q on f5 (white queen), then 2 empties g5,h5.\n\nRank4: \"P7\" => P on a4 (white pawn), then 7 empties b4-h4.\n\nRank3: \"7\" => all empty a3-h3.\n\nRank2: \"",
+          "latencyMs": 198,
+          "promptTokens": 195,
+          "completionTokens": 500,
+          "totalTokens": 695
         }
       }
     }

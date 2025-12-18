@@ -1,7 +1,7 @@
 [
   {
-    "id": "google/gemini-3-flash-preview",
-    "name": "Gemini 3 Flash Preview",
+    "id": "nvidia/nemotron-3-nano-30b-a3b:free",
+    "name": "NVIDIA Nemotron 3 Nano 30B A3B",
     "temperature": 0,
     "maxTokens": 500
   }

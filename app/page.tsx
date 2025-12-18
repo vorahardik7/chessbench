@@ -39,24 +39,9 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-neutral-900 text-neutral-200 font-sans selection:bg-neutral-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-12">
         {/* Header */}
         <header className="mb-12 text-center space-y-4">
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-neutral-800 border border-neutral-700 text-sm text-neutral-400">
-              <span className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
-              {new Date(data.runAt).toLocaleDateString()}
-            </div>
-            <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-neutral-800/50 border border-neutral-700/50 text-xs text-neutral-500">
-              <span className="font-mono text-neutral-400">{data.runId}</span>
-            </div>
-            <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-neutral-800/50 border border-neutral-700/50 text-xs text-neutral-500">
-              {data.puzzles?.length ?? 0} puzzles
-            </div>
-            <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-neutral-800/50 border border-neutral-700/50 text-xs text-neutral-500">
-              {data.models?.length ?? 0} models
-            </div>
-          </div>
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-b from-white to-neutral-500 bg-clip-text text-transparent pb-2">
             ChessBench
           </h1>
