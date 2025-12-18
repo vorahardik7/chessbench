@@ -256,7 +256,7 @@ export default function PuzzlesTab({ data }: { data: BenchmarkData }) {
 
   return (
     <div
-      className="grid gap-6 lg:gap-8 lg:grid-cols-[420px_minmax(0,1fr)] xl:grid-cols-[460px_minmax(0,1fr)] lg:items-start"
+      className="grid gap-6 lg:gap-8 lg:grid-cols-[300px_minmax(0,1fr)] xl:grid-cols-[340px_minmax(0,1fr)] lg:items-start"
       style={{ minHeight: '660px' }}
     >
       {/* Sidebar */}
@@ -461,7 +461,7 @@ export default function PuzzlesTab({ data }: { data: BenchmarkData }) {
             <div className="flex flex-col lg:flex-row gap-6 xl:gap-8 h-full">
               {/* Board Column - Flexible width, centered */}
               <div className="flex-1 flex flex-col items-center justify-center min-h-[400px]">
-                <div className="w-full max-w-[80vh] xl:max-w-[85vh] aspect-square">
+                <div className="w-full max-w-[60vh] xl:max-w-[65vh] aspect-square">
                   <div className="w-full h-full rounded-2xl border border-neutral-800 bg-neutral-950/40 p-3 shadow-2xl shadow-black/50 ring-1 ring-white/5 backdrop-blur-sm">
                     <ChessBoard
                       fen={selectedPuzzle.fen}
@@ -491,7 +491,7 @@ export default function PuzzlesTab({ data }: { data: BenchmarkData }) {
               </div>
 
               {/* Details Column - Fixed width on large screens */}
-              <div className="lg:w-[400px] xl:w-[450px] flex flex-col gap-4 lg:py-3">
+              <div className="lg:w-[320px] xl:w-[280px] flex flex-col gap-4 lg:py-3">
                 {/* Result Status Banner */}
                 <div className={`rounded-xl border p-4 ${
                   modelResult?.isCorrect 

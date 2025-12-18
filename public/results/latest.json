@@ -1,6 +1,6 @@
 {
-  "runId": "bench-2025-12-18T03-45-10-373Z",
-  "runAt": "2025-12-18T03:45:10.373Z",
+  "runId": "bench-2025-12-18T19-54-23-265Z",
+  "runAt": "2025-12-18T19:54:23.265Z",
   "promptVersion": "v1.0",
   "models": [
     {
@@ -35,6 +35,17 @@
         "mate3": 0
       },
       "avgLatencyMs": 3942
+    },
+    {
+      "id": "google/gemini-2.5-pro",
+      "name": "Gemini 2.5 Pro",
+      "score": 40,
+      "breakdown": {
+        "mate1": 40,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 2876
     },
     {
       "id": "google/gemini-2.5-flash",
@@ -171,6 +182,17 @@
           "promptTokens": 193,
           "completionTokens": 500,
           "totalTokens": 693
+        },
+        "google/gemini-2.5-pro": {
+          "move": "g5g3",
+          "isCorrect": false,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "g5g3",
+          "latencyMs": 3604,
+          "promptTokens": 177,
+          "completionTokens": 480,
+          "totalTokens": 657
         }
       }
     },
@@ -262,6 +284,17 @@
           "promptTokens": 206,
           "completionTokens": 500,
           "totalTokens": 706
+        },
+        "google/gemini-2.5-pro": {
+          "move": "c1a3",
+          "isCorrect": false,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "c1a3",
+          "latencyMs": 2746,
+          "promptTokens": 185,
+          "completionTokens": 482,
+          "totalTokens": 667
         }
       }
     },
@@ -352,6 +385,17 @@
           "promptTokens": 199,
           "completionTokens": 500,
           "totalTokens": 699
+        },
+        "google/gemini-2.5-pro": {
+          "move": "h2h1",
+          "isCorrect": true,
+          "isLegal": true,
+          "parseMethod": "san",
+          "rawOutput": "Rh2h1",
+          "latencyMs": 2945,
+          "promptTokens": 182,
+          "completionTokens": 483,
+          "totalTokens": 665
         }
       }
     },
@@ -442,6 +486,17 @@
           "promptTokens": 192,
           "completionTokens": 500,
           "totalTokens": 692
+        },
+        "google/gemini-2.5-pro": {
+          "move": "e4g4",
+          "isCorrect": true,
+          "isLegal": true,
+          "parseMethod": "san",
+          "rawOutput": "Qg4",
+          "latencyMs": 3153,
+          "promptTokens": 176,
+          "completionTokens": 478,
+          "totalTokens": 654
         }
       }
     },
@@ -533,6 +588,17 @@
           "promptTokens": 202,
           "completionTokens": 500,
           "totalTokens": 702
+        },
+        "google/gemini-2.5-pro": {
+          "move": "d5d6",
+          "isCorrect": false,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "d5d6",
+          "latencyMs": 2649,
+          "promptTokens": 186,
+          "completionTokens": 481,
+          "totalTokens": 667
         }
       }
     },
@@ -624,6 +690,17 @@
           "promptTokens": 206,
           "completionTokens": 500,
           "totalTokens": 706
+        },
+        "google/gemini-2.5-pro": {
+          "move": "g6h7",
+          "isCorrect": false,
+          "isLegal": true,
+          "parseMethod": "san",
+          "rawOutput": "Qxh7",
+          "latencyMs": 2566,
+          "promptTokens": 187,
+          "completionTokens": 481,
+          "totalTokens": 668
         }
       }
     },
@@ -717,6 +794,16 @@
           "promptTokens": 189,
           "completionTokens": 500,
           "totalTokens": 689
+        },
+        "google/gemini-2.5-pro": {
+          "move": "",
+          "isCorrect": false,
+          "parseMethod": "none",
+          "rawOutput": "cxd7",
+          "latencyMs": 3084,
+          "promptTokens": 173,
+          "completionTokens": 479,
+          "totalTokens": 652
         }
       }
     },
@@ -807,6 +894,17 @@
           "promptTokens": 206,
           "completionTokens": 500,
           "totalTokens": 706
+        },
+        "google/gemini-2.5-pro": {
+          "move": "c2e2",
+          "isCorrect": false,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "c2e2",
+          "latencyMs": 2797,
+          "promptTokens": 188,
+          "completionTokens": 480,
+          "totalTokens": 668
         }
       }
     },
@@ -897,6 +995,17 @@
           "promptTokens": 198,
           "completionTokens": 500,
           "totalTokens": 698
+        },
+        "google/gemini-2.5-pro": {
+          "move": "d4g1",
+          "isCorrect": true,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "d4g1",
+          "latencyMs": 2620,
+          "promptTokens": 176,
+          "completionTokens": 483,
+          "totalTokens": 659
         }
       }
     },
@@ -988,6 +1097,17 @@
           "promptTokens": 195,
           "completionTokens": 500,
           "totalTokens": 695
+        },
+        "google/gemini-2.5-pro": {
+          "move": "f5f8",
+          "isCorrect": true,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "f5f8",
+          "latencyMs": 2599,
+          "promptTokens": 180,
+          "completionTokens": 477,
+          "totalTokens": 657
         }
       }
     }

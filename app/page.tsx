@@ -2,6 +2,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { unstable_noStore as noStore } from 'next/cache';
 import BenchmarkExplorer from './components/BenchmarkExplorer';
+import { Analytics } from "@vercel/analytics/next"
 
 export const dynamic = 'force-dynamic';
 
@@ -39,7 +40,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-neutral-900 text-neutral-200 font-sans selection:bg-neutral-800">
-      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-12">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-12">
         {/* Header */}
         <header className="mb-12 text-center space-y-4">
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-b from-white to-neutral-500 bg-clip-text text-transparent pb-2">
@@ -49,6 +50,8 @@ export default async function Home() {
             Benchmarking Large Language Models on chess puzzles.
           </p>
         </header>
+
+        <Analytics />
 
         {/* Main Content */}
         <BenchmarkExplorer data={data} />

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@lichess-org/chessground": "^9.9.0",
+    "@vercel/analytics": "^1.6.1",
     "chess.js": "^1.4.0",
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.560.0",
