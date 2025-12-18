@@ -62,7 +62,6 @@ export default async function Home() {
           </h1>
           <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
             Benchmarking Large Language Models on chess puzzles.
-            <span className="text-neutral-500"> Strict UCI output. Exact match scoring.</span>
           </p>
         </header>
 

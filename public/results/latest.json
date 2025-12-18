@@ -1,8 +1,19 @@
 {
-  "runId": "bench-2025-12-16T20-37-13-612Z",
-  "runAt": "2025-12-16T20:37:13.612Z",
+  "runId": "bench-2025-12-17T21-46-56-039Z",
+  "runAt": "2025-12-17T21:46:56.040Z",
   "promptVersion": "v1.0",
   "models": [
+    {
+      "id": "google/gemini-3-flash-preview",
+      "name": "Gemini 3 Flash Preview",
+      "score": 80,
+      "breakdown": {
+        "mate1": 80,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 829
+    },
     {
       "id": "google/gemini-2.0-flash-001",
       "name": "Gemini 2.0 Flash 001",
@@ -105,6 +116,17 @@
           "promptTokens": 189,
           "completionTokens": 1024,
           "totalTokens": 1213
+        },
+        "google/gemini-3-flash-preview": {
+          "move": "g5g2",
+          "isCorrect": false,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "g5g2",
+          "latencyMs": 927,
+          "promptTokens": 179,
+          "completionTokens": 4,
+          "totalTokens": 183
         }
       }
     },
@@ -163,6 +185,17 @@
           "promptTokens": 199,
           "completionTokens": 1024,
           "totalTokens": 1223
+        },
+        "google/gemini-3-flash-preview": {
+          "move": "d5f7",
+          "isCorrect": true,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "d5f7",
+          "latencyMs": 907,
+          "promptTokens": 187,
+          "completionTokens": 4,
+          "totalTokens": 191
         }
       }
     },
@@ -220,6 +253,17 @@
           "promptTokens": 195,
           "completionTokens": 1024,
           "totalTokens": 1219
+        },
+        "google/gemini-3-flash-preview": {
+          "move": "e3d3",
+          "isCorrect": false,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "e3d3",
+          "latencyMs": 875,
+          "promptTokens": 184,
+          "completionTokens": 4,
+          "totalTokens": 188
         }
       }
     },
@@ -277,6 +321,17 @@
           "promptTokens": 187,
           "completionTokens": 1024,
           "totalTokens": 1211
+        },
+        "google/gemini-3-flash-preview": {
+          "move": "e4g4",
+          "isCorrect": true,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "e4g4",
+          "latencyMs": 603,
+          "promptTokens": 178,
+          "completionTokens": 4,
+          "totalTokens": 182
         }
       }
     },
@@ -335,6 +390,17 @@
           "promptTokens": 198,
           "completionTokens": 500,
           "totalTokens": 698
+        },
+        "google/gemini-3-flash-preview": {
+          "move": "b8c8",
+          "isCorrect": true,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "b8c8 (mate in 1)",
+          "latencyMs": 768,
+          "promptTokens": 188,
+          "completionTokens": 10,
+          "totalTokens": 198
         }
       }
     },
@@ -393,6 +459,17 @@
           "promptTokens": 202,
           "completionTokens": 1024,
           "totalTokens": 1226
+        },
+        "google/gemini-3-flash-preview": {
+          "move": "g6g7",
+          "isCorrect": true,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "g6g7",
+          "latencyMs": 749,
+          "promptTokens": 189,
+          "completionTokens": 4,
+          "totalTokens": 193
         }
       }
     },
@@ -453,6 +530,17 @@
           "promptTokens": 184,
           "completionTokens": 1024,
           "totalTokens": 1208
+        },
+        "google/gemini-3-flash-preview": {
+          "move": "e7d8q",
+          "isCorrect": true,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "e7d8q",
+          "latencyMs": 849,
+          "promptTokens": 172,
+          "completionTokens": 5,
+          "totalTokens": 177
         }
       }
     },
@@ -510,6 +598,17 @@
           "promptTokens": 202,
           "completionTokens": 1024,
           "totalTokens": 1226
+        },
+        "google/gemini-3-flash-preview": {
+          "move": "c2f2",
+          "isCorrect": true,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "c2f2",
+          "latencyMs": 859,
+          "promptTokens": 186,
+          "completionTokens": 4,
+          "totalTokens": 190
         }
       }
     },
@@ -567,6 +666,17 @@
           "promptTokens": 192,
           "completionTokens": 1024,
           "totalTokens": 1216
+        },
+        "google/gemini-3-flash-preview": {
+          "move": "d4g1",
+          "isCorrect": true,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "d4g1",
+          "latencyMs": 907,
+          "promptTokens": 178,
+          "completionTokens": 4,
+          "totalTokens": 182
         }
       }
     },
@@ -625,6 +735,17 @@
           "promptTokens": 191,
           "completionTokens": 1024,
           "totalTokens": 1215
+        },
+        "google/gemini-3-flash-preview": {
+          "move": "f5f8",
+          "isCorrect": true,
+          "isLegal": true,
+          "parseMethod": "uci",
+          "rawOutput": "f5f8",
+          "latencyMs": 844,
+          "promptTokens": 179,
+          "completionTokens": 4,
+          "totalTokens": 183
         }
       }
     }

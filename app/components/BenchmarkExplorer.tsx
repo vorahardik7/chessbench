@@ -3,6 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { DrawShape } from '@lichess-org/chessground/draw';
+import type { Key } from '@lichess-org/chessground/types';
 import { Chess } from 'chess.js';
 import {
   CheckCircle2,
@@ -30,40 +31,12 @@ import {
   LabelList,
 } from 'recharts';
 
-// Types matching our JSON structure
-type ModelResult = {
-  move: string;
-  isCorrect: boolean;
-  rawOutput?: string;
-  latencyMs?: number;
-  promptTokens?: number;
-  completionTokens?: number;
-  totalTokens?: number;
-};
+// Import canonical result types used by the bench runner.
+import type { LatestSnapshot as BenchmarkData } from '../../bench/types';
 
-type PuzzleData = {
-  id: string;
-  level: string;
-  fen: string;
-  lastMoveUci?: string;
-  solutionUci: string;
-  results: Record<string, ModelResult>;
-};
-
-type Model = {
-  id: string;
-  name: string;
-  score: number;
-  breakdown: { mate1: number; mate2: number; mate3: number };
-  avgLatencyMs?: number;
-};
-
-type BenchmarkData = {
-  runId: string;
-  runAt: string;
-  models: Model[];
-  puzzles: PuzzleData[];
-};
+function asKey(square: string): Key {
+  return square as Key;
+}
 
 const CHART_COLORS = {
   primary: '#fbbf24',
@@ -343,13 +316,19 @@ function CustomTooltip({
   );
 }
 
-function CustomLabel(props: { x: number; y: number; width: number; value?: number | string | null }) {
+function CustomLabel(props: any) {
   const { x, y, width, value } = props;
   if (value === null || value === undefined) return null;
+  if (typeof value !== 'number' && typeof value !== 'string') return null;
+
+  const xn = typeof x === 'number' ? x : Number(x);
+  const yn = typeof y === 'number' ? y : Number(y);
+  const wn = typeof width === 'number' ? width : Number(width);
+  if (!Number.isFinite(xn) || !Number.isFinite(yn) || !Number.isFinite(wn)) return null;
   return (
     <text
-      x={x + width / 2}
-      y={y - 8}
+      x={xn + wn / 2}
+      y={yn - 8}
       fill="#d4d4d4"
       textAnchor="middle"
       fontSize={11}
@@ -395,8 +374,8 @@ function PuzzlesTab({ data }: { data: BenchmarkData }) {
     const last = selectedPuzzle.lastMoveUci;
     if (last && last.length >= 4) {
       s.push({
-        orig: last.substring(0, 2),
-        dest: last.substring(2, 4),
+        orig: asKey(last.substring(0, 2)),
+        dest: asKey(last.substring(2, 4)),
         brush: 'blue',
       });
     }
@@ -405,8 +384,8 @@ function PuzzlesTab({ data }: { data: BenchmarkData }) {
     const firstSolutionMove = solutionMoves[0];
     if (firstSolutionMove && firstSolutionMove.length >= 4) {
       s.push({
-        orig: firstSolutionMove.substring(0, 2),
-        dest: firstSolutionMove.substring(2, 4),
+        orig: asKey(firstSolutionMove.substring(0, 2)),
+        dest: asKey(firstSolutionMove.substring(2, 4)),
         brush: 'green',
       });
     }
@@ -416,8 +395,8 @@ function PuzzlesTab({ data }: { data: BenchmarkData }) {
       const firstModelMove = modelMoves[0];
       if (firstModelMove && firstModelMove.length >= 4 && firstModelMove !== firstSolutionMove) {
          s.push({
-          orig: firstModelMove.substring(0, 2),
-          dest: firstModelMove.substring(2, 4),
+          orig: asKey(firstModelMove.substring(0, 2)),
+          dest: asKey(firstModelMove.substring(2, 4)),
           brush: 'red',
         });
       }
@@ -429,7 +408,7 @@ function PuzzlesTab({ data }: { data: BenchmarkData }) {
   const lastMoveHighlight = useMemo(() => {
     const last = selectedPuzzle?.lastMoveUci;
     if (!last || last.length < 4) return undefined;
-    return [last.substring(0, 2), last.substring(2, 4)] as const;
+    return [asKey(last.substring(0, 2)), asKey(last.substring(2, 4))];
   }, [selectedPuzzle]);
 
   const modelStats = useMemo(() => {
@@ -626,8 +605,17 @@ function PuzzlesTab({ data }: { data: BenchmarkData }) {
               >
                 {modelResult?.move ? uciLineToSan(selectedPuzzle.fen, modelResult.move) : 'No output'}
                         </div>
-                        {!modelResult?.isCorrect && (
-                <div className="mt-2 text-xs text-red-400/70">Incorrect move or format</div>
+              {!modelResult?.isCorrect && (
+                <div className="mt-2 text-xs text-red-400/70">
+                  {modelResult?.move
+                    ? modelResult.isLegal === false
+                      ? 'Illegal move for this position'
+                      : 'Incorrect move or format'
+                    : 'No output'}
+                  {modelResult?.parseMethod && modelResult.parseMethod !== 'none' ? (
+                    <span className="ml-2 text-neutral-500">(parsed as {modelResult.parseMethod})</span>
+                  ) : null}
+                </div>
               )}
             </div>
 
@@ -831,7 +819,7 @@ function BenchmarksTab({ data }: { data: BenchmarkData }) {
                           fill={index === 0 ? CHART_COLORS.primary : `rgba(251, 191, 36, ${0.8 - index * 0.06})`}
                         />
                       ))}
-                      <LabelList dataKey="score" content={<CustomLabel />} />
+                      <LabelList dataKey="score" content={CustomLabel} />
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>

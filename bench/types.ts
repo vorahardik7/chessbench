@@ -33,6 +33,8 @@ export type BenchModel = {
 export type ModelPuzzleResult = {
   move: string; // parsed UCI line (space-separated)
   isCorrect: boolean;
+  isLegal?: boolean; // whether the parsed move line is legal from the given FEN (up to required plies)
+  parseMethod?: "uci" | "san" | "none";
   rawOutput?: string;
   latencyMs?: number;
   promptTokens?: number;

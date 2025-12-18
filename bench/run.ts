@@ -122,14 +122,50 @@ function buildPrompt(puzzle: BenchPuzzle): { system: string; user: string } {
     "Output must contain only UCI moves. No explanation. No punctuation. " +
     "If a promotion occurs, write it as a single trailing letter (e.g. a7a8q), not a7a8=Q.";
 
+  const lastMoveLine = puzzle.lastMoveUci ? `Opponent last move (context): ${puzzle.lastMoveUci}\n` : "";
+
   const user =
     `Task: Solve mate in ${n}.\n` +
     `Return exactly ${plies} ply of UCI moves separated by single spaces.\n` +
     `FEN: ${puzzle.fen}\n` +
+    lastMoveLine +
     `Output format example: e2e4 (mate in 1) or e2e4 e7e5 g1f3 (mate in 2)\n` +
     `Now output only the UCI line:`;
 
   return { system, user };
+}
+
+function isUciMove(tok: string): boolean {
+  return /^[a-h][1-8][a-h][1-8][qrbn]?$/i.test(tok.trim());
+}
+
+function validateUciLineLegal(
+  fen: string,
+  uciLine: string,
+  needPlies: number,
+): { isLegal: boolean; appliedPlies: number } {
+  const line = normalizeUciLine(uciLine);
+  if (!line) return { isLegal: false, appliedPlies: 0 };
+
+  const moves = line.split(" ").filter(Boolean).slice(0, needPlies);
+  if (moves.length !== needPlies) return { isLegal: false, appliedPlies: 0 };
+  if (!moves.every(isUciMove)) return { isLegal: false, appliedPlies: 0 };
+
+  const chess = new Chess(fen);
+  let applied = 0;
+  for (const uci of moves) {
+    const from = uci.slice(0, 2);
+    const to = uci.slice(2, 4);
+    const promotion = uci.length > 4 ? uci[4] : undefined;
+    try {
+      const mv = chess.move({ from, to, promotion });
+      if (!mv) return { isLegal: false, appliedPlies: applied };
+      applied++;
+    } catch {
+      return { isLegal: false, appliedPlies: applied };
+    }
+  }
+  return { isLegal: true, appliedPlies: applied };
 }
 
 function safeJsonStringify(value: unknown): string {
@@ -240,11 +276,14 @@ async function evalOne(model: BenchModel, puzzle: BenchPuzzle): Promise<ModelPuz
   let { content, latencyMs, promptTokens, completionTokens, totalTokens } = firstTry;
 
   const need = requiredPlies(puzzle.level);
+  let parseMethod: "uci" | "san" | "none" = "none";
   const toks = extractUciTokens(content);
   let parsed = toks.slice(0, need).join(" ");
+  if (parsed.length > 0) parseMethod = "uci";
   if (parsed.length === 0) {
     // Fallback: many models output SAN even when instructed to output UCI.
     parsed = tryParseSanToUciLine(puzzle.fen, need, content);
+    if (parsed.length > 0) parseMethod = "san";
   }
 
   // If we got nothing and we likely hit the token limit, retry once with a higher cap.
@@ -262,14 +301,25 @@ async function evalOne(model: BenchModel, puzzle: BenchPuzzle): Promise<ModelPuz
 
     const toks2 = extractUciTokens(content);
     parsed = toks2.slice(0, need).join(" ");
-    if (parsed.length === 0) parsed = tryParseSanToUciLine(puzzle.fen, need, content);
+    if (parsed.length > 0) {
+      parseMethod = "uci";
+    } else {
+      parsed = tryParseSanToUciLine(puzzle.fen, need, content);
+      if (parsed.length > 0) parseMethod = "san";
+    }
   }
 
-  const isCorrect = parsed.length > 0 && scoreMove(puzzle.solutionUci, parsed);
+  const legality =
+    parsed.length > 0
+      ? validateUciLineLegal(puzzle.fen, parsed, need)
+      : { isLegal: false, appliedPlies: 0 };
+  const isCorrect = parsed.length > 0 && legality.isLegal && scoreMove(puzzle.solutionUci, parsed);
 
   return {
     move: parsed || "",
     isCorrect,
+    isLegal: parsed.length > 0 ? legality.isLegal : undefined,
+    parseMethod,
     rawOutput: content,
     latencyMs,
     promptTokens,
