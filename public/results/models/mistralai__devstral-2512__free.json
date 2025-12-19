@@ -1,0 +1,130 @@
+{
+  "model": {
+    "id": "mistralai/devstral-2512:free",
+    "name": "Devstral 2512",
+    "temperature": 0,
+    "maxTokens": 500
+  },
+  "runId": "bench-2025-12-18T23-06-51-319Z",
+  "runAt": "2025-12-18T23:06:51.320Z",
+  "promptVersion": "v1.1",
+  "score": 0,
+  "breakdown": {
+    "mate1": 0,
+    "mate2": 0,
+    "mate3": 0
+  },
+  "avgLatencyMs": 762,
+  "results": {
+    "mate1-HR783": {
+      "move": "g5g2",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Analysis: White has a queen on g5 and a pawn on d5, while Black's king is exposed on h2 with limited escape squares. The tactical theme here is a simple **queen checkmate** by exploiting the vulnerable position of the Black king.\n\nThe forcing checkmate sequence is:\n1. Qg5-g2# (queen moves to g2, delivering checkmate).\n\n[RESULT] g5g2 [/RESULT]",
+      "latencyMs": 638,
+      "promptTokens": 366,
+      "completionTokens": 92,
+      "totalTokens": 458
+    },
+    "mate1-w3Xtv": {
+      "move": "d5e7",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "uci",
+      "rawOutput": "Analysis: White has a forced mate in 1. The tactical theme is a **queen sacrifice** to deliver checkmate. Black's king is exposed on e7, and White's queen on d5 can deliver checkmate by moving to e7, supported by the knight on e5.\n\nForcing checkmate sequence:\n1. Qd5xe7# (Queen captures the pawn on e7, delivering checkmate).\n\n[RESULT]d5e7[/RESULT]",
+      "latencyMs": 734,
+      "promptTokens": 379,
+      "completionTokens": 99,
+      "totalTokens": 478
+    },
+    "mate1-Amf99": {
+      "move": "f5f1q",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "uci",
+      "rawOutput": "Analysis: White can deliver checkmate in one move by exploiting the exposed position of the black king on c1. The tactical theme is a simple **queening checkmate** by promoting the pawn on f5 to a queen, delivering checkmate immediately.\n\nForcing checkmate sequence:\n1. f5f1=Q#\n\n[RESULT]f5f1q[/RESULT]",
+      "latencyMs": 731,
+      "promptTokens": 372,
+      "completionTokens": 79,
+      "totalTokens": 451
+    },
+    "mate1-CjHvU": {
+      "move": "e4g2",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Analysis: Black is in a position to deliver checkmate in one move. The tactical theme here is a simple queen checkmate, as the white king is exposed on g3 with no escape squares or pieces to block the check.\n\nForcing checkmate sequence: Black can play Qe4-g2#, delivering checkmate by attacking the white king on g3 with the queen, and there are no legal moves for White to escape the check.\n\n[RESULT] e4g2 [/RESULT]",
+      "latencyMs": 488,
+      "promptTokens": 365,
+      "completionTokens": 101,
+      "totalTokens": 466
+    },
+    "mate1-pU7ND": {
+      "move": "b8g8",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "uci",
+      "rawOutput": "Analysis: White has a forced mate in 1. The black king is exposed on g8, and White's queen on b8 is perfectly positioned to deliver checkmate by moving to g8, supported by the rook on e1. The tactical theme is a simple queen checkmate with no escape squares for the black king.\n\nForcing checkmate sequence: Qb8xg8#\n\n[RESULT]b8g8[/RESULT]",
+      "latencyMs": 456,
+      "promptTokens": 375,
+      "completionTokens": 92,
+      "totalTokens": 467
+    },
+    "mate1-vdzFN": {
+      "move": "g6h7",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Analysis: White has a forced mate in 1. The black king is trapped on h8 with no escape squares, and White's queen on g6 delivers checkmate by moving to h7, supported by the rook on a7 and bishop on b6.\n\nTactical theme: **Back-rank mate** (the king is trapped on the edge with no legal moves).\n\nForcing checkmate sequence: Qg6h7#.\n\n[RESULT]g6h7[/RESULT]",
+      "latencyMs": 617,
+      "promptTokens": 379,
+      "completionTokens": 102,
+      "totalTokens": 481
+    },
+    "mate1-b8B0x": {
+      "move": "c6d7",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "uci",
+      "rawOutput": "Analysis: White has a pawn on e7, threatening to promote to a queen. Black's king is on c8, and their rook is on d8, having just moved from h8. The tactical theme here is a **discovered check** leading to an immediate checkmate.\n\nSolution: White can play **Bd7#**, which is a discovered check from the pawn on e7. The pawn on e7 delivers check to the black king on c8, while the bishop on d7 covers the escape square d8. This results in checkmate.\n\n[RESULT] c6d7 [/RESULT]",
+      "latencyMs": 475,
+      "promptTokens": 362,
+      "completionTokens": 128,
+      "totalTokens": 490
+    },
+    "mate1-ZmOQt": {
+      "move": "c2g2",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "uci",
+      "rawOutput": "Analysis: Black is in a position to deliver checkmate in one move. The key observation is that White's king on g8 is exposed, and Black's queen on c2 is perfectly positioned to deliver a checkmate by moving to g2, supported by the pawn on h3. The tactical theme here is a simple **queen checkmate** exploiting the open g-file and the pinned pawn on h3.\n\nForcing checkmate sequence:\n- Black plays **c2g2#**, which is checkmate because the queen is protected by the pawn on h3, and the king has no escape squares (g7 is controlled by the bishop on d5, and h8 is controlled by the rook on h1).\n\n[RESULT]c2g2[/RESULT]",
+      "latencyMs": 453,
+      "promptTokens": 379,
+      "completionTokens": 160,
+      "totalTokens": 539
+    },
+    "mate1-S3tXw": {
+      "move": "d4g2",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "uci",
+      "rawOutput": "Analysis: Black has a forced mate in 1. The tactical theme is a simple queen checkmate on g2, exploiting the fact that White's king is exposed and has no escape squares. The pawn on g2 is pinned by the black queen on d4, and the white queen on f3 cannot block or capture the black queen in time.\n\nForcing checkmate sequence: Black plays Qd4xg2#, delivering checkmate.\n\n[RESULT]d4g2[/RESULT]",
+      "latencyMs": 452,
+      "promptTokens": 371,
+      "completionTokens": 102,
+      "totalTokens": 473
+    },
+    "mate1-fVTm6": {
+      "move": "f5f7",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Analysis: White has a forced mate in 1. The black king is exposed on h8 with limited escape squares, and White's queen on f5 is poised to deliver checkmate. The tactical theme is a simple queen checkmate exploiting the pinned pawn on g7 (which cannot recapture due to the rook on c1 controlling the c-file).\n\nForcing checkmate sequence: Qf7# (queen moves to f7, delivering checkmate as the black king has no legal moves).\n\n[RESULT]f5f7[/RESULT]",
+      "latencyMs": 2576,
+      "promptTokens": 368,
+      "completionTokens": 115,
+      "totalTokens": 483
+    }
+  }
+}

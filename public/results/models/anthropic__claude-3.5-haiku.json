@@ -1,0 +1,130 @@
+{
+  "model": {
+    "id": "anthropic/claude-3.5-haiku",
+    "name": "Claude 3.5 Haiku",
+    "temperature": 0,
+    "maxTokens": 1000
+  },
+  "runId": "bench-2025-12-19T03-39-33-089Z",
+  "runAt": "2025-12-19T03:39:33.089Z",
+  "promptVersion": "v1.1",
+  "score": 10,
+  "breakdown": {
+    "mate1": 10,
+    "mate2": 0,
+    "mate3": 0
+  },
+  "avgLatencyMs": 740,
+  "results": {
+    "mate1-HR783": {
+      "move": "g5h5",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Let's analyze the position:\n\nPosition Analysis:\n- White has a queen on g5 and a passed d-pawn\n- Black's king is on h2\n- Black has a queen on b3\n- The position looks like a mating net is possible\n\nTactical Theme:\n- Direct checkmate opportunity\n- White's queen is well-positioned to deliver a decisive blow\n\nCheckmate Solution:\nThe key observation is that White's queen can deliver an immediate checkmate by moving to h5, which covers all escape squares for the black king.\n\nCheckmate Move:\nThe queen moves from g5 to h5, creating an inescapable mating position. The black king has no legal moves and is in checkmate.\n\n[RESULT]g5h5[/RESULT]",
+      "latencyMs": 775,
+      "promptTokens": 396,
+      "completionTokens": 177,
+      "totalTokens": 573
+    },
+    "mate1-w3Xtv": {
+      "move": "d5d6",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Let's analyze the position:\n\nPosition Analysis:\n- White has a powerful queen on d5 targeting the black king\n- Black king is exposed on e7\n- White has a knight on e5 which is creating tactical pressure\n- The black king has limited escape squares\n\nTactical Theme:\nThis is a direct mating attack with the queen and knight working together to create a checkmate threat.\n\nCheckmate Sequence:\nThe key observation is that the queen can deliver a checkmate by moving to d6, which attacks the king and is supported by the knight on e5. The black king has no legal escape squares.\n\nCheckmate Move:\nQueen from d5 moves to d6, delivering an unstoppable checkmate.\n\nVerification:\n- The move Qd6# creates a checkmate\n- The black king cannot move to any square\n- The knight on e5 prevents the king from escaping\n- No black piece can block or capture the queen\n\nTherefore, the solution is a simple queen move to d6.\n\n[RESULT]d5d6[/RESULT]",
+      "latencyMs": 945,
+      "promptTokens": 411,
+      "completionTokens": 242,
+      "totalTokens": 653
+    },
+    "mate1-Amf99": {
+      "move": "h2h1",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Let's analyze the position:\n\nPosition Analysis:\n- White has a rook on h2 and the king on e3\n- Black's king is on c1\n- There are several pawns on the board\n- White has a clear opportunity to deliver checkmate\n\nTactical Theme:\n- Rook checkmate along the back rank\n- Black's king is trapped and has no escape squares\n\nCheckmate Solution:\nThe key is to use the rook to deliver a back-rank checkmate. The white rook can move to h1, which cuts off all escape squares for the black king and creates an immediate checkmate.\n\nCheckmate Move:\nh2h1 - The rook moves to h1, delivering a checkmate. The black king cannot move to any square, and there are no pieces that can block or capture the rook.\n\n[RESULT]h2h1[/RESULT]",
+      "latencyMs": 760,
+      "promptTokens": 401,
+      "completionTokens": 202,
+      "totalTokens": 603
+    },
+    "mate1-CjHvU": {
+      "move": "e4g2",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Let's analyze the position:\n\nPosition Analysis:\n- Black's queen is on e4\n- White's queen is on f7\n- Black's king is on h5\n- White's king is on h3\n- Black has a potential mating opportunity\n\nTactical Theme:\nThis is a direct mating attack scenario where Black can exploit the proximity of the white king and the positioning of the black queen.\n\nCheckmate Solution:\nThe key observation is that Black's queen can deliver an immediate checkmate by moving to g2, which attacks the white king and is an unavoidable checkmate. The white king has no escape squares, and the white rook cannot block or capture the queen.\n\nCheckmate Move:\nThe move is e4g2, which delivers a decisive checkmate.\n\n[RESULT]e4g2[/RESULT]",
+      "latencyMs": 760,
+      "promptTokens": 396,
+      "completionTokens": 187,
+      "totalTokens": 583
+    },
+    "mate1-pU7ND": {
+      "move": "b8c7",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Let's analyze the position:\n\nTactical Theme:\nThe position presents a direct mating opportunity for White. The key observation is that Black's king is exposed and White's queen is perfectly positioned to deliver a checkmate.\n\nAnalysis:\n- White's queen is on b8, directly threatening the black king on e8\n- Black's king has limited escape squares\n- The white rook on e1 controls the e-file\n- Black's knight on e7 cannot interfere with the mating attack\n\nCheckmate Sequence:\nThe solution is a direct queen checkmate by moving the queen to c7, which attacks the king and cuts off all escape squares. The black king has no legal moves and is in checkmate.\n\nVerification:\n- The queen move to c7 attacks the king\n- The king cannot move to any square\n- No piece can block the check\n- No piece can capture the queen\n\nTherefore, the solution is a simple queen move to c7.\n\n[RESULT]b8c7[/RESULT]",
+      "latencyMs": 608,
+      "promptTokens": 407,
+      "completionTokens": 228,
+      "totalTokens": 635
+    },
+    "mate1-vdzFN": {
+      "move": "g6h7",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Let's analyze the position:\n\nPosition Analysis:\n- White has a powerful queen on g6 and a rook on a7\n- Black's king is on h8, exposed and vulnerable\n- White has multiple pieces targeting the black king's position\n- The black king has very limited escape squares\n\nTactical Theme:\n- Checkmate pattern involving queen and rook coordination\n- Direct mating attack on the h8 king\n\nCheckmate Solution:\nThe key observation is that the white queen on g6 can deliver a checkmate by moving to h7, which is supported by the rook on a7. The black king has no escape squares due to the surrounding pawns and pieces.\n\nCheckmate Move:\nThe queen moves from g6 to h7, delivering an unavoidable checkmate.\n\n[RESULT]g6h7[/RESULT]",
+      "latencyMs": 605,
+      "promptTokens": 410,
+      "completionTokens": 192,
+      "totalTokens": 602
+    },
+    "mate1-b8B0x": {
+      "move": "e7e8q",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Let's analyze this position carefully:\n\nPosition Analysis:\n- White has a passed e-pawn on e7\n- Black's king is on d8\n- Black has a rook on e4 and another on d8\n- White's bishop is on b6, creating pressure\n- White's king is on b4\n\nTactical Theme:\nThis is a direct checkmate scenario where White can exploit the e7 pawn's potential to deliver a decisive blow.\n\nCheckmate Solution:\nThe key move is for the e-pawn to promote, delivering an unstoppable checkmate. The pawn advances to e8 and promotes to a queen, delivering checkmate by controlling critical squares around the black king.\n\nThe move e7e8Q (promoting to queen) is a forced checkmate because:\n1. The black king has no escape squares\n2. The white bishop controls key escape routes\n3. The black rook cannot prevent the mate\n\n[RESULT]e7e8q[/RESULT]",
+      "latencyMs": 595,
+      "promptTokens": 394,
+      "completionTokens": 224,
+      "totalTokens": 618
+    },
+    "mate1-ZmOQt": {
+      "move": "c2c1",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Let's analyze the position:\n\nTactical Observations:\n- Black has a queen on c2 attacking the white king\n- White's king is somewhat exposed\n- Black has multiple pieces near the white king\n- The white bishop on d8 is pinned\n\nCheckmate Analysis:\nLooking at the position, Black has a direct checkmate with the queen. The queen can deliver a checkmate by moving to c1, which attacks the king and is supported by the bishop on h5.\n\nCheckmate Sequence:\nThe queen moves from c2 to c1, creating an inescapable checkmate. The white king has no legal moves:\n- The c1 square is attacked by the black queen\n- The bishop on h5 prevents the king from escaping\n- No white piece can block or capture the queen\n\nTherefore, the solution is a simple queen move to c1.\n\n[RESULT]c2c1[/RESULT]",
+      "latencyMs": 1065,
+      "promptTokens": 409,
+      "completionTokens": 210,
+      "totalTokens": 619
+    },
+    "mate1-S3tXw": {
+      "move": "e4f2",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Let's analyze the position:\n\nPosition Analysis:\n- Black has a vulnerable king on g8\n- White's rook on f4 and queen on f3 are creating significant pressure\n- Black's knight on e4 is in an interesting position\n- White's king is also somewhat exposed\n\nTactical Theme:\nThis is a checkmate puzzle where Black needs to find a decisive move to end the game immediately.\n\nCheckmate Analysis:\nLooking at the position, Black's knight on e4 is the key piece. It can deliver a checkmate by exploiting the weakness of White's king position.\n\nThe key move is the knight moving to f2, which creates an unavoidable checkmate:\n- The knight attacks the king\n- The king has no escape squares\n- White cannot block or capture the knight\n\nCheckmate Move:\nNf2# (Knight moves from e4 to f2, delivering checkmate)\n\nIn UCI format, this translates to:\n\n[RESULT]e4f2[/RESULT]",
+      "latencyMs": 570,
+      "promptTokens": 404,
+      "completionTokens": 229,
+      "totalTokens": 633
+    },
+    "mate1-fVTm6": {
+      "move": "f5h7",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Let's analyze the position:\n\nTactical Theme:\nThe position shows a clear mating opportunity for White. The black king is exposed, and White's queen is perfectly positioned to deliver a checkmate.\n\nAnalysis:\n- White's queen is on f5, threatening the black king\n- The black king is on h8, with limited escape squares\n- The rook on h7 and queen on c6 cannot prevent the imminent mate\n\nCheckmate Sequence:\nThe key is to use the queen to deliver a direct checkmate by moving to h7, which attacks the king and cannot be blocked or escaped.\n\nCheckmate Move:\nQf5h7# - The queen moves to h7, delivering an unavoidable checkmate. The black king has no legal moves, and no piece can block or capture the attacking queen.\n\n[RESULT]f5h7[/RESULT]",
+      "latencyMs": 712,
+      "promptTokens": 399,
+      "completionTokens": 198,
+      "totalTokens": 597
+    }
+  }
+}

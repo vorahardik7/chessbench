@@ -62,4 +62,31 @@ export type LatestSnapshot = {
   puzzles: LatestSnapshotPuzzle[];
 };
 
+// ============================================================================
+// NEW OUTPUT FORMAT (index + per-model files)
+// ============================================================================
+export type ModelResultsFile = {
+  model: BenchModel;
+  runId: string;
+  runAt: string;
+  promptVersion: string;
+  score: number; // overall %
+  breakdown: { mate1: number; mate2: number; mate3: number };
+  avgLatencyMs?: number;
+  // Results keyed by puzzle id
+  results: Record<string, ModelPuzzleResult>;
+};
+
+export type ResultsIndex = {
+  runId: string;
+  runAt: string;
+  promptVersion: string;
+  // Puzzle definitions (no per-model results here)
+  puzzles: BenchPuzzle[];
+  // Leaderboard-ready summaries (derived from per-model files)
+  models: LatestSnapshotModel[];
+  // Public URLs to per-model result files, keyed by model id
+  modelFiles: Record<string, string>;
+};
+
 

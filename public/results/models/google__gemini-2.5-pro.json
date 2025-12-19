@@ -1,0 +1,121 @@
+{
+  "model": {
+    "id": "google/gemini-2.5-pro",
+    "name": "Gemini 2.5 Pro",
+    "temperature": 0,
+    "maxTokens": 1000
+  },
+  "runId": "bench-2025-12-19T00-31-54-718Z",
+  "runAt": "2025-12-19T00:31:54.718Z",
+  "promptVersion": "v1.1",
+  "score": 0,
+  "breakdown": {
+    "mate1": 0,
+    "mate2": 0,
+    "mate3": 0
+  },
+  "avgLatencyMs": 2524,
+  "results": {
+    "mate1-HR783": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "An analysis of the position reveals a classic endgame scenario where one king is extremely exposed. The Black king on h2 is trapped by its own pawn on f3 and the White king on f",
+      "latencyMs": 2569,
+      "promptTokens": 376,
+      "completionTokens": 996,
+      "totalTokens": 1372
+    },
+    "mate1-w3Xtv": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "This is a classic attacking position where White's queen and knight have created a powerful mating net around Black's exposed king. The Black king on e7 is severely restricted, with most of",
+      "latencyMs": 2753,
+      "promptTokens": 384,
+      "completionTokens": 996,
+      "totalTokens": 1380
+    },
+    "mate1-Amf99": {
+      "move": "h2c2",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "An analysis of the position reveals that the Black king on c1 is severely restricted. The White king on e3 controls all of the potential escape squares for the Black king (b1, b2, c2, d1, and d2). The Black king is effectively trapped in a box.\n\nThe tactical theme is a checkmate utilizing the trapped king. White can deliver a decisive check from which Black has no escape.\n\nThe winning move is for the White rook to move to c2. This places the Black king in check. The king cannot move to any adjacent square as they are all controlled by the White king. The rook on c2 cannot be captured by the Black king because it is defended by the White king. No other Black piece can capture the rook or block the check. This results in an immediate checkmate.\n\n[RESULT]h2c2[/RESULT]",
+      "latencyMs": 2477,
+      "promptTokens": 381,
+      "completionTokens": 851,
+      "totalTokens": 1232
+    },
+    "mate1-CjHvU": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "An analysis of the position reveals a precarious situation for the White king. The king on h3 is severely restricted by its own pawns on h2 and the Black king on h5, which controls",
+      "latencyMs": 2574,
+      "promptTokens": 375,
+      "completionTokens": 996,
+      "totalTokens": 1371
+    },
+    "mate1-pU7ND": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Position Analysis:**\nThe position is highly tactical. The Black king on e8 is severely restricted. The White rook on e1 controls the open e-file, directly pinning the Black",
+      "latencyMs": 2390,
+      "promptTokens": 385,
+      "completionTokens": 996,
+      "totalTokens": 1381
+    },
+    "mate1-vdzFN": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "An analysis of the position reveals a classic mating attack scenario. The Black king on h8 is severely exposed and under immense pressure from White's heavy pieces. The White queen on g6",
+      "latencyMs": 2380,
+      "promptTokens": 386,
+      "completionTokens": 996,
+      "totalTokens": 1382
+    },
+    "mate1-b8B0x": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Position Analysis:**\nThe position is an endgame scenario where both sides have dangerous passed pawns. White's e-pawn is on the 7th rank, poised to",
+      "latencyMs": 2733,
+      "promptTokens": 372,
+      "completionTokens": 996,
+      "totalTokens": 1368
+    },
+    "mate1-ZmOQt": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Position Analysis:**\n\nThe position is highly tactical, with both sides having pieces in attacking positions. However, White's king on f1 is extremely vulnerable. It is trapped on the back",
+      "latencyMs": 2063,
+      "promptTokens": 387,
+      "completionTokens": 996,
+      "totalTokens": 1383
+    },
+    "mate1-S3tXw": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Position Analysis:**\nThe position is extremely tactical and volatile. Black has launched a decisive attack against the white king, which is cornered on h1. The black queen on d4 and knight",
+      "latencyMs": 2645,
+      "promptTokens": 375,
+      "completionTokens": 996,
+      "totalTokens": 1371
+    },
+    "mate1-fVTm6": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "This is a mate-in-1 puzzle.\n\n**Position Analysis:**\nThe Black king is cornered on h8. Its main defender is the rook on h7. However, the White",
+      "latencyMs": 2652,
+      "promptTokens": 379,
+      "completionTokens": 996,
+      "totalTokens": 1375
+    }
+  }
+}

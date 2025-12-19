@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import ChessBoard from './ChessBoard';
 import { asKey, uciLineToSan } from './utils';
-import type { LatestSnapshot as BenchmarkData } from '../../bench/types';
+import type { ModelPuzzleResult, ModelResultsFile, ResultsIndex as BenchmarkData } from '../../bench/types';
 
 // ============================================================================
 // CUSTOM DROPDOWN COMPONENT
@@ -128,6 +128,8 @@ export default function PuzzlesTab({ data }: { data: BenchmarkData }) {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [showScrollBottom, setShowScrollBottom] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [modelResultsCache, setModelResultsCache] = useState<Record<string, ModelResultsFile | null>>({});
+  const [modelResultsLoading, setModelResultsLoading] = useState<Record<string, boolean>>({});
 
   const modelOptions = useMemo(() => {
     return [...data.models]
@@ -156,7 +158,11 @@ export default function PuzzlesTab({ data }: { data: BenchmarkData }) {
     return data.models.find((m) => m.id === selectedModelId) || data.models[0];
   }, [data.models, selectedModelId]);
 
-  const modelResult = selectedPuzzle?.results[selectedModelId];
+  const modelFile = modelResultsCache[selectedModelId];
+  const modelResultsByPuzzleId: Record<string, ModelPuzzleResult> | undefined = modelFile?.results;
+  const modelResult = selectedPuzzle ? modelResultsByPuzzleId?.[selectedPuzzle.id] : undefined;
+  const isModelLoading = modelResultsLoading[selectedModelId] === true;
+  const isModelMissing = modelResultsCache[selectedModelId] === null;
 
   const selectedIndex = useMemo(() => {
     if (filteredPuzzles.length === 0) return 0;
@@ -222,15 +228,48 @@ export default function PuzzlesTab({ data }: { data: BenchmarkData }) {
   const modelStats = useMemo(() => {
     let correct = 0;
     let total = 0;
+    const results = modelResultsByPuzzleId ?? {};
     for (const p of data.puzzles) {
-      const r = p.results[selectedModelId];
-      if (r) {
-        total++;
-        if (r.isCorrect) correct++;
-      }
+      const r = results[p.id];
+      if (!r) continue;
+      total++;
+      if (r.isCorrect) correct++;
     }
     return { correct, total, pct: total > 0 ? ((correct / total) * 100).toFixed(1) : '0' };
-  }, [data.puzzles, selectedModelId]);
+  }, [data.puzzles, modelResultsByPuzzleId]);
+
+  // Load per-model results on demand
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      const id = selectedModelId;
+      if (!id) return;
+      if (modelResultsCache[id] !== undefined) return; // already loaded (or failed)
+      const url = data.modelFiles?.[id];
+      if (!url) {
+        setModelResultsCache((prev) => ({ ...prev, [id]: null }));
+        return;
+      }
+      setModelResultsLoading((prev) => ({ ...prev, [id]: true }));
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`Failed to load model file: ${res.status}`);
+        const json = (await res.json()) as ModelResultsFile;
+        if (cancelled) return;
+        setModelResultsCache((prev) => ({ ...prev, [id]: json }));
+      } catch {
+        if (cancelled) return;
+        setModelResultsCache((prev) => ({ ...prev, [id]: null }));
+      } finally {
+        if (cancelled) return;
+        setModelResultsLoading((prev) => ({ ...prev, [id]: false }));
+      }
+    }
+    void load();
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedModelId, data.modelFiles, modelResultsCache]);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -369,7 +408,7 @@ export default function PuzzlesTab({ data }: { data: BenchmarkData }) {
               ) : (
                 <div className="space-y-1.5 pr-1">
                   {filteredPuzzles.map((puzzle, idx) => {
-                    const result = puzzle.results[selectedModelId];
+                    const result = modelResultsByPuzzleId?.[puzzle.id];
                     const active = activePuzzleId === puzzle.id;
                     return (
                       <button
@@ -412,10 +451,16 @@ export default function PuzzlesTab({ data }: { data: BenchmarkData }) {
                                 <ExternalLink className="w-3 h-3" />
                               </a>
                             )}
-                            {result?.isCorrect ? (
-                              <CheckCircle2 className="w-4 h-4 text-green-500" />
+                            {isModelLoading ? (
+                              <Clock className="w-4 h-4 text-neutral-500" />
+                            ) : result ? (
+                              result.isCorrect ? (
+                                <CheckCircle2 className="w-4 h-4 text-green-500" />
+                              ) : (
+                                <XCircle className="w-4 h-4 text-red-500" />
+                              )
                             ) : (
-                              <XCircle className="w-4 h-4 text-red-500" />
+                              <XCircle className="w-4 h-4 text-neutral-700" />
                             )}
                           </div>
                         </div>
@@ -494,18 +539,24 @@ export default function PuzzlesTab({ data }: { data: BenchmarkData }) {
               <div className="lg:w-[320px] xl:w-[280px] flex flex-col gap-4 lg:py-3">
                 {/* Result Status Banner */}
                 <div className={`rounded-xl border p-4 ${
-                  modelResult?.isCorrect 
+                  modelResult?.isCorrect
                     ? 'bg-green-500/10 border-green-500/20 shadow-[0_0_20px_rgba(34,197,94,0.1)]' 
                     : 'bg-red-500/10 border-red-500/20 shadow-[0_0_20px_rgba(239,68,68,0.1)]'
                 }`}>
                   <div className="flex items-center justify-between mb-1">
                     <div className="text-xs font-bold uppercase tracking-widest opacity-70">
-                      {modelResult?.isCorrect ? 'Success' : 'Failure'}
+                      {isModelLoading ? 'Loading' : isModelMissing ? 'Missing' : modelResult?.isCorrect ? 'Success' : 'Failure'}
                     </div>
                     <div className="text-xs font-mono opacity-50">{selectedModel.name}</div>
                   </div>
                   <div className={`text-xl font-bold ${modelResult?.isCorrect ? 'text-green-400' : 'text-red-400'}`}>
-                    {modelResult?.isCorrect ? 'Correct Solution' : 'Incorrect Move'}
+                    {isModelLoading
+                      ? 'Loading results…'
+                      : isModelMissing
+                        ? 'Results file missing'
+                        : modelResult?.isCorrect
+                          ? 'Correct Solution'
+                          : 'Incorrect Move'}
                   </div>
                   {typeof modelResult?.latencyMs === 'number' && (
                     <div className="mt-2 flex items-center gap-1.5 text-xs opacity-60">

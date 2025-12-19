@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Puzzle, TrendingUp } from 'lucide-react';
 import PuzzlesTab from './PuzzlesTab';
 import BenchmarksTab from './BenchmarksTab';
-import type { LatestSnapshot as BenchmarkData } from '../../bench/types';
+import type { ResultsIndex as BenchmarkData } from '../../bench/types';
 
 // ============================================================================
 // MAIN COMPONENT

@@ -24,7 +24,7 @@ import {
   Cell,
   LabelList,
 } from 'recharts';
-import type { LatestSnapshot as BenchmarkData } from '../../bench/types';
+import type { ResultsIndex as BenchmarkData } from '../../bench/types';
 
 // ============================================================================
 // CONSTANTS

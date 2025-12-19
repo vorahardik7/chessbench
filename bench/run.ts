@@ -1,12 +1,13 @@
 import path from "path";
+import { promises as fs } from "fs";
 import type {
   BenchModel,
   BenchPuzzle,
-  LatestSnapshot,
   LatestSnapshotModel,
-  LatestSnapshotPuzzle,
   MateLevel,
   ModelPuzzleResult,
+  ModelResultsFile,
+  ResultsIndex,
 } from "./types";
 import { asyncPool, loadDotEnv, readJsonFile, writeJsonFile } from "./utils";
 import { Chess } from "chess.js";
@@ -116,21 +117,26 @@ function scoreMove(expectedLine: string, gotLine: string): boolean {
 function buildPrompt(puzzle: BenchPuzzle): { system: string; user: string } {
   const n = puzzle.level === "mate1" ? 1 : puzzle.level === "mate2" ? 2 : 3;
   const plies = requiredPlies(puzzle.level);
+  const chess = new Chess(puzzle.fen);
+  const turn = chess.turn() === "w" ? "White" : "Black";
 
   const system =
-    "You are a chess engine assistant. Follow the format rules strictly. " +
-    "Output must contain only UCI moves. No explanation. No punctuation. " +
-    "If a promotion occurs, write it as a single trailing letter (e.g. a7a8q), not a7a8=Q.";
+    "You are a chess engine assistant. Analyze the position and solve the puzzle. " +
+    "First, provide a brief analysis of the position and identify the tactical theme. " +
+    "Then, find the forcing checkmate sequence. " +
+    "Finally, output the moves strictly in UCI format (e.g. e2e4 e7e5) separated by spaces, " +
+    "wrapped in [RESULT] and [/RESULT] tags.";
 
-  const lastMoveLine = puzzle.lastMoveUci ? `Opponent last move (context): ${puzzle.lastMoveUci}\n` : "";
+  const lastMoveLine = puzzle.lastMoveUci ? `Opponent's last move (context): ${puzzle.lastMoveUci}\n` : "";
 
   const user =
-    `Task: Solve mate in ${n}.\n` +
-    `Return exactly ${plies} ply of UCI moves separated by single spaces.\n` +
-    `FEN: ${puzzle.fen}\n` +
+    `Position (FEN): ${puzzle.fen}\n` +
+    `It is ${turn}'s turn to move.\n\n` +
+    `Board:\n${chess.ascii()}\n` +
     lastMoveLine +
-    `Output format example: e2e4 (mate in 1) or e2e4 e7e5 g1f3 (mate in 2)\n` +
-    `Now output only the UCI line:`;
+    `Task: Find mate in ${n} (${plies} plies).\n\n` +
+    `Output only the UCI line inside [RESULT] tags at the very end of your response.\n` +
+    `Now analyze and solve:`;
 
   return { system, user };
 }
@@ -208,12 +214,7 @@ function extractOpenRouterText(json: OpenRouterResponse): string {
     if (parts.length > 0) return parts.join("\n");
   }
 
-  // Some providers return "text" at the choice level (completion-style)
   if (typeof choice?.text === "string" && choice.text.trim().length > 0) return choice.text;
-
-  // Fallback: preserve something useful for debugging instead of an empty string.
-  // Important: some providers return an empty string for `message.content` but include
-  // other metadata. Keeping the choice payload visible helps debug.
   return safeJsonStringify(choice ?? json ?? "");
 }
 
@@ -235,11 +236,14 @@ async function callOpenRouter(
   const body = {
     model: model.id,
     temperature: model.temperature ?? 0,
-    max_tokens: opts?.maxTokensOverride ?? model.maxTokens ?? 128,
+    max_tokens: opts?.maxTokensOverride ?? model.maxTokens ?? 256,
     messages: [
       { role: "system", content: prompt.system },
       { role: "user", content: prompt.user },
     ],
+    // provider: {
+    //   only: ['google-vertex'],
+    // },
   };
 
   const t0 = Date.now();
@@ -276,22 +280,41 @@ async function evalOne(model: BenchModel, puzzle: BenchPuzzle): Promise<ModelPuz
   let { content, latencyMs, promptTokens, completionTokens, totalTokens } = firstTry;
 
   const need = requiredPlies(puzzle.level);
-  let parseMethod: "uci" | "san" | "none" = "none";
-  const toks = extractUciTokens(content);
-  let parsed = toks.slice(0, need).join(" ");
-  if (parsed.length > 0) parseMethod = "uci";
-  if (parsed.length === 0) {
-    // Fallback: many models output SAN even when instructed to output UCI.
-    parsed = tryParseSanToUciLine(puzzle.fen, need, content);
-    if (parsed.length > 0) parseMethod = "san";
-  }
+
+  const parseContent = (text: string): { parsed: string; method: "uci" | "san" | "none" } => {
+    // 1. Try to find content inside [RESULT] tags
+    // Support newlines between tags without relying on the RegExp dotAll flag
+    // (tsconfig target is ES2017).
+    // Example:
+    // [RESULT]
+    // e2e4 e7e5
+    // [/RESULT]
+    const tagMatch = text.match(/\[RESULT\]\s*([\s\S]*?)\s*\[\/RESULT\]/i);
+    const target = tagMatch ? tagMatch[1] : text;
+
+    // 2. Extract UCI tokens
+    const uciToks = extractUciTokens(target);
+    if (uciToks.length >= need) {
+      return { parsed: uciToks.slice(0, need).join(" "), method: "uci" };
+    }
+
+    // 3. Fallback to SAN parsing
+    const sanLine = tryParseSanToUciLine(puzzle.fen, need, target);
+    if (sanLine) {
+      return { parsed: sanLine, method: "san" };
+    }
+
+    return { parsed: "", method: "none" };
+  };
+
+  let { parsed, method: parseMethod } = parseContent(content);
 
   // If we got nothing and we likely hit the token limit, retry once with a higher cap.
   // This is particularly important for models that spend early tokens on "reasoning" and only emit moves later.
-  const configuredMax = model.maxTokens ?? 128;
+  const configuredMax = model.maxTokens ?? 256;
   const hitLimit = typeof completionTokens === "number" && completionTokens >= configuredMax;
   if (parsed.length === 0 && hitLimit) {
-    const retryMax = Math.min(Math.max(configuredMax * 4, 256), 1024);
+    const retryMax = Math.min(Math.max(configuredMax * 4, 512), 2048);
     const retry = await callOpenRouter(model, prompt, { maxTokensOverride: retryMax });
     content = retry.content;
     latencyMs = retry.latencyMs;
@@ -299,14 +322,9 @@ async function evalOne(model: BenchModel, puzzle: BenchPuzzle): Promise<ModelPuz
     completionTokens = retry.completionTokens;
     totalTokens = retry.totalTokens;
 
-    const toks2 = extractUciTokens(content);
-    parsed = toks2.slice(0, need).join(" ");
-    if (parsed.length > 0) {
-      parseMethod = "uci";
-    } else {
-      parsed = tryParseSanToUciLine(puzzle.fen, need, content);
-      if (parsed.length > 0) parseMethod = "san";
-    }
+    const retryRes = parseContent(content);
+    parsed = retryRes.parsed;
+    parseMethod = retryRes.method;
   }
 
   const legality =
@@ -328,7 +346,13 @@ async function evalOne(model: BenchModel, puzzle: BenchPuzzle): Promise<ModelPuz
   };
 }
 
-function computeBreakdown(puzzles: LatestSnapshotPuzzle[], modelKey: string) {
+// NOTE: Old snapshot-wide breakdown kept for reference; new flow uses
+// computeModelStatsFromResults() on per-model files.
+
+function computeModelStatsFromResults(
+  puzzles: BenchPuzzle[],
+  resultsByPuzzleId: Record<string, ModelPuzzleResult>,
+): { breakdown: { mate1: number; mate2: number; mate3: number }; avgLatencyMs?: number; score: number } {
   const byLevel: Record<MateLevel, { correct: number; total: number; latencies: number[] }> = {
     mate1: { correct: 0, total: 0, latencies: [] },
     mate2: { correct: 0, total: 0, latencies: [] },
@@ -336,7 +360,7 @@ function computeBreakdown(puzzles: LatestSnapshotPuzzle[], modelKey: string) {
   };
 
   for (const p of puzzles) {
-    const r = p.results[modelKey];
+    const r = resultsByPuzzleId[p.id];
     if (!r) continue;
     byLevel[p.level].total += 1;
     if (r.isCorrect) byLevel[p.level].correct += 1;
@@ -347,25 +371,38 @@ function computeBreakdown(puzzles: LatestSnapshotPuzzle[], modelKey: string) {
   const avg = (xs: number[]) =>
     xs.length === 0 ? undefined : Math.round(xs.reduce((a, b) => a + b, 0) / xs.length);
 
-  return {
-    breakdown: {
-      mate1: pct(byLevel.mate1.correct, byLevel.mate1.total),
-      mate2: pct(byLevel.mate2.correct, byLevel.mate2.total),
-      mate3: pct(byLevel.mate3.correct, byLevel.mate3.total),
-    },
-    avgLatencyMs: avg([
-      ...byLevel.mate1.latencies,
-      ...byLevel.mate2.latencies,
-      ...byLevel.mate3.latencies,
-    ]),
+  const breakdown = {
+    mate1: pct(byLevel.mate1.correct, byLevel.mate1.total),
+    mate2: pct(byLevel.mate2.correct, byLevel.mate2.total),
+    mate3: pct(byLevel.mate3.correct, byLevel.mate3.total),
   };
+
+  // Only use mate1 score for now (keep existing behavior)
+  const score = breakdown.mate1;
+
+  const avgLatencyMs = avg([
+    ...byLevel.mate1.latencies,
+    ...byLevel.mate2.latencies,
+    ...byLevel.mate3.latencies,
+  ]);
+
+  return { breakdown, avgLatencyMs, score };
+}
+
+function safeModelFileSlug(modelId: string): string {
+  // OpenRouter ids often contain slashes like "openai/gpt-4o".
+  // We keep it filesystem-safe and stable.
+  return modelId.replace(/[^a-zA-Z0-9._-]+/g, "__");
 }
 
 async function main() {
   await loadDotEnv();
   const root = process.cwd();
   const modelsPath = path.join(root, "bench/models.json");
-  const outPath = path.join(root, "public/results/latest.json");
+  const resultsDir = path.join(root, "public/results");
+  const modelsOutDir = path.join(resultsDir, "models");
+  const indexPath = path.join(resultsDir, "index.json");
+  const promptVersion = "v1.1";
   // Only test mate1 for now
   const puzzlesPaths = [
     path.join(root, "bench/puzzles.mate1.json"),
@@ -376,99 +413,145 @@ async function main() {
   const models = await readJsonFile<BenchModel[]>(modelsPath);
   const puzzles = (await Promise.all(puzzlesPaths.map((p) => readJsonFile<BenchPuzzle[]>(p)))).flat();
 
-  // Load existing snapshot if it exists
-  let existingSnapshot: LatestSnapshot | null = null;
-  try {
-    existingSnapshot = await readJsonFile<LatestSnapshot>(outPath);
-    console.log(`Loaded existing snapshot with ${existingSnapshot.puzzles.length} puzzles and ${existingSnapshot.models.length} models`);
-  } catch {
-    console.log("No existing snapshot found, starting fresh");
-  }
-
-  // Create puzzle map from existing snapshot (by puzzle ID)
-  const existingPuzzleMap = new Map<string, LatestSnapshotPuzzle>();
-  if (existingSnapshot) {
-    for (const p of existingSnapshot.puzzles) {
-      existingPuzzleMap.set(p.id, p);
-    }
-  }
-
-  // Initialize puzzles with existing results preserved
-  const snapshotPuzzles: LatestSnapshotPuzzle[] = puzzles.map((p) => {
-    const existing = existingPuzzleMap.get(p.id);
-    return {
-      ...p,
-      results: existing?.results ? { ...existing.results } : {},
-    };
-  });
-
-  // Determine which models need to be tested
-  const modelsToTest = models.filter((m) => {
-    // Test if model doesn't have results for all puzzles, or if we want to force update
-    const hasAllResults = snapshotPuzzles.every((p) => p.results[m.id] !== undefined);
-    return !hasAllResults;
-  });
-
-  if (modelsToTest.length === 0) {
-    console.log("All models in models.json already have results. No benchmarks to run.");
-  } else {
-    console.log(`Testing ${modelsToTest.length} model(s): ${modelsToTest.map((m) => m.name).join(", ")}`);
-  }
-
   const concurrency = Number(process.env.BENCH_CONCURRENCY ?? "3");
 
-  // Run benchmarks only for models that need testing
-  for (const model of modelsToTest) {
-    console.log(`Running model: ${model.name} (${model.id})`);
+  const runId = `bench-${new Date().toISOString().replace(/[:.]/g, "-")}`;
+  const runAt = new Date().toISOString();
 
-    const results = await asyncPool(concurrency, snapshotPuzzles, async (p) => evalOne(model, p));
-    snapshotPuzzles.forEach((p, idx) => {
-      p.results[model.id] = results[idx]!;
-    });
+  const modelFiles: Record<string, string> = {};
+  const leaderboard: LatestSnapshotModel[] = [];
+  const processedModelIds = new Set<string>();
+
+  // Step 1: Scan existing model result files and include them in the index
+  // This ensures models removed from models.json still appear in results
+  try {
+    const existingFiles = await fs.readdir(modelsOutDir);
+    for (const filename of existingFiles) {
+      if (!filename.endsWith(".json")) continue;
+      const modelAbsPath = path.join(modelsOutDir, filename);
+      try {
+        const file = await readJsonFile<ModelResultsFile>(modelAbsPath);
+        if (file.model?.id) {
+          const modelId = file.model.id;
+          processedModelIds.add(modelId);
+          const slug = safeModelFileSlug(modelId);
+          const modelPublicUrl = `/results/models/${slug}.json`;
+          modelFiles[modelId] = modelPublicUrl;
+          leaderboard.push({
+            id: modelId,
+            name: file.model.name,
+            score: file.score,
+            breakdown: file.breakdown,
+            avgLatencyMs: file.avgLatencyMs,
+          });
+        }
+      } catch {
+        // Skip invalid files
+      }
+    }
+  } catch {
+    // Directory doesn't exist yet, that's fine
   }
 
-  // Collect all model IDs (both new and existing)
-  const allModelIds = new Set<string>();
-  models.forEach((m) => allModelIds.add(m.id));
-  if (existingSnapshot) {
-    existingSnapshot.models.forEach((m) => allModelIds.add(m.id));
-  }
+  // Step 2: For each model in models.json, test if needed
+  for (const model of models) {
+    const slug = safeModelFileSlug(model.id);
+    const modelAbsPath = path.join(modelsOutDir, `${slug}.json`);
+    const modelPublicUrl = `/results/models/${slug}.json`;
+    modelFiles[model.id] = modelPublicUrl;
 
-  // Compute stats for all models (both tested and cached)
-  const snapshotModels: LatestSnapshotModel[] = Array.from(allModelIds).map((modelId) => {
-    // Find model definition (prefer current models.json, fallback to existing snapshot)
-    const currentModel = models.find((m) => m.id === modelId);
-    const existingModel = existingSnapshot?.models.find((m) => m.id === modelId);
-    const model = currentModel || existingModel;
-    
-    if (!model) {
-      throw new Error(`Model ${modelId} not found in models.json or existing snapshot`);
+    let existing: ModelResultsFile | null = null;
+    try {
+      existing = await readJsonFile<ModelResultsFile>(modelAbsPath);
+    } catch {
+      existing = null;
     }
 
-    const { breakdown, avgLatencyMs } = computeBreakdown(snapshotPuzzles, modelId);
-    // Only use mate1 score for now
-    const score = breakdown.mate1;
-    
-    return {
-      id: model.id,
-      name: currentModel?.name || model.name, // Use current name if available, otherwise cached name
-      score,
-      breakdown,
-      avgLatencyMs,
-    };
-  });
+    const expectedPuzzleIds = puzzles.map((p) => p.id).sort().join("|");
+    const existingPuzzleIds =
+      existing ? Object.keys(existing.results ?? {}).sort().join("|") : "";
 
-  const snapshot: LatestSnapshot = {
-    runId: `bench-${new Date().toISOString().replace(/[:.]/g, "-")}`,
-    runAt: new Date().toISOString(),
-    promptVersion: "v1.0",
-    models: snapshotModels.sort((a, b) => b.score - a.score),
-    puzzles: snapshotPuzzles,
+    const needsRun =
+      !existing ||
+      existing.promptVersion !== promptVersion ||
+      existing.model?.id !== model.id ||
+      existingPuzzleIds !== expectedPuzzleIds;
+
+    if (needsRun) {
+      console.log(`Running model: ${model.name} (${model.id})`);
+      const resultsArr = await asyncPool(concurrency, puzzles, async (p) => evalOne(model, p));
+      const resultsByPuzzleId: Record<string, ModelPuzzleResult> = {};
+      puzzles.forEach((p, idx) => {
+        resultsByPuzzleId[p.id] = resultsArr[idx]!;
+      });
+
+      const stats = computeModelStatsFromResults(puzzles, resultsByPuzzleId);
+      const out: ModelResultsFile = {
+        model,
+        runId,
+        runAt,
+        promptVersion,
+        score: stats.score,
+        breakdown: stats.breakdown,
+        avgLatencyMs: stats.avgLatencyMs,
+        results: resultsByPuzzleId,
+      };
+      await writeJsonFile(modelAbsPath, out);
+      
+      // Update leaderboard entry (replace if exists, add if new)
+      const existingIdx = leaderboard.findIndex((m) => m.id === model.id);
+      const entry: LatestSnapshotModel = {
+        id: model.id,
+        name: model.name,
+        score: stats.score,
+        breakdown: stats.breakdown,
+        avgLatencyMs: stats.avgLatencyMs,
+      };
+      if (existingIdx >= 0) {
+        leaderboard[existingIdx] = entry;
+      } else {
+        leaderboard.push(entry);
+      }
+    } else {
+      console.log(`Cached model: ${model.name} (${model.id})`);
+      // Update leaderboard entry if it exists, otherwise add it
+      const existingIdx = leaderboard.findIndex((m) => m.id === model.id);
+      if (existingIdx >= 0) {
+        // Re-read to ensure fresh stats
+        const file = await readJsonFile<ModelResultsFile>(modelAbsPath);
+        leaderboard[existingIdx] = {
+          id: model.id,
+          name: model.name,
+          score: file.score,
+          breakdown: file.breakdown,
+          avgLatencyMs: file.avgLatencyMs,
+        };
+      } else {
+        // Shouldn't happen, but add it if missing
+        const file = await readJsonFile<ModelResultsFile>(modelAbsPath);
+        leaderboard.push({
+          id: model.id,
+          name: model.name,
+          score: file.score,
+          breakdown: file.breakdown,
+          avgLatencyMs: file.avgLatencyMs,
+        });
+      }
+    }
+  }
+
+  const index: ResultsIndex = {
+    runId,
+    runAt,
+    promptVersion,
+    puzzles,
+    models: leaderboard.sort((a, b) => b.score - a.score),
+    modelFiles,
   };
 
-  await writeJsonFile(outPath, snapshot);
-  console.log(`Wrote ${outPath}`);
-  console.log(`\nSummary: ${snapshotPuzzles.length} puzzles, ${snapshotModels.length} models (${modelsToTest.length} tested, ${snapshotModels.length - modelsToTest.length} cached)`);
+  await writeJsonFile(indexPath, index);
+  console.log(`Wrote ${indexPath}`);
+  console.log(`\nSummary: ${puzzles.length} puzzles, ${leaderboard.length} models`);
 }
 
 main().catch((err) => {

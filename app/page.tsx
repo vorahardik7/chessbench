@@ -7,7 +7,7 @@ import { Analytics } from "@vercel/analytics/next"
 export const dynamic = 'force-dynamic';
 
 async function getLatestResults() {
-  const filePath = path.join(process.cwd(), 'public/results/latest.json');
+  const filePath = path.join(process.cwd(), 'public/results/index.json');
   try {
     const fileContents = await fs.readFile(filePath, 'utf8');
     return JSON.parse(fileContents);

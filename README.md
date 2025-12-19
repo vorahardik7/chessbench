@@ -66,13 +66,19 @@ bun run bench:run
 ```
 
 This generates/updates:
-- `public/results/latest.json` - Benchmark results (read by the web UI)
+- `public/results/index.json` - Benchmark index + leaderboard (read by the web UI)
+- `public/results/models/*.json` - One file per model containing that model's per-puzzle results
 
 **Optional**: Control concurrency (default is 3):
 
 ```bash
 BENCH_CONCURRENCY=5 bun run bench:run
 ```
+
+**Re-running / caching behavior**:
+- Delete `public/results/models/<model>.json` → re-runs only that model next time you run `bun run bench:run`
+- Delete the entire `public/results/models/` folder → re-runs all models
+- The index file is regenerated on each run based on the per-model files
 
 ### 5. View Results
 
@@ -88,7 +94,7 @@ Open [http://localhost:3000](http://localhost:3000) to view:
 
 ### 6. Publish
 
-Commit `public/results/latest.json` and deploy (e.g., Vercel).
+Commit `public/results/index.json` and `public/results/models/*.json` and deploy (e.g., Vercel).
 
 ## Puzzle Format
 
@@ -145,17 +151,19 @@ chessbench/
 │   └── utils.ts           # Utility functions
 └── public/
     └── results/
-        └── latest.json    # Benchmark results (generated)
+        ├── index.json           # Benchmark index + leaderboard (generated)
+        └── models/              # Per-model results (generated)
+            └── *.json
 ```
 
 ## Workflow Details
 
 ### Model Testing Workflow
 
-1. **First Run**: Test Model A → Results cached in `latest.json`
-2. **Second Run**: Add Model B to `models.json` → Only Model B tested, Model A results preserved
-3. **Third Run**: Remove Model A from `models.json` → Model A still visible (cached), won't be tested again
-4. **Fourth Run**: Re-add Model A → Model A tested again, previous results updated
+1. **First Run**: Test Model A → Results cached in `public/results/models/<modelA>.json`
+2. **Second Run**: Add Model B to `models.json` → Only Model B is tested, Model A stays cached
+3. **Third Run**: Remove Model A from `models.json` → Model A is no longer tested (and may disappear from the UI if not in the index)
+4. **Fourth Run**: Delete `public/results/models/<modelA>.json` and re-run → Model A is tested again, results regenerated
 
 ### Puzzle Updates
 

@@ -1,0 +1,126 @@
+{
+  "model": {
+    "id": "google/gemini-2.5-flash",
+    "name": "Gemini 2.5 Flash",
+    "temperature": 0,
+    "maxTokens": 500
+  },
+  "runId": "bench-2025-12-19T00-26-44-804Z",
+  "runAt": "2025-12-19T00:26:44.804Z",
+  "promptVersion": "v1.1",
+  "score": 0,
+  "breakdown": {
+    "mate1": 0,
+    "mate2": 0,
+    "mate3": 0
+  },
+  "avgLatencyMs": 658,
+  "results": {
+    "mate1-HR783": {
+      "move": "g5h5",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is a mate-in-1 for White.\nWhite's queen on g5 is attacking the h7 square. Black's king on h2 is trapped, with no escape squares. The f3 pawn blocks f2, and the h-pawn blocks h3. The g-file is blocked by the queen.\nThe tactical theme is a direct attack on the king with no possible escapes.\n\nThe move Qh5 delivers checkmate.\n[RESULT]\ng5h5\n[/RESULT]",
+      "latencyMs": 665,
+      "promptTokens": 378,
+      "completionTokens": 108,
+      "totalTokens": 486
+    },
+    "mate1-w3Xtv": {
+      "move": "d5e6",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is a mate in 1.\nWhite has a queen on d5 and a knight on e5. Black's king is on e7.\nThe tactical theme is a discovered attack or a direct checkmate.\nThe white queen on d5 delivers a check to the black king on e7. The black king has no escape squares. The squares d8, f8, d7, f7 are covered by the queen. The squares d6, f6 are covered by the queen and knight. The square e6 is covered by the knight. The square e8 is covered by the queen.\nTherefore, Qd5-e6 is checkmate.\n\n[RESULT]\nd5e6\n[/RESULT]",
+      "latencyMs": 1586,
+      "promptTokens": 386,
+      "completionTokens": 152,
+      "totalTokens": 538
+    },
+    "mate1-Amf99": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "The position is a king and pawn endgame with a rook on the board. White is to move.\n\n**Analysis:**\nWhite's king is on e3, and the rook is on h2. Black's king is on c1, and the bishop is on c7. Black has pawns on b3, c5, f6, f7, and h5. White has pawns on c4, f4, and f5.\n\n**Tactical Theme:**\nThe tactical theme is a direct checkmate. White's rook can deliver a check, and the black king has no escape squares.\n\n**Forcing Checkmate Sequence:**\n1. Rh1#\n\nThe rook on h2 moves to h1, delivering a check to the black king on c1.\n*   The black king on c1 is attacked by the rook on h1.\n*   The king cannot move to b1 or d1 because those squares are controlled by the white king on e3.\n*   The king cannot move to b2, c2, or d2 because those squares are controlled by the white king on e3.\n*   There are no pieces that can block the check.\n*   There are no pieces that can capture the checking rook.\n\nTherefore, Rh1 is checkmate.\n[RESULT] rh2h1 [/RESULT]",
+      "latencyMs": 665,
+      "promptTokens": 383,
+      "completionTokens": 285,
+      "totalTokens": 668
+    },
+    "mate1-CjHvU": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "The position is a mate in 1 for Black. The tactical theme is a discovered check or a direct attack on the king. Black's queen on e4 is perfectly placed to deliver the final blow.\n\nThe white king on h3 is severely restricted. The pawn on h4 and the rook on f2 control the g2 and g3 squares, respectively. The only escape square for the king is g2, but it is covered by the rook. The queen on e4 can deliver a checkmate by moving to h1.\n\nThe move Qh1# delivers a checkmate. The king on h3 is attacked by the queen. The squares g2 and g3 are covered by the rook on f2 and the pawn on h4, respectively. The square h2 is covered by the queen. Therefore, the king has no legal moves.\n\n[RESULT] qe4h1 [/RESULT]",
+      "latencyMs": 471,
+      "promptTokens": 377,
+      "completionTokens": 187,
+      "totalTokens": 564
+    },
+    "mate1-pU7ND": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "The position is a mate in 1 for White. The tactical theme is a discovered check and a back-rank mate. White's queen on b8 is currently blocked by the bishop on c8. Moving the bishop will reveal a check from the queen.\n\nThe key is to move the bishop on c8 to a square where it can deliver a discovered check, while also covering the king's escape squares. The move Bc7 delivers a discovered check from the queen on b8, and simultaneously covers the e7 square, preventing the king from escaping. The king is also trapped by its own rook on h8 and the pawn on g7.\n\nThe forcing checkmate sequence is:\n1. Bc7#\n\n[RESULT]\nbc7\n[/RESULT]",
+      "latencyMs": 496,
+      "promptTokens": 387,
+      "completionTokens": 158,
+      "totalTokens": 545
+    },
+    "mate1-vdzFN": {
+      "move": "g6h6",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "san",
+      "rawOutput": "The position is a sharp one with both kings exposed. White has a strong attack on the kingside. The tactical theme is a direct checkmate.\n\nWhite can deliver checkmate in one move by moving the queen to h6. This move attacks the black king and there are no legal moves for Black to escape the check. The black king is trapped by its own pieces and the white queen.\n\nThe move is Qh6#.",
+      "latencyMs": 503,
+      "promptTokens": 388,
+      "completionTokens": 87,
+      "totalTokens": 475
+    },
+    "mate1-b8B0x": {
+      "move": "e7e8q",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is a tactical one where White has a strong passed pawn on e7 and a bishop on b6 controlling key squares. Black's king is exposed. The tactical theme is a discovered attack or a direct checkmate.\n\nWhite can deliver checkmate in one move by promoting the pawn on e7.\n\nThe move e7e8 delivers checkmate. The pawn promotes to a queen, checking the black king on d8. The king has no escape squares, as c7 is covered by the bishop on b6, and c8 is covered by the newly promoted queen. The rook on d8 is pinned and cannot interpose.\n\n[RESULT]\ne7e8q\n[/RESULT]",
+      "latencyMs": 476,
+      "promptTokens": 374,
+      "completionTokens": 146,
+      "totalTokens": 520
+    },
+    "mate1-ZmOQt": {
+      "move": "c2d1",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is from a game where White's last move was h4d8, which was a blunder. Black has a mate in 1.\n\nThe tactical theme is a discovered attack and a back-rank mate. White's king is trapped on the back rank, and the queen can deliver the final blow.\n\nThe forcing checkmate sequence is:\n1... Qd1#\n\n[RESULT]\nc2d1\n[/RESULT]",
+      "latencyMs": 616,
+      "promptTokens": 387,
+      "completionTokens": 93,
+      "totalTokens": 480
+    },
+    "mate1-S3tXw": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "The position is a sharp one, with both sides having active pieces. Black has a strong queen on d4 and a knight on e4, while White's king is exposed on h1. The tactical theme is a direct checkmate.\n\nThe solution is a simple checkmate in one move. Black can deliver checkmate by moving the queen to h4. This move attacks the king, and the king has no escape squares. The white queen on f3 is pinned by the black queen on d4, and the white knight on h4 is blocking the king's escape.\n\nThe forcing checkmate sequence is:\n1... Qh4#\n[RESULT] qd4h4 [/RESULT]",
+      "latencyMs": 553,
+      "promptTokens": 375,
+      "completionTokens": 145,
+      "totalTokens": 520
+    },
+    "mate1-fVTm6": {
+      "move": "f5h5",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The user wants me to find a mate in 1.\nThe current position is 5b1k/p6r/2q5/2P1pQ2/P7/7P/5PP1/2R3K1 w - - 0 30.\nWhite to move.\n\nLet's look for checks:\n1.  Qh5+ - This looks promising.\n    If Qh5+, the king has no escape squares.\n    The h7 rook is pinned by the queen.\n    The f8 bishop is blocking the h6 square.\n    The g7 square is covered by the queen.\n    The g8 square is covered by the queen.\n    The h6 square is covered by the queen.\n    The h7 square is covered by the queen.\n    The h8 square is the king's current position.\n\nSo, Qh5+ is checkmate.\n\nTactical theme: Back rank mate / King trapped on the back rank.\n\n[RESULT]\nf5h5\n[/RESULT]",
+      "latencyMs": 544,
+      "promptTokens": 379,
+      "completionTokens": 227,
+      "totalTokens": 606
+    }
+  }
+}
