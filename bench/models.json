@@ -1,7 +1,7 @@
 [
   {
-    "id": "mistralai/mistral-small-creative",
-    "name": "Mistral Small Creative",
+    "id": "moonshotai/kimi-k2-thinking",
+    "name": "Kim 2 Thinking",
     "temperature": 0,
     "maxTokens": 1500
   }

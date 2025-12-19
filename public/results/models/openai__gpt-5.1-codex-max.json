@@ -1,0 +1,124 @@
+{
+  "model": {
+    "id": "openai/gpt-5.1-codex-max",
+    "name": "OpenAI GPT-5.1 Codex Max",
+    "temperature": 0,
+    "maxTokens": 1500
+  },
+  "runId": "bench-2025-12-19T04-23-05-731Z",
+  "runAt": "2025-12-19T04:23:05.731Z",
+  "promptVersion": "v1.1",
+  "score": 30,
+  "breakdown": {
+    "mate1": 30,
+    "mate2": 0,
+    "mate3": 0
+  },
+  "avgLatencyMs": 259,
+  "results": {
+    "mate1-HR783": {
+      "move": "g5h4",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "san",
+      "rawOutput": "**Analyzing chess board for mate in 1**\n\nI mapped the full board and piece positions to identify white moves that put black king at h2 in unavoidable check, focusing on queen moves like Qh4 that might deliver checkmate in one move.**Analyzing queen moves for mate-in-1**\n\nI'm verifying if moving the queen to h4 delivers check to the black king on h2 by checking vertical and diagonal threats from that square.",
+      "latencyMs": 330,
+      "promptTokens": 369,
+      "completionTokens": 1472,
+      "totalTokens": 1841
+    },
+    "mate1-w3Xtv": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Parsing board position for mate-in-1****Parsing complex FEN position**\n\nI've decoded the full FEN and cross-checked with the ASCII board to confirm piece placements and found no inconsistencies; now focusing on White's potential mating moves from the confirmed position.",
+      "latencyMs": 393,
+      "promptTokens": 380,
+      "completionTokens": 1472,
+      "totalTokens": 1852
+    },
+    "mate1-Amf99": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing mate-in-one possibilities**\n\nI've mapped piece positions and lines of attack, focusing on White rook moves that could checkmate Black king on c1 by controlling escape squares and checking for any black interpositions or captures.**Analyzing mate-in-one possibilities**\n\nWhite's rook moving to h1 delivers check along rank 1 to Black's king on c1, but Black likely has escape squares on rank 1 and 2; next, I'll verify if those squares are covered by White or blocked to confirm if this is a mate.",
+      "latencyMs": 385,
+      "promptTokens": 375,
+      "completionTokens": 1472,
+      "totalTokens": 1847
+    },
+    "mate1-CjHvU": {
+      "move": "e4g4",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "san",
+      "rawOutput": "**Analyzing mate-in-1 candidate Qg4#**\n\nI verified that black playing Qg4 delivers check to white's king on h3, with the queen protected by black king on h5, and that the white king cannot capture on g4 due to the king's control; this supports Qg4 as a strong mate-in-one candidate.**Analyzing black mate-in-one options**\n\nI'm parsing the position carefully and verifying that Black can deliver mate with Qg4#, checking the white king on h3 with no legal escape due to black king and queen control and pawn coverage. Next, I'll confirm that no white piece can capture or block this check.",
+      "latencyMs": 207,
+      "promptTokens": 367,
+      "completionTokens": 1472,
+      "totalTokens": 1839
+    },
+    "mate1-pU7ND": {
+      "move": "e1e7",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "san",
+      "rawOutput": "**Analyzing mate-in-1 possibility**\n\nI've mapped most pieces and see that Rxe7+ is a legal check as the e7 knight is capturable, but need to verify if black king can capture back or escape, checking if e7 is defended or black king’s escape squares are controlled.**Analyzing mate-in-1 candidate moves**\n\nI'm verifying if Rxe7# is mate by checking if Black's king can capture the rook or escape; the rook on e7 gives check, but the king's capture or movement options aren't fully protected by White, so I'll further assess Black's escape squares and White's control.",
+      "latencyMs": 188,
+      "promptTokens": 378,
+      "completionTokens": 1472,
+      "totalTokens": 1850
+    },
+    "mate1-vdzFN": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Parsing position details**\n\nThe position was thoroughly decoded from the FEN, clarifying all piece placements and confirming White to move with mate in 1 conditions. The focus is now identifying an immediate checkmate move by White.**Analyzing position and mate possibilities**\n\nI'm parsing the FEN and reconstructing piece placements to evaluate White's mate-in-1 options, focusing on queen moves near Black's king on h8 and surrounding squares.",
+      "latencyMs": 193,
+      "promptTokens": 381,
+      "completionTokens": 1472,
+      "totalTokens": 1853
+    },
+    "mate1-b8B0x": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing promotion checks**\n\nPromotion on e8 to queen, rook, bishop, or knight does not deliver check due to blocking pieces and lack of attack lines on the black king at c8.**Analyzing promotion checks**\n\nPromotion on e8 does not deliver check because the black rook on d8 blocks direct lines; none of the promoted pieces on e8 would attack black's king on c8 immediately.",
+      "latencyMs": 189,
+      "promptTokens": 364,
+      "completionTokens": 1472,
+      "totalTokens": 1836
+    },
+    "mate1-ZmOQt": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing position details for mate in 1**\n\nI parsed the full piece placement and verified that Black is not currently in check, setting up for identifying a one-move checkmate by Black.**Parsing FEN position**\n\nI decoded the full piece placement from the FEN, confirming piece locations and clarified black's turn to move for mate in one. No immediate check detected against Black king at f8. Next, I'll identify Black's mating move.",
+      "latencyMs": 191,
+      "promptTokens": 381,
+      "completionTokens": 1472,
+      "totalTokens": 1853
+    },
+    "mate1-S3tXw": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Parsing position for mate-in-one**\n\nI thoroughly reconstructed the board from the FEN, confirming piece placements and noting Black's advanced pawn on h2 near White's king. I identified that Black's queen can move to g1 to deliver a likely checkmate in one move.**Parsing position and analyzing mate threats**\n\nThe FEN was parsed to map all pieces precisely, clarifying black's advanced pawn on h2 and white's king at h1. I found that Black's queen move to g1 is a likely mate-in-1 candidate due to its attack along the diagonal and rank, restricting white's king escape.",
+      "latencyMs": 227,
+      "promptTokens": 373,
+      "completionTokens": 1472,
+      "totalTokens": 1845
+    },
+    "mate1-fVTm6": {
+      "move": "f5f8",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "san",
+      "rawOutput": "**Analyzing mate-in-one possibilities**\n\nI mapped the board and considered Qxf8 and Qxh7+ as candidate mate moves, assessing lines of attack and whether Black's king can escape or capture safely.**Analyzing mate-in-1 possibilities**\n\nI'm breaking down the board and candidate moves Qxf8 and Qxh7+, carefully checking if these deliver a one-move checkmate given black's king position and piece coverage.",
+      "latencyMs": 283,
+      "promptTokens": 371,
+      "completionTokens": 1472,
+      "totalTokens": 1843
+    }
+  }
+}

@@ -10,12 +10,6 @@ function stripQuotes(v: string): string {
   return s;
 }
 
-/**
- * Minimal .env loader for bench scripts.
- *
- * Next.js loads `.env*` automatically for the app, but `bun run bench/*.ts` does not
- * unless you use `--env-file`. This keeps the CLI workflow aligned with the README.
- */
 export async function loadDotEnv(
   absPath: string = path.join(process.cwd(), ".env"),
 ): Promise<void> {
@@ -33,7 +27,6 @@ export async function loadDotEnv(
       if (process.env[key] === undefined) process.env[key] = value;
     }
   } catch {
-    // ignore missing .env
   }
 }
 

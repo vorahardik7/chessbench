@@ -28,3 +28,21 @@ export function uciLineToSan(fen: string, uciLine: string): string {
   }
 }
 
+export function getModelLogoPath(modelId: string): string | null {
+  const provider = modelId.split('/')[0];
+  
+  const logoMap: Record<string, string> = {
+    'x-ai': 'xai',
+    'google': 'google',
+    'openai': 'openai',
+    'anthropic': 'anthropic',
+    'mistralai': 'mistral',
+    'nex-agi': 'deepseek', 
+  };
+  
+  const logoName = logoMap[provider];
+  if (!logoName) return null;
+  
+  return `/results/model_icons/${logoName}.svg`;
+}
+

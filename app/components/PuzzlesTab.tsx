@@ -445,10 +445,11 @@ export default function PuzzlesTab({ data }: { data: BenchmarkData }) {
                                 target="_blank"
                                 rel="noreferrer"
                                 onClick={(e) => e.stopPropagation()}
-                                className="inline-flex items-center justify-center w-6 h-6 rounded border border-neutral-800 bg-neutral-900 text-neutral-500 hover:text-neutral-200 transition-colors"
+                                className="inline-flex items-center gap-1.5 px-2 py-1 rounded border border-neutral-800 bg-neutral-900 text-neutral-500 hover:text-neutral-200 hover:border-neutral-700 transition-colors text-[10px] font-medium"
                                 title="View on Lichess"
                               >
                                 <ExternalLink className="w-3 h-3" />
+                                <span>Lichess Link</span>
                               </a>
                             )}
                             {isModelLoading ? (

@@ -25,6 +25,7 @@ import {
   LabelList,
 } from 'recharts';
 import type { ResultsIndex as BenchmarkData } from '../../bench/types';
+import { getModelLogoPath } from './utils';
 
 // ============================================================================
 // CONSTANTS
@@ -246,6 +247,55 @@ function CustomLabel(props: {
   );
 }
 
+// Custom XAxis tick with logo - factory function to create tick with name-to-id map
+function createCustomXAxisTick(nameToIdMap: Map<string, string>) {
+  return function CustomXAxisTick(props: {
+    x?: number;
+    y?: number;
+    payload?: { value?: string; [key: string]: unknown };
+    [key: string]: unknown;
+  }) {
+    const { x, y, payload } = props;
+    if (!payload || !payload.value) return null;
+    
+    const modelName = payload.value as string;
+    const modelId = nameToIdMap.get(modelName);
+    const logoPath = modelId ? getModelLogoPath(modelId) : null;
+    
+    if (typeof x !== 'number' || typeof y !== 'number') return null;
+    
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <g transform="rotate(-40)">
+          {logoPath && (
+            <image
+              href={logoPath}
+              x={-20}
+              y={-7}
+              width={14}
+              height={14}
+              style={{ 
+                opacity: 0.9,
+                filter: 'brightness(0) invert(1)',
+              }}
+            />
+          )}
+          <text
+            x={logoPath ? -4 : 0}
+            y={0}
+            dy={16}
+            fill="#a3a3a3"
+            fontSize={11}
+            textAnchor="end"
+          >
+            {modelName}
+          </text>
+        </g>
+      </g>
+    );
+  };
+}
+
 // ============================================================================
 // BENCHMARKS TAB
 // ============================================================================
@@ -297,6 +347,20 @@ export default function BenchmarksTab({ data }: { data: BenchmarkData }) {
         id: m.id,
       }));
   }, [modelsByScore]);
+
+  // Create name-to-id map for chart ticks
+  const modelNameToIdMap = useMemo(() => {
+    const map = new Map<string, string>();
+    data.models.forEach((m) => {
+      map.set(m.name, m.id);
+    });
+    return map;
+  }, [data.models]);
+
+  const CustomXAxisTickWithLogo = useMemo(
+    () => createCustomXAxisTick(modelNameToIdMap),
+    [modelNameToIdMap]
+  );
 
   const tabs = [
     { key: 'leaderboard', label: 'Leaderboard', icon: Trophy },
@@ -516,10 +580,24 @@ export default function BenchmarksTab({ data }: { data: BenchmarkData }) {
                               <div className={`font-mono text-sm font-semibold ${rankColor}`}>#{idx + 1}</div>
                             </td>
                             <td className="px-4 py-3">
-                              <div className="font-medium text-neutral-200 truncate max-w-[420px]">
-                                {model.name}
+                              <div className="flex items-center gap-2">
+                                {getModelLogoPath(model.id) && (
+                                  <img
+                                    src={getModelLogoPath(model.id)!}
+                                    alt=""
+                                    className="w-5 h-5 flex-shrink-0 mr-2"
+                                    style={{
+                                      filter: 'brightness(0) invert(1)',
+                                    }}
+                                  />
+                                )}
+                                <div className="min-w-0">
+                                  <div className="font-medium text-neutral-200 truncate max-w-[420px]">
+                                    {model.name}
+                                  </div>
+                                  <div className="text-[11px] text-neutral-500 font-mono truncate">{model.id}</div>
+                                </div>
                               </div>
-                              <div className="text-[11px] text-neutral-500 font-mono truncate">{model.id}</div>
                             </td>
                             <td className="px-4 py-3 text-right">
                               <div className="font-semibold text-neutral-100">{model.score.toFixed(1)}%</div>
@@ -569,11 +647,9 @@ export default function BenchmarksTab({ data }: { data: BenchmarkData }) {
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                     <XAxis
                       dataKey="name"
-                      tick={{ fill: '#a3a3a3', fontSize: 11 }}
+                      tick={CustomXAxisTickWithLogo}
                       axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
                       tickLine={false}
-                      angle={-40}
-                      textAnchor="end"
                       height={80}
                     />
                     <YAxis
@@ -604,11 +680,9 @@ export default function BenchmarksTab({ data }: { data: BenchmarkData }) {
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                     <XAxis
                       dataKey="name"
-                      tick={{ fill: '#a3a3a3', fontSize: 11 }}
+                      tick={CustomXAxisTickWithLogo}
                       axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
                       tickLine={false}
-                      angle={-40}
-                      textAnchor="end"
                       height={80}
                     />
                     <YAxis
