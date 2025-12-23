@@ -1,6 +1,6 @@
 {
-  "runId": "bench-2025-12-23T00-22-38-739Z",
-  "runAt": "2025-12-23T00:22:38.739Z",
+  "runId": "bench-2025-12-23T23-02-21-577Z",
+  "runAt": "2025-12-23T23:02:21.577Z",
   "promptVersion": "v1.1",
   "puzzles": [
     {
@@ -238,17 +238,6 @@
       "avgLatencyMs": 1102
     },
     {
-      "id": "google/gemini-3-pro-preview",
-      "name": "Gemini 3 Pro Preview",
-      "score": 70,
-      "breakdown": {
-        "mate1": 70,
-        "mate2": 0,
-        "mate3": 0
-      },
-      "avgLatencyMs": 4126
-    },
-    {
       "id": "openai/gpt-5.2-pro",
       "name": "OpenAI GPT-5.2 Pro",
       "score": 70,
@@ -258,6 +247,17 @@
         "mate3": 0
       },
       "avgLatencyMs": 314
+    },
+    {
+      "id": "google/gemini-3-pro-preview",
+      "name": "Gemini 3 Pro Preview",
+      "score": 70,
+      "breakdown": {
+        "mate1": 70,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 4126
     },
     {
       "id": "openai/gpt-5.2",
@@ -381,6 +381,17 @@
       "avgLatencyMs": 740
     },
     {
+      "id": "minimax/minimax-m2.1",
+      "name": "Minimax M2.1",
+      "score": 10,
+      "breakdown": {
+        "mate1": 10,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 1051
+    },
+    {
       "id": "google/gemini-2.5-pro",
       "name": "Gemini 2.5 Pro",
       "score": 0,
@@ -440,6 +451,7 @@
     "anthropic/claude-haiku-4.5": "/results/models/anthropic__claude-haiku-4.5.json",
     "x-ai/grok-4-fast": "/results/models/x-ai__grok-4-fast.json",
     "x-ai/grok-4.1-fast": "/results/models/x-ai__grok-4.1-fast.json",
+    "openai/gpt-5.2-pro": "/results/models/openai__gpt-5.2-pro.json",
     "openai/gpt-5.1-codex": "/results/models/openai__gpt-5.1-codex.json",
     "google/gemini-2.5-pro": "/results/models/google__gemini-2.5-pro.json",
     "google/gemini-3-flash-preview": "/results/models/google__gemini-3-flash-preview.json",
@@ -457,6 +469,6 @@
     "google/gemini-2.5-flash": "/results/models/google__gemini-2.5-flash.json",
     "anthropic/claude-opus-4.5": "/results/models/anthropic__claude-opus-4.5.json",
     "anthropic/claude-3.5-haiku": "/results/models/anthropic__claude-3.5-haiku.json",
-    "openai/gpt-5.2-pro": "/results/models/openai__gpt-5.2-pro.json"
+    "minimax/minimax-m2.1": "/results/models/minimax__minimax-m2.1.json"
   }
 }
