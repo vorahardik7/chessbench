@@ -1,6 +1,6 @@
 {
-  "runId": "bench-2025-12-19T05-06-04-833Z",
-  "runAt": "2025-12-19T05:06:04.833Z",
+  "runId": "bench-2025-12-23T00-22-38-739Z",
+  "runAt": "2025-12-23T00:22:38.739Z",
   "promptVersion": "v1.1",
   "puzzles": [
     {
@@ -249,6 +249,17 @@
       "avgLatencyMs": 4126
     },
     {
+      "id": "openai/gpt-5.2-pro",
+      "name": "OpenAI GPT-5.2 Pro",
+      "score": 70,
+      "breakdown": {
+        "mate1": 70,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 314
+    },
+    {
       "id": "openai/gpt-5.2",
       "name": "OpenAI GPT-5.2",
       "score": 40,
@@ -326,6 +337,17 @@
       "avgLatencyMs": 6053
     },
     {
+      "id": "moonshotai/kimi-k2-thinking",
+      "name": "Kim 2 Thinking",
+      "score": 10,
+      "breakdown": {
+        "mate1": 10,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 781
+    },
+    {
       "id": "anthropic/claude-sonnet-4.5",
       "name": "Claude Sonnet 4.5",
       "score": 10,
@@ -337,6 +359,17 @@
       "avgLatencyMs": 2189
     },
     {
+      "id": "z-ai/glm-4.7",
+      "name": "Z-AI GLM 4.7",
+      "score": 10,
+      "breakdown": {
+        "mate1": 10,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 3804
+    },
+    {
       "id": "anthropic/claude-3.5-haiku",
       "name": "Claude 3.5 Haiku",
       "score": 10,
@@ -346,17 +379,6 @@
         "mate3": 0
       },
       "avgLatencyMs": 740
-    },
-    {
-      "id": "moonshotai/kimi-k2-thinking",
-      "name": "Kim 2 Thinking",
-      "score": 10,
-      "breakdown": {
-        "mate1": 10,
-        "mate2": 0,
-        "mate3": 0
-      },
-      "avgLatencyMs": 781
     },
     {
       "id": "google/gemini-2.5-pro",
@@ -426,13 +448,15 @@
     "google/gemini-3-pro-preview": "/results/models/google__gemini-3-pro-preview.json",
     "openai/gpt-5.2": "/results/models/openai__gpt-5.2.json",
     "nex-agi/deepseek-v3.1-nex-n1:free": "/results/models/nex-agi__deepseek-v3.1-nex-n1__free.json",
+    "moonshotai/kimi-k2-thinking": "/results/models/moonshotai__kimi-k2-thinking.json",
     "openai/gpt-5": "/results/models/openai__gpt-5.json",
     "openai/gpt-5.1-codex-max": "/results/models/openai__gpt-5.1-codex-max.json",
     "anthropic/claude-sonnet-4.5": "/results/models/anthropic__claude-sonnet-4.5.json",
+    "z-ai/glm-4.7": "/results/models/z-ai__glm-4.7.json",
     "allenai/olmo-3.1-32b-think:free": "/results/models/allenai__olmo-3.1-32b-think__free.json",
     "google/gemini-2.5-flash": "/results/models/google__gemini-2.5-flash.json",
     "anthropic/claude-opus-4.5": "/results/models/anthropic__claude-opus-4.5.json",
     "anthropic/claude-3.5-haiku": "/results/models/anthropic__claude-3.5-haiku.json",
-    "moonshotai/kimi-k2-thinking": "/results/models/moonshotai__kimi-k2-thinking.json"
+    "openai/gpt-5.2-pro": "/results/models/openai__gpt-5.2-pro.json"
   }
 }
