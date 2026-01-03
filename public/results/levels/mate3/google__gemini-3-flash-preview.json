@@ -1,0 +1,126 @@
+{
+  "model": {
+    "id": "google/gemini-3-flash-preview",
+    "name": "Gemini 3 Flash",
+    "temperature": 0,
+    "maxTokens": 1500
+  },
+  "level": "mate3",
+  "runId": "bench-2026-01-03T09-40-16-204Z",
+  "runAt": "2026-01-03T09:40:16.204Z",
+  "promptVersion": "v1.1",
+  "score": 10,
+  "avgLatencyMs": 1151,
+  "results": {
+    "mate3-SygLP": {
+      "move": "f7f2 d2c1 h8h1 d3d1 h1d1",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is an endgame where Black has two active rooks and a centralized king, while White's king is cramped on the second rank. The tactical theme is a **linear mate** (or \"lawnmower mate\") combined with a **back-rank/edge-of-board restriction**.\n\n**Analysis:**\n1. Black's king on d5 and pawn on d4 control critical squares (e4, c4, e3, c3), limiting the White king's mobility.\n2. The White king is currently on d2. Black can use the rooks to check the king and force it towards the edge or into a mating net.\n3. The move **1... Rf2+** forces the White king to move. If White plays **2. Ke1**, Black follows with **2... Rh1#**.\n4. If White plays **2. Kc1**, Black plays **2... Rh1+**. White's only legal response is to block with the rook: **3. Rd1**.\n5. Black then captures the rook with **3... Rxd1#** (or **3... Rhxd1#**) to deliver checkmate.\n\n**Forcing Sequence:**\n1... Rf2+\n2. Kc1 Rh1+\n3. Rd1 Rxd1#\n\n[RESULT] f7f2 d2c1 h8h1 d3d1 h1d1 [/RESULT]",
+      "latencyMs": 1043,
+      "promptTokens": 371,
+      "completionTokens": 302,
+      "totalTokens": 673
+    },
+    "mate3-UdGdL": {
+      "move": "g5f6 e8e5 f6g7",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "san",
+      "rawOutput": "The position shows White with a powerful attacking setup. The White Queen on g5 and the Bishop on h6 exert immense pressure on the Black King's castled position, specifically targeting the g7 and f6 squares. Black's last move, ...Re8, attempted to challenge the Rook on e5, but it fails to address the immediate mating threat.\n\nThe tactical theme is a **King hunt** involving a **Queen sacrifice** to force the King into a mating net.\n\n1. White plays **Qf6**, threatening immediate mate on g7.\n2. Black's only way to delay the mate while addressing the threat is to capture the Rook on e5 with **Rxe5**.\n3. White then plays the decisive **Qg7+**, forcing the Black King to capture the Queen: **Kxg7**.\n4. Finally, the Bishop on h6 delivers the finishing blow with **Bf8#**. This is a double check (from the Bishop on f8 and the Rook on e1), making it impossible for Black to block or capture, resulting in checkmate.\n\n[RESULT] g5f6 e8e5 f6g7 k8g7 h6f8 [/RESULT]",
+      "latencyMs": 1094,
+      "promptTokens": 381,
+      "completionTokens": 255,
+      "totalTokens": 636
+    },
+    "mate3-gOHbt": {
+      "move": "f4f5",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "san",
+      "rawOutput": "The position shows White under heavy pressure, with Black's rook on c1 and queen on g3 threatening the king. However, White has a decisive counter-attack based on the exposed position of the Black king on h7.\n\n**Analysis:**\n1.  **King Safety:** The Black king is tucked away on h7, but the diagonal a2-g8 is controlled by White's bishop on a2. The h-file is currently closed, but White can force it open.\n2.  **Tactical Theme:** The theme is a **forced mate** using a heavy piece (Rook) on the h-file combined with the long-range pressure of the light-squared bishop.\n3.  **The Sequence:**\n    *   White plays **Rh1+**, forcing the Black queen to block (as the king has no escape squares due to the bishop on a2 and the pawn on g6).\n    *   After **Qh4**, White captures the queen with **Rxh4+**.\n    *   Black's only legal move is to capture the rook with the pawn: **gxh4**.\n    *   This opens the g-file, but more importantly, White delivers the final blow with **f5#**. The pawn move f5 is checkmate because the bishop on a2 covers g8 and h7, and the pawn on f5 covers g6, while the king is trapped by its own pieces and the white structure.\n\n[RESULT] h1h4 g3h4 r1h4 g5h4 f4f5 [/RESULT]",
+      "latencyMs": 1047,
+      "promptTokens": 384,
+      "completionTokens": 337,
+      "totalTokens": 721
+    },
+    "mate3-Fq50G": {
+      "move": "f5f6 b1f1 f6e6 f1e1 e6d6",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is an endgame where White has a powerful rook on the 7th rank and a pawn on f7, while Black's king is trapped on f8. Black's last move was ...Kf8, attempting to stay close to the promotion square.\n\n**Analysis:**\nWhite's king is very active on f5. The key to the position is the vulnerability of the Black king and the lack of defensive squares. White can force a checkmate by using the King to support the Rook and the f-pawn.\n\n1. **Kf6**: White moves the king to f6, threatening Rb8#. Black has no way to prevent the mate on the back rank because the f7 pawn prevents the king from escaping to e7 or g7, and the rook on b7 controls the 7th rank.\n2. **...Rf1** (or any other move like ...h3): Black tries to check or create a distraction, but it doesn't stop the threat. If Black plays ...Re1, White simply plays Rb8+ Re8 Rxe8#.\n3. **Rb8#**: The rook delivers checkmate on the back rank, supported by the king on f6 and the pawn on f7.\n\n**Forcing Sequence:**\n1. Kf6 (Threatening Rb8#)\n2. (Black's move, e.g., Rf1+)\n3. Ke6 (Avoiding check while maintaining the threat)\n4. (Black's move, e.g., Re1+)\n5. Re7 (Blocking) - *Correction*: The most direct mate in 3 is:\n1. Kf6 (Threatening Rb8#)\n2. (Any move, e.g., h3)\n3. Rb8#\n\nWait, the prompt asks for a mate in 3 (5 plies). Let's re-evaluate:\n1. Kf6 (Threatening Rb8#)\nIf 1... Re1 (to block), 2. Rb8+ Re8 3. Rxe8#\nIf 1... Rf1+ 2. Ke6 (Threatening Rb8#) Re1+ 3. Kd6 (or any move maintaining the threat) - actually, the simplest path is:\n1. Kf6 Kg8 (If the king moves) 2. Rb8+ Kh7 3. f8=Q (or f8=R#)\nHowever, in the given FEN, the king is on f8.\n1. Kf6 (Threatening Rb8#)\nIf 1... h3 2. Rb8# (Mate in 2)\nTo make it a mate in 3, Black must check:\n1. Kf6 Rf1+ 2. Ke6 Re1+ 3. Kd6 (or any) - No, the fastest mate is:\n1. Kf6 Re1 2. Rb8+ Re8 3. Rxe8#\n\n[RESULT] f5f6 b1f1 f6e6 f1e1 e6d6 [/RESULT]",
+      "latencyMs": 1117,
+      "promptTokens": 374,
+      "completionTokens": 656,
+      "totalTokens": 1030
+    },
+    "mate3-kWIdD": {
+      "move": "d8h3 e2f1 h4f3 g1h1 h3f1",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "uci",
+      "rawOutput": "The position shows Black with a significant attacking opportunity against the White king. White's kingside is weakened, specifically the g2 and h1 squares. Black's queen and knight are poised for a decisive strike.\n\n**Analysis:**\n1. **Material:** Material is roughly equal, but White has a passed pawn on d6.\n2. **King Safety:** White's king is exposed on g1. The move `f2f3` (or the pawn structure) has left the dark squares around the king vulnerable.\n3. **Tactical Theme:** The theme is a **mating net** involving the Queen and Knight. The move `Qh3` creates an immediate threat of mate on g2. White's only defense to delay the mate is to sacrifice the Queen or block with the Bishop, but the geometry of the position allows Black to force mate.\n\n**Forcing Sequence:**\n1. **... Qh3**: Threatening `Qg2#`.\n2. **Qf1**: White must defend g2. (If `f4`, then `Qg2#` still follows).\n3. **Nxf3+**: A forcing check. White must capture or move the king.\n4. **Kh1**: If `Kh1`, then `Qxf1#`. If `gxf3`, then `Qxf3+` followed by mate.\n\nHowever, looking at the specific \"Mate in 3\" requirement:\n1. **... Qh3** (Threatens mate)\n2. **dxe7** (White ignores the threat or tries to create counterplay)\n3. **Qg2#**\n\nWait, the prompt asks for a 5-ply (3-move) sequence. Let's re-evaluate the most resilient defense:\n1. **... Qh3**\n2. **f4** (Trying to clear f2 or block)\n3. **Qg2#** is still there.\n\nIf White plays **2. Qf1**:\n1. **... Qh3**\n2. **Qf1**\n3. **Nxf3+**\n4. **Kh1**\n5. **Qxf1#**\n\nThis fits the 5-ply (3 moves for Black) requirement perfectly.\n\n[RESULT] d8h3 e2f1 h4f3 g1h1 h3f1 [/RESULT]",
+      "latencyMs": 1298,
+      "promptTokens": 390,
+      "completionTokens": 506,
+      "totalTokens": 896
+    },
+    "mate3-DCWyy": {
+      "move": "e5g6 h8h7 g6f8 h7h8 f7h7",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "uci",
+      "rawOutput": "The position shows White with a significant attacking advantage. The Black king is tucked away on h8, but the White pieces are perfectly coordinated for a tactical strike. The key themes here are the **exposed king** and the **smothered mate/back-rank patterns** involving the Knight and Queen.\n\n**Analysis:**\n1. White's Queen on f7 and Knight on e5 are eyeing the g6 and f7 squares.\n2. The Black king is restricted by its own pawns and the White Queen.\n3. The move **Ng6+** forces the king to h7.\n4. After **Ng6+ Kh7**, White plays the decisive **Nf8+**. This is a double check (from the Knight on f8 and the Queen on f7), which forces the king back to h8 (since the knight cannot be captured while the king is in check from the queen).\n5. Finally, **Qh7#** or **Qg8#** would be the goal, but in this specific configuration, the double check leads to a forced mate. Specifically, after **1. Ng6+ Kh7 2. Nf8+ Kh8**, White delivers mate with **3. Qh7#**.\n\n**Forcing Sequence:**\n1. Ng6+ Kh7\n2. Nf8+ Kh8\n3. Qh7#\n\n[RESULT] e5g6 h8h7 g6f8 h7h8 f7h7 [/RESULT]",
+      "latencyMs": 1266,
+      "promptTokens": 385,
+      "completionTokens": 313,
+      "totalTokens": 698
+    },
+    "mate3-hrEU6": {
+      "move": "f6a1",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "san",
+      "rawOutput": "The position is a classic example of a **Back Rank Mate** vulnerability. White's king is trapped behind its own pawns on the second rank, and the only defenders are the Rook on a1 and the Queen on b3.\n\n**Analysis:**\n1.  **Black's Assets:** Black has a powerful Queen on f6 and a Rook on e4. Both pieces are eyeing the back rank.\n2.  **White's Weakness:** The back rank (1st rank) is extremely weak. Although the Rook on a1 and Queen on b3 defend it, Black can overload these defenders.\n3.  **The Tactical Sequence:** Black plays `Qxa1+`. This forces White to respond. White must block or capture. If White plays `Rd1`, Black captures `Qxd1+`. If White plays `Qd1`, Black captures `Qxd1+`. In all variations, the final move is `Re1#`, delivering checkmate because the White king has no \"luft\" (escape square).\n\n**Forcing Sequence:**\n1. ... **Qxa1+**\n2. **Qd1** (If 2. Rd1 Qxd1+ 3. Qxd1 Re1#)\n2. ... **Qxd1+**\n3. **Rxd1**\n4. ... **Re1#**\n\n[RESULT] f6a1 d1d1 a1d1 a1d1 e4e1 [/RESULT]",
+      "latencyMs": 1190,
+      "promptTokens": 381,
+      "completionTokens": 314,
+      "totalTokens": 695
+    },
+    "mate3-8aztK": {
+      "move": "f2h3 g1h1 b6g1 f1g1 h3f2",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is a classic example of a **Smothered Mate** pattern. Black has a knight on f2 and a queen on b6, both eyeing the white king's position. \n\n**Analysis:**\n1. **Double Check:** Black plays **1... Nh3+**. This is a double check from both the knight on h3 and the queen on b6. Because it is a double check, White is forced to move the king.\n2. **King Move:** White must play **2. Kh1**. If White had played 2. Kf1, then 2... Qf2# would be immediate checkmate.\n3. **Queen Sacrifice:** Black plays **2... Qg1+**. This forces White to capture the queen with the rook (**3. Rxg1**) because the king is blocked by its own pieces and the knight on h3 covers the g1 square.\n4. **Smothered Mate:** After **3. Rxg1**, the white king is completely surrounded (\"smothered\") by its own pieces (pawns on g2, h2, and the rook on g1). Black delivers the final blow with **3... Nf2#**.\n\n[RESULT] f2h3 g1h1 b6g1 f1g1 h3f2 [/RESULT]",
+      "latencyMs": 1156,
+      "promptTokens": 374,
+      "completionTokens": 273,
+      "totalTokens": 647
+    },
+    "mate3-tbeHw": {
+      "move": "d2f3 g1h1",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "san",
+      "rawOutput": "The position is a tactical puzzle where Black has a decisive mating sequence. White's king is restricted on the g1-square, and Black's pieces (the rook on b2, the knight on d2, and the bishop on f5) are perfectly coordinated to deliver a forced checkmate.\n\n**Analysis:**\n1. **King Safety:** The White king is tucked in the corner, but the f2-pawn is pinned against the king by the bishop on f5 (once the knight moves).\n2. **Tactical Theme:** The primary theme is a **discovered check** combined with a **smothered-style mate** or a back-rank coordination.\n3. **The Sequence:** \n   - Black plays **1... Nf3+**. This is a double check (from the knight and the rook on b2, as the knight moves out of the way).\n   - White is forced to move the king to h1 (**2. Kh1**).\n   - Black then plays **2... Rh2#**. The rook delivers checkmate, supported by the knight on f3, while the bishop on f5 prevents the f-pawn from capturing the knight due to the pin.\n\n**Forcing Sequence:**\n1... Nf3+ 2. Kh1 Rh2#\n\n[RESULT] d2f3 g1h1 b2h2 [/RESULT]",
+      "latencyMs": 1091,
+      "promptTokens": 380,
+      "completionTokens": 293,
+      "totalTokens": 673
+    },
+    "mate3-nrN1h": {
+      "move": "c2g6 e8f8 f3g5 d8e8 g5e6",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position shows White with a significant development advantage and a powerful battery on the c2-h7 diagonal. Black's king is vulnerable due to the weakened dark squares around the kingside, specifically the g6 square which was just vacated by the f-pawn.\n\n**Analysis:**\n1.  **Tactical Theme:** The primary theme is a **King Hunt** or **Mating Attack** on the dark squares. The move `...g6` severely weakened the f7 and g6 squares.\n2.  **Key Observation:** White's Queen on c2 and Bishop on f4 exert pressure. The Knight on f3 can jump to g5 to join the attack.\n3.  **The Sequence:**\n    *   White plays **Qxg6+**, forcing the King to move.\n    *   If **Kf8**, White follows up with **Ng5**, threatening mate on f7. Black's only way to delay is to block or move the Queen, but the pressure is insurmountable.\n    *   Specifically, after **1. Qxg6+ Kf8 2. Ng5**, Black has no way to prevent **3. Qf7#** or **3. Ne6#** depending on the response. The most direct mate in 3 involves the Queen delivering the final blow on f7.\n\n**Forcing Sequence:**\n1. Qxg6+ Kf8\n2. Ng5 Qe8 (or any move)\n3. Ne6# (or Qf7#)\n\nWait, looking at the specific \"Mate in 3\" requirement:\n1. Qxg6+ Kf8\n2. Ng5 Qe8 (to defend f7)\n3. Ne6#\n\n[RESULT] c2g6 e8f8 f3g5 d8e8 g5e6 [/RESULT]",
+      "latencyMs": 1204,
+      "promptTokens": 389,
+      "completionTokens": 385,
+      "totalTokens": 774
+    }
+  }
+}

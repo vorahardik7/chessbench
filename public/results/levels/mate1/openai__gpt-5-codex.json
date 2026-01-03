@@ -1,0 +1,120 @@
+{
+  "model": {
+    "id": "openai/gpt-5-codex",
+    "name": "OpenAI GPT-5 Codex",
+    "temperature": 0,
+    "maxTokens": 1500
+  },
+  "runId": "bench-2025-12-19T03-57-20-324Z",
+  "runAt": "2025-12-19T03:57:20.324Z",
+  "promptVersion": "v1.1",
+  "score": 0,
+  "breakdown": {
+    "mate1": 0,
+    "mate2": 0,
+    "mate3": 0
+  },
+  "avgLatencyMs": 273,
+  "results": {
+    "mate1-HR783": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing mate-in-one possibilities****Analyzing checkmate-in-one possibilities**",
+      "latencyMs": 410,
+      "promptTokens": 369,
+      "completionTokens": 1472,
+      "totalTokens": 1841
+    },
+    "mate1-w3Xtv": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Evaluating mate-in-one possibilities****Analyzing mate-in-one possibilities**",
+      "latencyMs": 409,
+      "promptTokens": 380,
+      "completionTokens": 1472,
+      "totalTokens": 1852
+    },
+    "mate1-Amf99": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Evaluating mate-in-one possibilities****Evaluating mate-in-one possibilities**",
+      "latencyMs": 409,
+      "promptTokens": 375,
+      "completionTokens": 1472,
+      "totalTokens": 1847
+    },
+    "mate1-CjHvU": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing potential checkmate moves****Analyzing potential checkmate moves**",
+      "latencyMs": 234,
+      "promptTokens": 367,
+      "completionTokens": 1472,
+      "totalTokens": 1839
+    },
+    "mate1-pU7ND": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Evaluating checkmate in one move****Analyzing mate-in-1 possibilities**",
+      "latencyMs": 264,
+      "promptTokens": 378,
+      "completionTokens": 1472,
+      "totalTokens": 1850
+    },
+    "mate1-vdzFN": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing mate-in-1 possibilities****Analyzing forced mate in one**",
+      "latencyMs": 163,
+      "promptTokens": 381,
+      "completionTokens": 1472,
+      "totalTokens": 1853
+    },
+    "mate1-b8B0x": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing chess position for mate-in-one****Analyzing chess position for mate-in-one**",
+      "latencyMs": 183,
+      "promptTokens": 364,
+      "completionTokens": 1472,
+      "totalTokens": 1836
+    },
+    "mate1-ZmOQt": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing mate-in-one scenario****Analyzing potential mate-in-one moves**",
+      "latencyMs": 198,
+      "promptTokens": 381,
+      "completionTokens": 1472,
+      "totalTokens": 1853
+    },
+    "mate1-S3tXw": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing mate-in-one position****Parsing FEN and evaluating mate options**",
+      "latencyMs": 248,
+      "promptTokens": 373,
+      "completionTokens": 1472,
+      "totalTokens": 1845
+    },
+    "mate1-fVTm6": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Evaluating mate-in-one candidate****Evaluating mate-in-one move**",
+      "latencyMs": 212,
+      "promptTokens": 371,
+      "completionTokens": 1472,
+      "totalTokens": 1843
+    }
+  }
+}

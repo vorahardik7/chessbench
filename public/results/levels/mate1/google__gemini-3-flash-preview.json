@@ -1,0 +1,130 @@
+{
+  "model": {
+    "id": "google/gemini-3-flash-preview",
+    "name": "Gemini 3 Flash Preview",
+    "temperature": 0,
+    "maxTokens": 500
+  },
+  "runId": "bench-2025-12-18T23-07-39-699Z",
+  "runAt": "2025-12-18T23:07:39.699Z",
+  "promptVersion": "v1.1",
+  "score": 90.0,
+  "breakdown": {
+    "mate1": 90,
+    "mate2": 0,
+    "mate3": 0
+  },
+  "avgLatencyMs": 1102,
+  "results": {
+    "mate1-HR783": {
+      "move": "g5g2",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is a queen endgame where White has a decisive material advantage and the Black king is trapped on the edge of the board at h2. The White king is safe on f1, and the Black queen on b3 is unable to provide any defensive support or checks.\n\nThe tactical theme is a simple **mating net**. The Black king is restricted by its own pawn on h7 and the White king on f1. White can deliver checkmate in one move by placing the queen on the g-file, specifically on g2, which is protected by the White king.\n\nThe move **Qg2#** delivers checkmate as the king has no legal squares to move to and the queen cannot be captured.\n\n[RESULT] g5g2 [/RESULT]",
+      "latencyMs": 1978,
+      "promptTokens": 378,
+      "completionTokens": 157,
+      "totalTokens": 535
+    },
+    "mate1-w3Xtv": {
+      "move": "d5f7",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position shows White with a significant development advantage and a centralized Queen and Knight. The Black King is exposed on e7, having moved from e8.\n\n**Analysis:**\n1.  **White's pieces:** The Queen on d5 and the Knight on e5 are perfectly placed to attack the King.\n2.  **Black's King:** The King on e7 is restricted. The squares f7 and d7 are controlled by the White Queen. The square f6 is controlled by the Knight on e5.\n3.  **The Tactical Theme:** A direct checkmate on the f7 square. The Queen on d5 can move to f7, supported by the Knight on e5. Since the King has no escape squares (d6 is blocked by its own pawn, d8 is blocked by the Queen, f8 is blocked by the Knight, and e6/f6 are covered), this move results in immediate checkmate.\n\n**Forcing Sequence:**\n1. Qf7#\n\n[RESULT] d5f7 [/RESULT]",
+      "latencyMs": 1004,
+      "promptTokens": 386,
+      "completionTokens": 220,
+      "totalTokens": 606
+    },
+    "mate1-Amf99": {
+      "move": "h2h1",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is an endgame where White has a Rook and King against Black's Bishop and advanced pawns. Black's King is currently trapped on the c1-square, restricted by its own pawn on b3 and the White King on e3.\n\n**Analysis:**\n1. **King Position:** The Black King is on c1. It has no legal squares to move to:\n   - b1 and d1 are blocked by the board edge/geometry.\n   - b2 and d2 are controlled by the White King on e3.\n   - c2 is controlled by the White King on e3.\n2. **Tactical Theme:** The theme is a \"Back-rank\" style mate or a \"Corridor\" mate, where the King is trapped on the edge of the board.\n3. **The Solution:** White can deliver checkmate in one move by moving the Rook to the first rank. Since the Black King is on c1 and has no escape squares, any check on the first rank that cannot be blocked or captured results in immediate checkmate.\n\nThe move **Rh1#** (h2 to h1) delivers checkmate.\n\n[RESULT] h2h1 [/RESULT]",
+      "latencyMs": 877,
+      "promptTokens": 383,
+      "completionTokens": 255,
+      "totalTokens": 638
+    },
+    "mate1-CjHvU": {
+      "move": "e4g4",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is a late-game scenario where White's king is extremely exposed on the h3 square. Black has a powerful queen on e4 and a pawn on g6. White's last move, Kh3, was an attempt to escape or stabilize, but it has placed the king in a direct line of fire.\n\n**Analysis:**\n1.  **King Safety:** The White king is on h3, restricted by its own pawns on h2 and c4, and the rook on f2.\n2.  **Black's Resources:** Black's queen on e4 controls the e-file and diagonals. The pawn on g6 controls f5.\n3.  **Tactical Theme:** The theme is a simple \"Queen Mate.\" By moving the queen to g4, Black delivers checkmate. The king cannot move to h4 (occupied by its own pawn/controlled by the queen), g2 (blocked by the rook/pawn), or h2 (blocked by its own pawn). The queen on g4 is protected by the pawn on h5 (implied by the structure) or simply occupies the only escape square while checking. In this specific FEN, the move **Qg4#** is immediate mate as the king has no legal squares and the queen cannot be captured.\n\n**Forcing Sequence:**\n1. ... Qg4#\n\n[RESULT] e4g4 [/RESULT]",
+      "latencyMs": 762,
+      "promptTokens": 377,
+      "completionTokens": 296,
+      "totalTokens": 673
+    },
+    "mate1-pU7ND": {
+      "move": "b8c8",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position shows White with a significant material and positional advantage. The Black king is stuck in the center of the board, and the Black pieces are poorly coordinated. The White queen on b8 is exerting immense pressure on the back rank.\n\nThe tactical theme is a **back-rank mate**. Black's king is trapped on e8, and the square d8 is currently undefended by any piece that can block or capture a piece arriving there. The move **Qxc8#** (taking the bishop on c8) delivers immediate checkmate because the king has no legal moves, the queen cannot be captured, and the check cannot be blocked.\n\n[RESULT] b8c8 [/RESULT]",
+      "latencyMs": 760,
+      "promptTokens": 387,
+      "completionTokens": 143,
+      "totalTokens": 530
+    },
+    "mate1-vdzFN": {
+      "move": "g6g7",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position shows White with a significant attacking advantage. The White Queen is on g6, supported by the Rook on a7 and the Bishop on b6. Black's King is tucked away on h8, but the defensive pieces (the Knights on f6 and h7) are unable to prevent the immediate threat.\n\nThe tactical theme is a direct **mating attack** on the g-file. White's Queen on g6 is eyeing the g7 square, which is currently undefended by any of Black's pieces. The Rook on a7 controls the 7th rank, preventing the King from escaping or pieces from reinforcing the defense effectively.\n\nWhite can deliver checkmate in one move by capturing the g7 square with the Queen.\n\n[RESULT] g6g7 [/RESULT]",
+      "latencyMs": 720,
+      "promptTokens": 388,
+      "completionTokens": 165,
+      "totalTokens": 553
+    },
+    "mate1-b8B0x": {
+      "move": "e7d8q",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is a late-game endgame where White has a significant material and positional advantage. White has two advanced passed pawns on the e-file and c-file, and a strong Bishop on b6. Black's King is restricted to the c8 square, and the Rook on d8 is the only piece defending the back rank.\n\nThe tactical theme is **pawn promotion with checkmate**. White's pawn on e7 is one square away from promotion. By moving the pawn to e8 and promoting it to a Queen (or a Rook), White delivers an immediate checkmate. The Black King has no legal squares to move to:\n- The b7 and d7 squares are controlled by the Bishop on b6.\n- The c7 square is controlled by the pawn on b6.\n- The d8 square is occupied by the Rook, which is captured during the promotion.\n- The b8 square is controlled by the newly promoted Queen/Rook.\n\nThe forcing move is promoting the pawn on e7 to a Queen on e8.\n\n[RESULT] e7d8q [/RESULT]",
+      "latencyMs": 1092,
+      "promptTokens": 372,
+      "completionTokens": 232,
+      "totalTokens": 604
+    },
+    "mate1-ZmOQt": {
+      "move": "c2f2",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is a tactical puzzle where Black has a decisive advantage. White's king is vulnerable on f1, and Black's heavy pieces are coordinated for an immediate attack.\n\n**Analysis:**\n1.  **King Safety:** The White king is restricted to the f1 square. The squares e1 and g1 are occupied by White's own rooks, and the f2 pawn is the only defender in front of the king.\n2.  **Black's Attack:** Black's queen on c2 is directly attacking the f2 pawn.\n3.  **Tactical Theme:** The theme is a direct checkmate on the f2 square. The queen on c2 is supported by the knight on b4 (though not needed for the mate itself) and the bishop on c5, which exerts pressure along the a7-g1 diagonal.\n4.  **The Solution:** Black can deliver checkmate in one move by capturing the f2 pawn with the queen. The king has no legal squares to move to, and the queen cannot be captured.\n\n[RESULT] c2f2 [/RESULT]",
+      "latencyMs": 1452,
+      "promptTokens": 387,
+      "completionTokens": 233,
+      "totalTokens": 620
+    },
+    "mate1-S3tXw": {
+      "move": "d4g1",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position shows Black with a significant material and positional advantage. The White King is trapped in the corner on h1, restricted by its own pieces and the Black pawn on h2. Black's Queen on d4 is perfectly placed to deliver a finishing blow.\n\n**Analysis:**\n1. **White King's Position:** The King is on h1. It has no legal squares to move to because g1 is occupied by its own pieces (or controlled) and the h-file is blocked by the pawn on h2.\n2. **Tactical Theme:** Back-rank/Corner mate.\n3. **The Solution:** Black can deliver checkmate in one move by moving the Queen to g1. The Queen on g1 attacks the King, and since the King cannot capture the Queen (it is protected by the Knight on e4) and has no escape squares, it is checkmate.\n\n[RESULT] d4g1 [/RESULT]",
+      "latencyMs": 783,
+      "promptTokens": 377,
+      "completionTokens": 197,
+      "totalTokens": 574
+    },
+    "mate1-fVTm6": {
+      "move": "f5f8",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is a tactical win for White. Black's king is exposed on h8, and the back rank is vulnerable. White's queen on f5 is perfectly placed to deliver a decisive blow.\n\n**Analysis:**\n1.  **King Safety:** The Black king is tucked in the corner at h8, but the bishop on f8 is the only defender of the back rank.\n2.  **Material:** Material is roughly equal, but White has a crushing positional advantage due to the pressure on the f8-bishop.\n3.  **Tactical Theme:** Back-rank mate. The queen on f5 attacks the undefended (or insufficiently defended) f8-square.\n4.  **The Move:** White plays Qxf8#, delivering checkmate as the king has no escape squares and the queen cannot be captured.\n\n[RESULT] f5f8 [/RESULT]",
+      "latencyMs": 1595,
+      "promptTokens": 379,
+      "completionTokens": 185,
+      "totalTokens": 564
+    }
+  }
+}

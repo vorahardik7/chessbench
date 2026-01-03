@@ -1,4 +1,8 @@
+// Puzzle levels - add new levels here as needed
 export type MateLevel = "mate1" | "mate2" | "mate3";
+
+// All available puzzle levels for iteration
+export const ALL_MATE_LEVELS: MateLevel[] = ["mate1", "mate2", "mate3"];
 
 export type PuzzleSource =
   | {
@@ -50,21 +54,26 @@ export type LatestSnapshotModel = {
   avgLatencyMs?: number;
 };
 
-export type LatestSnapshotPuzzle = BenchPuzzle & {
-  results: Record<string, ModelPuzzleResult>;
-};
-
-export type LatestSnapshot = {
+// ============================================================================
+// PER-LEVEL RESULT FILES (scalable storage)
+// ============================================================================
+// Stored at: public/results/levels/{level}/{model_slug}.json
+export type ModelLevelResultsFile = {
+  model: BenchModel;
+  level: MateLevel;
   runId: string;
   runAt: string;
   promptVersion: string;
-  models: LatestSnapshotModel[];
-  puzzles: LatestSnapshotPuzzle[];
+  score: number; // % correct for this level
+  avgLatencyMs?: number;
+  // Results keyed by puzzle id (only puzzles for this level)
+  results: Record<string, ModelPuzzleResult>;
 };
 
 // ============================================================================
-// NEW OUTPUT FORMAT (index + per-model files)
+// AGGREGATED MODEL FILES (for backward compatibility & UI)
 // ============================================================================
+// Stored at: public/results/models/{model_slug}.json
 export type ModelResultsFile = {
   model: BenchModel;
   runId: string;
@@ -73,10 +82,13 @@ export type ModelResultsFile = {
   score: number; // overall %
   breakdown: { mate1: number; mate2: number; mate3: number };
   avgLatencyMs?: number;
-  // Results keyed by puzzle id
+  // Results keyed by puzzle id (all levels combined)
   results: Record<string, ModelPuzzleResult>;
 };
 
+// ============================================================================
+// RESULTS INDEX (leaderboard & metadata)
+// ============================================================================
 export type ResultsIndex = {
   runId: string;
   runAt: string;
@@ -85,8 +97,10 @@ export type ResultsIndex = {
   puzzles: BenchPuzzle[];
   // Leaderboard-ready summaries (derived from per-model files)
   models: LatestSnapshotModel[];
-  // Public URLs to per-model result files, keyed by model id
+  // Public URLs to per-model aggregated result files, keyed by model id
   modelFiles: Record<string, string>;
+  // Public URLs to per-level result files: levelFiles[modelId][level] = url
+  levelFiles: Record<string, Record<MateLevel, string>>;
 };
 
 

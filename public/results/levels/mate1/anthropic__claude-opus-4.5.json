@@ -1,0 +1,130 @@
+{
+  "model": {
+    "id": "anthropic/claude-opus-4.5",
+    "name": "Claude Opus 4.5",
+    "temperature": 0,
+    "maxTokens": 1000
+  },
+  "runId": "bench-2025-12-19T03-35-38-354Z",
+  "runAt": "2025-12-19T03:35:38.354Z",
+  "promptVersion": "v1.1",
+  "score": 40.0,
+  "breakdown": {
+    "mate1": 40,
+    "mate2": 0,
+    "mate3": 0
+  },
+  "avgLatencyMs": 1966,
+  "results": {
+    "mate1-HR783": {
+      "move": "g5g2",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "san",
+      "rawOutput": "I need to find a mate in 1 for White.\n\nLet me analyze the position:\n- White King is on f1\n- White Queen is on g5\n- White has pawns on c4 and d5\n- Black King is on h2\n- Black Queen is on b3\n- Black has pawns on a7, b6, f3, and h7\n\nThe Black King is on h2, which is in the corner area. I need to find a single move that delivers checkmate.\n\nLet me check possible Queen moves:\n\n1. Qg2+ - This would be check, but the Black King could escape to h3 or the Queen could be taken by Qxg2. Wait, let me check - if Qg2+, the King on h2 has h1, h3 as potential escape squares. h1 is available, so not mate.\n\n2. Qg1+ - Check on g1. The King on h2 could go to h3. Not mate.\n\n3. Qh4+ - Check on h4. King on h2 could go to g1, g2. Not mate.\n\n4. Qh5+ - Check. King could go to g1, g2, g3. Not mate.\n\n5. Qg3+ - Check on g3. King on h2 could take the Queen (Kxg3) or go to h1. Not mate.\n\n6. Qf4+ - Check. King could go to g1, g2, g3, h1, h3. Not mate.\n\n7. Qh6+ - Check. King could go to g1, g2, g3. Not mate.\n\n8. Qe3 - Not check.\n\nWait, let me reconsider Qg2+. If Qg2+, the King is on h2. Can it go to h1? Yes. Can it go to h3? Yes. So not mate.\n\nWhat about Qh4+? King on h2, Queen checks from h4. King can go to g1 (yes), g2 (yes, but wait - is g2 protected?). Not mate.\n\nLet me try Qg1+. King on h2, Queen on g1 gives check. King can go to h3. Not mate.\n\nWhat about Qf6? Not check.\n\nQh5+? King on h2, Queen on h5 checks along the h-file. King can escape to g1, g2, g3. Not mate.\n\nQh6+? Same issue.\n\nWait - Qg3+! If Queen goes to g3, that's check. King on h2... can go to h1. But wait, is h1 covered? No. Not mate.\n\nLet me try Qf4+. Check. King escapes.\n\nWhat about Qg2+? Actually, if Qg2 is checkmate... King on h2, Queen on g2. That's check. King can go to h1 (is h1 available? Yes). Not mate.\n\nHmm, let me try Qh5+. No, King escapes to g3.\n\nWhat about Qe3? Threatens Qg1#. But that's not mate in 1.\n\nWait - Qg1#! Let me verify. Queen on g1, King on h2. Is this check? The Queen on g1 attacks h2 diagonally? No, g1 to h2 is a diagonal (one square). Yes! So Qg1+ is check. Can the King escape? \n- Kh3? Is h3 available? Yes, h3 is not attacked by the Queen on g1.\n\nHmm, not mate.\n\nLet me try Qf2+. Queen on f2 checks King on h2? f2 to h2 is along the 2nd rank. Yes, check! Can King escape to g1? g1 is attacked by Qf2. Can King go to g3? g3 is attacked by Qf2. Can King go to h1? h1 is not attacked by Qf2. So King escapes to h1.\n\nWhat about Qh4#? Queen on h4, King on h2. Check along h-file. King can go to g1, g2,",
+      "latencyMs": 2461,
+      "promptTokens": 396,
+      "completionTokens": 1000,
+      "totalTokens": 1396
+    },
+    "mate1-w3Xtv": {
+      "move": "d6e7",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "uci",
+      "rawOutput": "I need to find a mate in 1 for White.\n\nLet me analyze the position:\n- Black king is on e7\n- White has a Queen on d5 and a Knight on e5\n- The black king is somewhat exposed in the center\n\nLet me look for checkmate possibilities:\n\n1. **Qd6+** - This would check the king on e7. Let me see if it's checkmate:\n   - The queen on d6 would attack e7\n   - The king can't go to f8 (blocked by the knight on e5 controlling f7, and queen would control f8)\n   - The king can't go to e8 (queen controls d8 and e8)\n   - The king can't go to f6 (knight on e5 controls f7, and queen on d6 controls f6)\n   - The king can't go to d8 (queen controls d8)\n   - Can the queen be captured? The bishop on b6 doesn't reach d6. The queen on d8 doesn't reach d6.\n   - Wait, can the king go to f7? The knight on e5 doesn't control f7 directly... let me check. Knight on e5 controls: d3, f3, c4, g4, c6, g6, d7, f7. Yes! The knight controls f7.\n   - Can the king go to e6? The queen on d6 would control e6, and the knight controls e6 as well? No, knight on e5 controls d7, f7, c6, g6, d3, f3, c4, g4. Not e6. But the queen on d6 controls e6.\n   \n   So after Qd6+:\n   - Ke8 is blocked by queen controlling e8\n   - Kf8 - queen controls f8 from d6? No, d6 to f8 is not a diagonal or straight line. Let me reconsider.\n   \n   Actually, Qd6+ - the king on e7:\n   - Kf8 is possible (queen on d6 doesn't control f8)\n   \n   So Qd6+ is not checkmate.\n\n2. **Qf7+** - Check on f7:\n   - King is on e7, queen goes to f7 giving check\n   - Kd6 - is this possible? The knight on e5 controls d7 but not d6. So Kd6 might be possible.\n   - Actually wait, if Qf7+ then Kd8 or Kd6 could be escapes.\n\n3. **Nf7+** - Fork/check? No, this doesn't give checkmate.\n\n4. **Nd7+** - This would be check. Let me analyze:\n   - Knight on d7 checks the king on e7\n   - Can the king escape? Ke8, Ke6, Kf8, Kf6\n   - This isn't mate.\n\n5. **Qd6#** - Let me recheck this more carefully:\n   - Queen on d6 gives check to king on e7\n   - Kf8: Queen doesn't control f8 from d6... so this escapes.\n\n6. **Qf5** - Not a check.\n\n7. **Nc6+** - Double check with discovered attack? No, the queen is on d5, not behind the knight.\n\n8. **Nxd7** - This would be check (discovered check from queen? No, queen is on d5, knight moving to d7 doesn't discover check).\n\nLet me reconsider **Qd6+**:\n- From d6, queen controls: d7, d8, e6, f6, c6, b6, a6, c7, b8, e7, f8? No, d6-e7-f8 is a diagonal, so yes!\n- So Kf8 is not possible because Qd6 controls f8!\n- Kd8 - queen controls d8\n- Ke8 - queen controls e8? d6-e7-e8? No. d6-e6-e8? No. d6 to e8 is not on a line.",
+      "latencyMs": 2131,
+      "promptTokens": 411,
+      "completionTokens": 1000,
+      "totalTokens": 1411
+    },
+    "mate1-Amf99": {
+      "move": "b2d2",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "uci",
+      "rawOutput": "I need to find a mate in 1 for White.\n\nLet me analyze the position:\n- White King is on e3\n- White Rook is on h2\n- Black King is on c1\n- Black has a bishop on c7, pawns on f7, f6, c5, h5, and b3\n\nThe Black King on c1 is in the corner area. Let me check if the Rook can deliver checkmate.\n\nIf the Rook moves to h1, it would give check to the Black King on c1. Let me verify:\n- Rh1+ would attack the King on c1\n- Can the King escape? The King on c1 could go to:\n  - b2: controlled by the Rook on h1? No, h1 doesn't control b2\n  - d2: controlled by the King on e3? Yes, e3 controls d2\n  - d1: controlled by the Rook on h1? Yes, the Rook on h1 controls the entire 1st rank\n\nWait, let me reconsider. If Rh1+:\n- King on c1 is in check from Rh1\n- b2 is available (not controlled by Rook on h1, not controlled by King on e3)\n\nSo Rh1+ is not checkmate because Kb2 escapes.\n\nLet me think of other moves. What about Ra2?\n- Ra2 doesn't give check immediately\n\nWhat about Rh1? Let me reconsider the escape squares:\n- From c1, the King can go to: b1, b2, c2, d1, d2\n- Rh1 controls b1 and d1\n- King on e3 controls d2\n- b2 and c2 would be escape squares\n\nHmm, but wait - is there a way to cut off more squares?\n\nWhat about Rc2+? \n- Rc2+ gives check to the King on c1\n- The King must move: b1, d1 are the options\n- b1 is not controlled... so not mate\n\nWhat about Rb2?\n- This doesn't give check\n\nLet me reconsider Rh1+:\n- After Rh1+, King on c1 is in check\n- Escape squares: b2 (free), c2 (blocked by Rook on h-file? No), d1 (controlled by Rh1), d2 (controlled by Ke3), b1 (controlled by Rh1)\n- b2 and c2 seem available\n\nActually wait - can the bishop block? The bishop is on c7. After Rh1+, can Bc7 block? No, it can't interpose on the first rank.\n\nLet me try Rc2+:\n- Check to King on c1\n- King can go to b1 or d1\n- Not mate\n\nWhat about Ra2 threatening Ra1#? That's not mate in 1.\n\nHmm, let me reconsider Rh1+. After Rh1+:\n- Kb2 is the only escape (b1 and d1 controlled by Rook, d2 controlled by King)\n- c2 - is this controlled? No, the Rook on h1 doesn't control c2\n\nWait, I need to recheck. After Rh1+, can the King go to c2? c2 is not on the h-file or 1st rank, so the Rook doesn't control it. But is c2 controlled by the White King? The King on e3 controls d2, d3, d4, e2, e4, f2, f3, f4. Not c2.\n\nSo Rh1+ allows Kb2 or Kc2. Not mate.\n\nLet me try Rd2:\n- This cuts off d1, d2 from the King\n- But doesn't give check\n\nWhat about moving the King? Kd2 or Kd3?\n- Kd2 gives... the King on c1 could go to b1, b2, c2 (blocked by Kd2? No)\n\nActually, Kd2 puts the King adjacent to c1, controlling b1, b2, c",
+      "latencyMs": 2397,
+      "promptTokens": 401,
+      "completionTokens": 1000,
+      "totalTokens": 1401
+    },
+    "mate1-CjHvU": {
+      "move": "e4f3",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "I need to analyze this position and find a mate in 1 for Black.\n\nLet me examine the position:\n- White King is on h3\n- Black Queen is on e4\n- Black King is on h5\n- White Queen is on f7\n- White Rook is on f2\n\nBlack to move and mate in 1.\n\nLet me check what squares the Black Queen can attack to deliver checkmate:\n\nThe White King on h3 is surrounded by:\n- g2: controlled by Rf2\n- g3: empty square\n- g4: the Queen on e4 could potentially attack this\n- h2: has a White pawn\n- h4: has a White pawn\n\nIf Black plays Qf3+, let me check:\n- Qf3+ puts the King in check from f3\n- King on h3 could escape to g4? No, Qf3 would control g4\n- King could go to h4? There's a pawn on h4, so no\n- King could go to g2? Qf3 controls g2\n- King could go to h2? There's a pawn on h2\n\nWait, let me reconsider. The pawn is on h4, not blocking h4 from the king - the king just moved from g3 to h4... no wait, the king is on h3.\n\nLet me re-read: King is on h3, pawn on h4.\n\nIf Qf3+:\n- King can't go to g2 (Qf3 controls it)\n- King can't go to g4 (Qf3 controls it)\n- King can't go to h4 (pawn is there)\n- King can't go to h2 (pawn is there)\n- King can't go to g3 (Qf3 controls it)\n\nSo Qf3 would be checkmate! The Queen on f3 attacks h3, and all escape squares are blocked.\n\nLet me verify: e4 to f3 is a valid Queen move (diagonal).\n\n[RESULT]e4f3[/RESULT]",
+      "latencyMs": 2069,
+      "promptTokens": 396,
+      "completionTokens": 493,
+      "totalTokens": 889
+    },
+    "mate1-pU7ND": {
+      "move": "b8c8",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "I need to find a mate in 1 for White.\n\nLet me analyze the position:\n- White has a Queen on b8, a Bishop on g2, and a Rook on e1\n- Black's King is on e8, with pieces including a Bishop on c8, Knight on e7, Rook on h8, and Queen on f6\n\nLooking for checkmate in one move:\n\n1. **Qb8xc8+** - The Queen takes the Bishop on c8, giving check. Let me verify:\n   - The King on e8 would be in check from the Queen on c8\n   - Can the King escape? e8 can go to d7, f8, or stay blocked\n   - d7 is available (no piece attacking it directly after Qxc8)\n   - Actually, let me reconsider...\n\n2. **Re1xe7+** - Rook takes the Knight on e7, giving check\n   - King on e8 is in check\n   - King can't go to d8 (Queen on b8 controls it)\n   - King can't go to f8 (Rook on e7 would control e-file, but f8 might be free)\n   - Actually Rxe7+ isn't mate because Kf8 escapes\n\n3. **Qb8-d8+** - Queen to d8 giving check\n   - This would be checkmate if the King has no escape\n   - King on e8 is attacked\n   - Kxd8 - can the King take? No wait, let me check if d8 is protected\n   - The Rook on e1 doesn't protect d8\n   - The Knight on e7 could potentially block or the King could take\n\nLet me reconsider **Qxc8+**:\n- Queen on c8 gives check to King on e8\n- King can't go to d7 (Queen on c8 attacks d7)\n- King can't go to f8 (is it attacked? No direct attack)\n- Wait, Kf8 would escape\n\nWhat about **Qd8+**:\n- Queen moves to d8, checking the King\n- Nxd8 - Knight can capture\n- So not mate\n\nLet me try **Re8+**:\n- Rook to e8 gives check\n- Rxe8 (Rook on h8 can take)\n- Nxe8 (Knight can take)\n- Not mate\n\nActually, looking again at **Qxc8+**:\n- After Qxc8+, King on e8 is in check\n- Kd7 is attacked by Queen on c8\n- Kf8 seems available... unless the Bishop on g2 creates a discovered situation\n\nWait - **Qd8#**!\n- Queen to d8 is checkmate\n- The King on e8 cannot take because Re1 controls e-file? No, Qd8 and Re1...\n- Actually Nxd8 is possible\n\nLet me try **Qb8-a8** or other moves...\n\nActually **Qxc8#**:\n- Queen takes on c8, check\n- Kd7 is covered by Qc8\n- Kf8 - is this covered? The Bishop on g2 is on the long diagonal... it attacks a8-h1 diagonal, not f8\n- Hmm, but what about Nxc8? The Knight on e7 can take!\n\n**Re8+!** - Let me recheck:\n- Nxe8 blocks\n- Rxe8 by the rook\n\nI think the answer is **Qd8#** - Queen to d8 is checkmate because:\n- Nxd8 is met by the fact that e7 knight moving exposes... no wait\n\nAfter more careful analysis: **Qxc8#** because after Qxc8+, Kd7 is impossible (Queen attacks), Kf8 is impossible (Queen on c8 + Rook on e1 controls e8, and f8 might be covered), and Nxc8 leaves King in check still with no escape.\n\n[RESULT] b8c8 [/RESULT]",
+      "latencyMs": 1908,
+      "promptTokens": 407,
+      "completionTokens": 1000,
+      "totalTokens": 1407
+    },
+    "mate1-vdzFN": {
+      "move": "g6g7",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "I need to find a mate in 1 for White.\n\nLet me analyze the position:\n- Black king is on h8\n- White has a Queen on g6, Rook on a7, Rook on c1, Bishop on b6, Knights on g3 and e2\n- Black has pieces including knights on h7 and f6, rooks on b8 and f8\n\nLooking for immediate checkmate:\n\nThe Queen on g6 is very active. Let me check if Qxh7# works:\n- Qxh7+ would be check, but the knight on f6 could potentially block or the king could escape\n\nWait, let me look at Qg8+:\n- Qg8+ - the rook on f8 can take (Rxg8), so not mate\n\nLet me check Qxf6+:\n- This would be check, but the king can escape or pieces can block\n\nWhat about Qg7#?\n- Qg7 would be checkmate if the f8 rook can't take it... but Rxg7 is possible? No wait, the knight on f6 is there, and Qg7 would be protected by... let me see. Actually Rf8 could take on g7? No, Qg7 - can Rxg7 happen? The rook is on f8, so it can't take on g7.\n\nActually Qg7#:\n- King on h8 is in check from Qg7\n- h8 is blocked by the queen\n- g8 is controlled by the queen\n- The knight on h7 blocks h7\n- Can anything capture the queen on g7? The knight on f6 can't reach g7. The rook on f8 can't reach g7. The knight on h7 can't capture (it's pinned/blocked).\n\nWait, can Nf6xg7? No, the knight on f6 can't reach g7 (knights move in L-shape).\n\nSo Qg7# is checkmate!\n\n[RESULT]g6g7[/RESULT]",
+      "latencyMs": 2031,
+      "promptTokens": 410,
+      "completionTokens": 493,
+      "totalTokens": 903
+    },
+    "mate1-b8B0x": {
+      "move": "c6c7",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "I need to find a mate in 1 for White.\n\nLet me analyze the position:\n- White has a King on b4, pawns on e7, c6, c4, b3, and a Bishop on b6\n- Black has a King on c8, rooks on d8 and e4, and pawns on a6 and a2\n\nThe key features:\n- White has an advanced pawn on e7, one square from promotion\n- White has a pawn on c6 that could also be dangerous\n- The Bishop on b6 controls important squares\n\nLet me check if e7-e8=Q is checkmate:\n- If e7e8=Q, the Queen would be on e8\n- The Black King is on c8\n- The Queen on e8 would give check\n- Can the King escape? Let's see: d7 is blocked by the Queen, b7 is attacked by the Bishop on b6 and the pawn on c6\n- Can the rook on d8 capture the Queen? Yes, Rxe8 would capture the Queen\n\nSo e8=Q doesn't work because of Rxe8.\n\nWhat about c6-c7? \n- c7 would give check to the King on c8\n- The King can't go to d7 (blocked by e7 pawn)\n- The King can't go to b7 (attacked by Bishop on b6)\n- Can the rook on d8 take c7? No, it's on d8\n- Can the rook on e4 help? No\n- The King is trapped!\n\nWait, let me verify c6c7:\n- After c7+, the King on c8 is in check\n- Kd7 is blocked by the pawn on e7\n- Kb7 is attacked by the Bishop on b6\n- Kxc7 - can the King take? The c7 square would be protected by the Bishop on b6!\n\nSo c6c7 is checkmate! The King cannot escape: b7 is covered by the Bishop, d7 is covered by the e7 pawn, and c7 itself is protected by the Bishop.\n\n[RESULT]c6c7[/RESULT]",
+      "latencyMs": 1946,
+      "promptTokens": 394,
+      "completionTokens": 518,
+      "totalTokens": 912
+    },
+    "mate1-ZmOQt": {
+      "move": "c2f2",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "I need to analyze this position and find a mate in 1 for Black.\n\nLet me examine the position:\n- White King is on f1\n- Black has a Queen on c2\n- Black has a Bishop on c5\n- Black has a Bishop on h5\n- Black has a Knight on b4\n- Black has a Rook on c8\n\nThe White King on f1 is somewhat exposed. Let me look for immediate checkmate threats.\n\nLooking at the Black Queen on c2:\n- Qc2-d1 would be check (attacking f1 via the d1 square)\n- If Qd1+, the King cannot escape and the Rook on e1 is the only piece that could potentially block or capture\n\nLet me check Qd1+:\n- The Queen on d1 gives check to the King on f1\n- The Rook on e1 could capture Qd1, but wait... can it?\n- If Rxd1, that would remove the check\n- But is there something preventing this?\n\nActually, let me look more carefully. The Queen on c2 going to d1 (c2d1) would be check. The Rook on e1 could capture, but then the Bishop on h5 is covering... no wait.\n\nLet me reconsider. Looking at Qc2-d1+:\n- King on f1 is in check\n- Re1xd1 would be the only way to block/capture\n- But after Rxd1, the King would still be safe\n\nWait, let me check if Qd1 is actually checkmate:\n- After Qd1+, Rxd1 is possible\n- Kf1 cannot move to e2 (Queen would control it from d1)\n- Actually if Rxd1, the Queen is captured\n\nLet me look for other options. What about Qc2-e2? That's not check.\n\nWhat about Qc2-f2? That's not check either but threatens mate.\n\nLet me reconsider Qd1+:\n- After Qd1+, if Rxd1, the game continues\n- But if Rxd1 is NOT possible for some reason...\n\nActually, looking again at Qc2-d1+:\n- The Rook on e1 CAN capture on d1\n- So this isn't mate\n\nWhat about Qc1? Qc2-c1 attacks the Rook on e1 and... \n- Qc1+ is check because it attacks the King on f1? No, c1 doesn't give check to f1.\n\nLet me look at Qc2-d3, threatening Qd1#... no that's not mate in 1.\n\nBack to Qd1+: After Qxd1+, Rxd1 is forced... unless the Rook is pinned? The Rook on e1 is not pinned.\n\nHmm, what about Qc2-f2? No, that's not check.\n\nWait - Qc2-e2 is not check, but what about the Bishop on c5? Bc5 to d4... no.\n\nLet me look at Qc2xf2#:\n- Queen takes f2 pawn\n- Is this checkmate? King on f1, Queen on f2...\n- King cannot go to e1 (Rook is there? No wait, King's own Rook)\n- King cannot go to g1 (Queen controls it)\n- King cannot stay on f1 (Queen attacks it)\n- This could be mate!\n\nQxf2# - Queen from c2 to f2, capturing the pawn:\n- Check to Kf1\n- Kg1 is covered by Qf2\n- Ke1 is blocked by own Rook\n- No pieces can capture the Queen on f2 or block\n\nYes! Qxf2 is checkmate!\n\n[RESULT] c2f2 [/RESULT]",
+      "latencyMs": 1772,
+      "promptTokens": 409,
+      "completionTokens": 941,
+      "totalTokens": 1350
+    },
+    "mate1-S3tXw": {
+      "move": "e4f2",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "I need to analyze this position and find a mate in 1 for Black.\n\nLet me examine the position:\n- White King is on h1\n- Black has a Queen on d4, a Knight on e4, and a pawn on h2\n- White has pieces on f4 (Rook), h4 (Knight), b3 (Bishop), f3 (Queen)\n\nThe key observation is that Black has a pawn on h2, right next to the White King on h1.\n\nLet me check if the pawn can promote with checkmate:\n- h2h1 would promote the pawn. If it promotes to a Queen (h2h1q), the new Queen on h1 would give check to... wait, the King is already on h1.\n\nLet me reconsider. The pawn on h2 can't capture the King directly. But it can promote.\n\nActually, looking more carefully:\n- If h2h1=Q, that's not possible since the King is on h1\n- The pawn could capture something on g1 if there was a piece there\n\nWait, let me look at other mating possibilities:\n\nThe Black Queen on d4 and Knight on e4 are well-placed. \n\nCan the Knight deliver mate? \n- Nf2+ would be check (Knight on f2 attacks h1), but is it mate? The King could potentially escape or the check could be blocked.\n- Actually, Nf2 attacks h1. Let me check if it's mate: King on h1, Knight on f2 gives check. Can the King move? g1 is available... but wait, if there's a pawn on h2, g1 might be covered.\n\nLet me check Nf2#:\n- Knight on f2 gives check to King on h1\n- King can't go to g1 because the pawn on h2 controls g1\n- King can't stay on h1 (in check)\n- Can anything block or capture the Knight? The Rook on f4 can't reach f2, the Queen on f3 can't capture on f2, the Bishop on b3 doesn't control f2.\n\nSo e4f2 (Nf2#) appears to be checkmate!\n\nLet me verify:\n- Knight moves from e4 to f2, giving check\n- h1 King has no escape squares (g1 covered by h2 pawn, g2 would still be in check from Knight)\n- Nothing can capture the Knight on f2\n- Nothing can block\n\nYes, Nf2 is checkmate!\n\n[RESULT]e4f2[/RESULT]",
+      "latencyMs": 1992,
+      "promptTokens": 404,
+      "completionTokens": 612,
+      "totalTokens": 1016
+    },
+    "mate1-fVTm6": {
+      "move": "f5f8",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "I need to find a mate in 1 for White.\n\nLet me analyze the position:\n- Black king is on h8\n- White queen is on f5\n- White rook is on c1\n- Black has a bishop on f8, rook on h7, and queen on c6\n\nLooking for checkmate in one move:\n\n1. **Qf5-f8+**: The queen moves to f8, which would be check. But wait, there's a bishop on f8, so Qxf8+ would capture the bishop and give check. Can the king escape or can something block?\n   - King on h8 cannot move to g7 (queen controls it from f8)\n   - King cannot move to h7 (rook is there, but that's Black's own piece blocking)\n   - Can anything block? The rook on h7 cannot interpose, the queen on c6 cannot interpose\n   - This is checkmate!\n\nLet me verify: Qxf8+ (Qf5xf8)\n- Queen on f8 gives check to king on h8\n- King cannot go to g7 (controlled by queen on f8)\n- King cannot go to h7 (blocked by own rook)\n- No piece can capture the queen on f8\n- No piece can block\n\nYes, Qxf8# is checkmate!\n\n[RESULT]\nf5f8\n[/RESULT]",
+      "latencyMs": 954,
+      "promptTokens": 399,
+      "completionTokens": 333,
+      "totalTokens": 732
+    }
+  }
+}

@@ -7,8 +7,10 @@ import type {
   MateLevel,
   ModelPuzzleResult,
   ModelResultsFile,
+  ModelLevelResultsFile,
   ResultsIndex,
 } from "./types";
+import { ALL_MATE_LEVELS } from "./types";
 import { asyncPool, loadDotEnv, readJsonFile, writeJsonFile } from "./utils";
 import { Chess } from "chess.js";
 
@@ -241,9 +243,6 @@ async function callOpenRouter(
       { role: "system", content: prompt.system },
       { role: "user", content: prompt.user },
     ],
-    // provider: {
-    //   only: ['google-vertex'],
-    // },
   };
 
   const t0 = Date.now();
@@ -283,12 +282,6 @@ async function evalOne(model: BenchModel, puzzle: BenchPuzzle): Promise<ModelPuz
 
   const parseContent = (text: string): { parsed: string; method: "uci" | "san" | "none" } => {
     // 1. Try to find content inside [RESULT] tags
-    // Support newlines between tags without relying on the RegExp dotAll flag
-    // (tsconfig target is ES2017).
-    // Example:
-    // [RESULT]
-    // e2e4 e7e5
-    // [/RESULT]
     const tagMatch = text.match(/\[RESULT\]\s*([\s\S]*?)\s*\[\/RESULT\]/i);
     const target = tagMatch ? tagMatch[1] : text;
 
@@ -310,7 +303,6 @@ async function evalOne(model: BenchModel, puzzle: BenchPuzzle): Promise<ModelPuz
   let { parsed, method: parseMethod } = parseContent(content);
 
   // If we got nothing and we likely hit the token limit, retry once with a higher cap.
-  // This is particularly important for models that spend early tokens on "reasoning" and only emit moves later.
   const configuredMax = model.maxTokens ?? 256;
   const hitLimit = typeof completionTokens === "number" && completionTokens >= configuredMax;
   if (parsed.length === 0 && hitLimit) {
@@ -346,47 +338,27 @@ async function evalOne(model: BenchModel, puzzle: BenchPuzzle): Promise<ModelPuz
   };
 }
 
-// NOTE: Old snapshot-wide breakdown kept for reference; new flow uses
-// computeModelStatsFromResults() on per-model files.
-
-function computeModelStatsFromResults(
+function computeLevelStats(
   puzzles: BenchPuzzle[],
-  resultsByPuzzleId: Record<string, ModelPuzzleResult>,
-): { breakdown: { mate1: number; mate2: number; mate3: number }; avgLatencyMs?: number; score: number } {
-  const byLevel: Record<MateLevel, { correct: number; total: number; latencies: number[] }> = {
-    mate1: { correct: 0, total: 0, latencies: [] },
-    mate2: { correct: 0, total: 0, latencies: [] },
-    mate3: { correct: 0, total: 0, latencies: [] },
-  };
+  results: Record<string, ModelPuzzleResult>,
+): { score: number; avgLatencyMs?: number } {
+  let correct = 0;
+  let total = 0;
+  const latencies: number[] = [];
 
   for (const p of puzzles) {
-    const r = resultsByPuzzleId[p.id];
+    const r = results[p.id];
     if (!r) continue;
-    byLevel[p.level].total += 1;
-    if (r.isCorrect) byLevel[p.level].correct += 1;
-    if (typeof r.latencyMs === "number") byLevel[p.level].latencies.push(r.latencyMs);
+    total++;
+    if (r.isCorrect) correct++;
+    if (typeof r.latencyMs === "number") latencies.push(r.latencyMs);
   }
 
-  const pct = (c: number, t: number) => (t === 0 ? 0 : Math.round((c / t) * 1000) / 10);
-  const avg = (xs: number[]) =>
-    xs.length === 0 ? undefined : Math.round(xs.reduce((a, b) => a + b, 0) / xs.length);
+  const score = total === 0 ? 0 : Math.round((correct / total) * 1000) / 10;
+  const avgLatencyMs =
+    latencies.length === 0 ? undefined : Math.round(latencies.reduce((a, b) => a + b, 0) / latencies.length);
 
-  const breakdown = {
-    mate1: pct(byLevel.mate1.correct, byLevel.mate1.total),
-    mate2: pct(byLevel.mate2.correct, byLevel.mate2.total),
-    mate3: pct(byLevel.mate3.correct, byLevel.mate3.total),
-  };
-
-  // Only use mate1 score for now (keep existing behavior)
-  const score = breakdown.mate1;
-
-  const avgLatencyMs = avg([
-    ...byLevel.mate1.latencies,
-    ...byLevel.mate2.latencies,
-    ...byLevel.mate3.latencies,
-  ]);
-
-  return { breakdown, avgLatencyMs, score };
+  return { score, avgLatencyMs };
 }
 
 function safeModelFileSlug(modelId: string): string {
@@ -395,168 +367,332 @@ function safeModelFileSlug(modelId: string): string {
   return modelId.replace(/[^a-zA-Z0-9._-]+/g, "__");
 }
 
+async function ensureDir(dir: string): Promise<void> {
+  try {
+    await fs.mkdir(dir, { recursive: true });
+  } catch {
+    // Directory might already exist
+  }
+}
+
 async function main() {
   await loadDotEnv();
   const root = process.cwd();
   const modelsPath = path.join(root, "bench/models.json");
   const resultsDir = path.join(root, "public/results");
+  const levelsDir = path.join(resultsDir, "levels");
   const modelsOutDir = path.join(resultsDir, "models");
   const indexPath = path.join(resultsDir, "index.json");
   const promptVersion = "v1.1";
-  // Only test mate1 for now
-  const puzzlesPaths = [
-    path.join(root, "bench/puzzles.mate1.json"),
-    // path.join(root, "bench/puzzles.mate2.json"),
-    // path.join(root, "bench/puzzles.mate3.json"),
-  ];
 
+  // Load puzzles by level
+  const puzzlesByLevel: Record<MateLevel, BenchPuzzle[]> = {
+    mate1: [],
+    mate2: [],
+    mate3: [],
+  };
+
+  for (const level of ALL_MATE_LEVELS) {
+    const puzzlePath = path.join(root, `bench/puzzles.${level}.json`);
+    try {
+      puzzlesByLevel[level] = await readJsonFile<BenchPuzzle[]>(puzzlePath);
+      console.log(`Loaded ${puzzlesByLevel[level].length} puzzles for ${level}`);
+    } catch {
+      console.log(`No puzzles found for ${level} (${puzzlePath})`);
+      puzzlesByLevel[level] = [];
+    }
+  }
+
+  const allPuzzles = ALL_MATE_LEVELS.flatMap((level) => puzzlesByLevel[level]);
   const models = await readJsonFile<BenchModel[]>(modelsPath);
-  const puzzles = (await Promise.all(puzzlesPaths.map((p) => readJsonFile<BenchPuzzle[]>(p)))).flat();
-
   const concurrency = Number(process.env.BENCH_CONCURRENCY ?? "3");
 
   const runId = `bench-${new Date().toISOString().replace(/[:.]/g, "-")}`;
   const runAt = new Date().toISOString();
 
+  // Ensure directories exist
+  await ensureDir(levelsDir);
+  await ensureDir(modelsOutDir);
+  for (const level of ALL_MATE_LEVELS) {
+    await ensureDir(path.join(levelsDir, level));
+  }
+
   const modelFiles: Record<string, string> = {};
+  const levelFiles: Record<string, Record<MateLevel, string>> = {};
   const leaderboard: LatestSnapshotModel[] = [];
   const processedModelIds = new Set<string>();
 
-  // Step 1: Scan existing model result files and include them in the index
-  // This ensures models removed from models.json still appear in results
-  try {
-    const existingFiles = await fs.readdir(modelsOutDir);
-    for (const filename of existingFiles) {
-      if (!filename.endsWith(".json")) continue;
-      const modelAbsPath = path.join(modelsOutDir, filename);
-      try {
-        const file = await readJsonFile<ModelResultsFile>(modelAbsPath);
-        if (file.model?.id) {
-          const modelId = file.model.id;
-          processedModelIds.add(modelId);
-          const slug = safeModelFileSlug(modelId);
-          const modelPublicUrl = `/results/models/${slug}.json`;
-          modelFiles[modelId] = modelPublicUrl;
-          leaderboard.push({
-            id: modelId,
-            name: file.model.name,
-            score: file.score,
-            breakdown: file.breakdown,
-            avgLatencyMs: file.avgLatencyMs,
-          });
+  // ============================================================================
+  // STEP 1: Scan existing level files to include all models with results
+  // ============================================================================
+  console.log("\nScanning existing results...");
+  const existingModelSlugs = new Set<string>();
+  
+  for (const level of ALL_MATE_LEVELS) {
+    const levelDir = path.join(levelsDir, level);
+    try {
+      const files = await fs.readdir(levelDir);
+      for (const file of files) {
+        if (file.endsWith(".json")) {
+          existingModelSlugs.add(file.replace(".json", ""));
         }
-      } catch {
-        // Skip invalid files
       }
+    } catch {
+      // Directory might not exist yet
     }
-  } catch {
-    // Directory doesn't exist yet, that's fine
   }
 
-  // Step 2: For each model in models.json, test if needed
-  for (const model of models) {
-    const slug = safeModelFileSlug(model.id);
-    const modelAbsPath = path.join(modelsOutDir, `${slug}.json`);
-    const modelPublicUrl = `/results/models/${slug}.json`;
-    modelFiles[model.id] = modelPublicUrl;
+  // Process existing models not in models.json
+  for (const slug of existingModelSlugs) {
+    // Try to load model info from any level file
+    let modelInfo: BenchModel | null = null;
+    const allResults: Record<string, ModelPuzzleResult> = {};
+    const levelScores: Record<MateLevel, number> = { mate1: 0, mate2: 0, mate3: 0 };
+    const allLatencies: number[] = [];
 
-    let existing: ModelResultsFile | null = null;
-    try {
-      existing = await readJsonFile<ModelResultsFile>(modelAbsPath);
-    } catch {
-      existing = null;
+    for (const level of ALL_MATE_LEVELS) {
+      const levelFilePath = path.join(levelsDir, level, `${slug}.json`);
+      try {
+        const levelFile = await readJsonFile<ModelLevelResultsFile>(levelFilePath);
+        if (!modelInfo) {
+          modelInfo = levelFile.model;
+        }
+        levelScores[level] = levelFile.score;
+        Object.assign(allResults, levelFile.results);
+        if (levelFile.avgLatencyMs) allLatencies.push(levelFile.avgLatencyMs);
+        
+        // Set up level files reference
+        if (!levelFiles[levelFile.model.id]) {
+          levelFiles[levelFile.model.id] = {} as Record<MateLevel, string>;
+        }
+        levelFiles[levelFile.model.id][level] = `/results/levels/${level}/${slug}.json`;
+      } catch {
+        // Level file doesn't exist for this model
+      }
     }
 
-    const expectedPuzzleIds = puzzles.map((p) => p.id).sort().join("|");
-    const existingPuzzleIds =
-      existing ? Object.keys(existing.results ?? {}).sort().join("|") : "";
+    if (modelInfo && Object.keys(allResults).length > 0) {
+      // Skip if this model will be processed from models.json
+      const isInModelsJson = models.some((m) => safeModelFileSlug(m.id) === slug);
+      if (isInModelsJson) continue;
 
-    const needsRun =
-      !existing ||
-      existing.promptVersion !== promptVersion ||
-      existing.model?.id !== model.id ||
-      existingPuzzleIds !== expectedPuzzleIds;
+      processedModelIds.add(modelInfo.id);
+      
+      const breakdown = {
+        mate1: levelScores.mate1,
+        mate2: levelScores.mate2,
+        mate3: levelScores.mate3,
+      };
 
-    if (needsRun) {
-      console.log(`Running model: ${model.name} (${model.id})`);
-      const resultsArr = await asyncPool(concurrency, puzzles, async (p) => evalOne(model, p));
-      const resultsByPuzzleId: Record<string, ModelPuzzleResult> = {};
-      puzzles.forEach((p, idx) => {
-        resultsByPuzzleId[p.id] = resultsArr[idx]!;
-      });
+      // Calculate average score only for levels that have been tested
+      const testedLevels = ALL_MATE_LEVELS.filter((l) => 
+        Object.keys(allResults).some((k) => k.startsWith(`${l}-`))
+      );
+      
+      const weightedScore = testedLevels.length === 0 ? 0 : Math.round(
+        testedLevels.reduce((sum, l) => sum + levelScores[l], 0) / testedLevels.length * 10
+      ) / 10;
 
-      const stats = computeModelStatsFromResults(puzzles, resultsByPuzzleId);
-      const out: ModelResultsFile = {
-        model,
+      const avgLatencyMs =
+        allLatencies.length === 0
+          ? undefined
+          : Math.round(allLatencies.reduce((a, b) => a + b, 0) / allLatencies.length);
+
+      modelFiles[modelInfo.id] = `/results/models/${slug}.json`;
+
+      // Update aggregated model file
+      const modelOut: ModelResultsFile = {
+        model: modelInfo,
         runId,
         runAt,
         promptVersion,
-        score: stats.score,
-        breakdown: stats.breakdown,
-        avgLatencyMs: stats.avgLatencyMs,
-        results: resultsByPuzzleId,
+        score: weightedScore,
+        breakdown,
+        avgLatencyMs,
+        results: allResults,
       };
-      await writeJsonFile(modelAbsPath, out);
-      
-      // Update leaderboard entry (replace if exists, add if new)
-      const existingIdx = leaderboard.findIndex((m) => m.id === model.id);
-      const entry: LatestSnapshotModel = {
-        id: model.id,
-        name: model.name,
-        score: stats.score,
-        breakdown: stats.breakdown,
-        avgLatencyMs: stats.avgLatencyMs,
-      };
-      if (existingIdx >= 0) {
-        leaderboard[existingIdx] = entry;
-      } else {
-        leaderboard.push(entry);
-      }
-    } else {
-      console.log(`Cached model: ${model.name} (${model.id})`);
-      // Update leaderboard entry if it exists, otherwise add it
-      const existingIdx = leaderboard.findIndex((m) => m.id === model.id);
-      if (existingIdx >= 0) {
-        // Re-read to ensure fresh stats
-        const file = await readJsonFile<ModelResultsFile>(modelAbsPath);
-        leaderboard[existingIdx] = {
-          id: model.id,
-          name: model.name,
-          score: file.score,
-          breakdown: file.breakdown,
-          avgLatencyMs: file.avgLatencyMs,
-        };
-      } else {
-        // Shouldn't happen, but add it if missing
-        const file = await readJsonFile<ModelResultsFile>(modelAbsPath);
-        leaderboard.push({
-          id: model.id,
-          name: model.name,
-          score: file.score,
-          breakdown: file.breakdown,
-          avgLatencyMs: file.avgLatencyMs,
-        });
-      }
+      await writeJsonFile(path.join(modelsOutDir, `${slug}.json`), modelOut);
+
+      leaderboard.push({
+        id: modelInfo.id,
+        name: modelInfo.name,
+        score: weightedScore,
+        breakdown,
+        avgLatencyMs,
+      });
+
+      console.log(`  Found existing: ${modelInfo.name} (${Object.keys(allResults).length} results)`);
     }
   }
 
+  console.log(`\nFound ${leaderboard.length} models with existing results`);
+
+  // ============================================================================
+  // STEP 2: Process models from models.json (run benchmarks if needed)
+  // ============================================================================
+  for (const model of models) {
+    const slug = safeModelFileSlug(model.id);
+    console.log(`\nProcessing model: ${model.name} (${model.id})`);
+
+    // Initialize level files for this model
+    levelFiles[model.id] = {} as Record<MateLevel, string>;
+
+    // Track results across all levels for this model
+    const allResults: Record<string, ModelPuzzleResult> = {};
+    const levelScores: Record<MateLevel, number> = { mate1: 0, mate2: 0, mate3: 0 };
+    const allLatencies: number[] = [];
+
+    // Process each level independently
+    for (const level of ALL_MATE_LEVELS) {
+      const levelPuzzles = puzzlesByLevel[level];
+      const levelOutDir = path.join(levelsDir, level);
+      const levelFilePath = path.join(levelOutDir, `${slug}.json`);
+      const levelPublicUrl = `/results/levels/${level}/${slug}.json`;
+      levelFiles[model.id][level] = levelPublicUrl;
+
+      // Check if we have cached results for this level
+      let existingLevel: ModelLevelResultsFile | null = null;
+      try {
+        existingLevel = await readJsonFile<ModelLevelResultsFile>(levelFilePath);
+      } catch {
+        existingLevel = null;
+      }
+
+      // If no puzzles for this level, just use cached results if available
+      if (levelPuzzles.length === 0) {
+        if (existingLevel) {
+          console.log(`  Loaded cached ${level}: ${existingLevel.score}% correct`);
+          levelScores[level] = existingLevel.score;
+          Object.assign(allResults, existingLevel.results);
+          if (existingLevel.avgLatencyMs) allLatencies.push(existingLevel.avgLatencyMs);
+        } else {
+          console.log(`  Skipping ${level}: no puzzles and no cached results`);
+        }
+        continue;
+      }
+
+      // Check if cached results are valid
+      const expectedPuzzleIds = levelPuzzles.map((p) => p.id).sort().join("|");
+      const existingPuzzleIds = existingLevel
+        ? Object.keys(existingLevel.results ?? {}).sort().join("|")
+        : "";
+
+      const needsRun =
+        !existingLevel ||
+        existingLevel.promptVersion !== promptVersion ||
+        existingLevel.model?.id !== model.id ||
+        existingPuzzleIds !== expectedPuzzleIds;
+
+      if (needsRun) {
+        console.log(`  Running ${level} (${levelPuzzles.length} puzzles)...`);
+
+        // Run evaluation for this level
+        const resultsArr = await asyncPool(concurrency, levelPuzzles, async (p) => evalOne(model, p));
+        const levelResults: Record<string, ModelPuzzleResult> = {};
+        levelPuzzles.forEach((p, idx) => {
+          levelResults[p.id] = resultsArr[idx]!;
+        });
+
+        // Compute stats for this level
+        const stats = computeLevelStats(levelPuzzles, levelResults);
+        levelScores[level] = stats.score;
+
+        // Save level results
+        const levelOut: ModelLevelResultsFile = {
+          model,
+          level,
+          runId,
+          runAt,
+          promptVersion,
+          score: stats.score,
+          avgLatencyMs: stats.avgLatencyMs,
+          results: levelResults,
+        };
+        await writeJsonFile(levelFilePath, levelOut);
+        console.log(`  Saved ${level}: ${stats.score}% correct`);
+
+        // Add to aggregated results
+        Object.assign(allResults, levelResults);
+        if (stats.avgLatencyMs) allLatencies.push(stats.avgLatencyMs);
+      } else {
+        // existingLevel is guaranteed non-null here since needsRun is false
+        const cached = existingLevel!;
+        console.log(`  Cached ${level}: ${cached.score}% correct`);
+
+        // Use cached results
+        levelScores[level] = cached.score;
+        Object.assign(allResults, cached.results);
+        if (cached.avgLatencyMs) allLatencies.push(cached.avgLatencyMs);
+      }
+    }
+
+    // Compute overall stats
+    const breakdown = {
+      mate1: levelScores.mate1,
+      mate2: levelScores.mate2,
+      mate3: levelScores.mate3,
+    };
+
+    // Calculate average score only for levels that have been tested
+    const testedLevels = ALL_MATE_LEVELS.filter((l) => 
+      Object.keys(allResults).some((k) => k.startsWith(`${l}-`))
+    );
+    
+    const weightedScore = testedLevels.length === 0 ? 0 : Math.round(
+      testedLevels.reduce((sum, l) => sum + levelScores[l], 0) / testedLevels.length * 10
+    ) / 10;
+
+    const avgLatencyMs =
+      allLatencies.length === 0
+        ? undefined
+        : Math.round(allLatencies.reduce((a, b) => a + b, 0) / allLatencies.length);
+
+    // Save aggregated model results (for backward compatibility)
+    const modelFilePath = path.join(modelsOutDir, `${slug}.json`);
+    const modelPublicUrl = `/results/models/${slug}.json`;
+    modelFiles[model.id] = modelPublicUrl;
+
+    const modelOut: ModelResultsFile = {
+      model,
+      runId,
+      runAt,
+      promptVersion,
+      score: weightedScore,
+      breakdown,
+      avgLatencyMs,
+      results: allResults,
+    };
+    await writeJsonFile(modelFilePath, modelOut);
+
+    // Add to leaderboard
+    leaderboard.push({
+      id: model.id,
+      name: model.name,
+      score: weightedScore,
+      breakdown,
+      avgLatencyMs,
+    });
+
+    console.log(`  Overall: ${weightedScore}% (mate1: ${breakdown.mate1}%, mate2: ${breakdown.mate2}%, mate3: ${breakdown.mate3}%)`);
+  }
+
+  // Write index file
   const index: ResultsIndex = {
     runId,
     runAt,
     promptVersion,
-    puzzles,
+    puzzles: allPuzzles,
     models: leaderboard.sort((a, b) => b.score - a.score),
     modelFiles,
+    levelFiles,
   };
 
   await writeJsonFile(indexPath, index);
-  console.log(`Wrote ${indexPath}`);
-  console.log(`\nSummary: ${puzzles.length} puzzles, ${leaderboard.length} models`);
+  console.log(`\nWrote ${indexPath}`);
+  console.log(`\nSummary: ${allPuzzles.length} puzzles across ${ALL_MATE_LEVELS.length} levels, ${leaderboard.length} models`);
 }
 
 main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
-
-

@@ -1,0 +1,121 @@
+{
+  "model": {
+    "id": "openai/gpt-5.1-codex",
+    "name": "OpenAI GPT-5.1 Codex",
+    "temperature": 0,
+    "maxTokens": 1500
+  },
+  "runId": "bench-2025-12-19T04-04-20-481Z",
+  "runAt": "2025-12-19T04:04:20.481Z",
+  "promptVersion": "v1.1",
+  "score": 10.0,
+  "breakdown": {
+    "mate1": 10,
+    "mate2": 0,
+    "mate3": 0
+  },
+  "avgLatencyMs": 286,
+  "results": {
+    "mate1-HR783": {
+      "move": "g5h4",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The black king on h2 is boxed in by its own pieces and the white king on f1, which controls both g1 and g2. A decisive file mate is available: shifting the queen to h4 delivers check along the h-file; the only interposition square h3 is inaccessible because the black pawn on f3 blocks the queen on b3. With no legal king moves or blocks, this is mate in one.\n\n[RESULT] g5h4 [/RESULT]",
+      "latencyMs": 367,
+      "promptTokens": 369,
+      "completionTokens": 1447,
+      "totalTokens": 1816
+    },
+    "mate1-w3Xtv": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Evaluating mate-in-one possibilities****Evaluating mate-in-1 possibilities**",
+      "latencyMs": 461,
+      "promptTokens": 380,
+      "completionTokens": 1472,
+      "totalTokens": 1852
+    },
+    "mate1-Amf99": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing checkmate possibilities****Analyzing potential mate-in-one moves**",
+      "latencyMs": 461,
+      "promptTokens": 375,
+      "completionTokens": 1472,
+      "totalTokens": 1847
+    },
+    "mate1-CjHvU": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Evaluating potential mate-in-one moves****Analyzing mate-in-one possibilities**",
+      "latencyMs": 290,
+      "promptTokens": 367,
+      "completionTokens": 1472,
+      "totalTokens": 1839
+    },
+    "mate1-pU7ND": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Evaluating checkmate-in-one moves****Analyzing mate-in-one chess puzzle**",
+      "latencyMs": 183,
+      "promptTokens": 378,
+      "completionTokens": 1472,
+      "totalTokens": 1850
+    },
+    "mate1-vdzFN": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Evaluating potential mate-in-1 moves****Evaluating mate-in-one candidate moves**",
+      "latencyMs": 271,
+      "promptTokens": 381,
+      "completionTokens": 1472,
+      "totalTokens": 1853
+    },
+    "mate1-b8B0x": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing mate-in-1 possibilities****Analyzing mate-in-one possibilities**",
+      "latencyMs": 199,
+      "promptTokens": 364,
+      "completionTokens": 1472,
+      "totalTokens": 1836
+    },
+    "mate1-ZmOQt": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing mate-in-one possibilities****Analyzing mate-in-one possibilities**",
+      "latencyMs": 190,
+      "promptTokens": 381,
+      "completionTokens": 1472,
+      "totalTokens": 1853
+    },
+    "mate1-S3tXw": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Analyzing mate-in-one possibilities****Analyzing black mate-in-one possibilities**",
+      "latencyMs": 225,
+      "promptTokens": 373,
+      "completionTokens": 1472,
+      "totalTokens": 1845
+    },
+    "mate1-fVTm6": {
+      "move": "",
+      "isCorrect": false,
+      "parseMethod": "none",
+      "rawOutput": "**Evaluating mate-in-1 with queen capture****Analyzing mate-in-one possibilities**",
+      "latencyMs": 208,
+      "promptTokens": 371,
+      "completionTokens": 1472,
+      "totalTokens": 1843
+    }
+  }
+}

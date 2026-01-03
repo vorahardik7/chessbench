@@ -1,0 +1,126 @@
+{
+  "model": {
+    "id": "x-ai/grok-4-fast",
+    "name": "Grok 4 Fast",
+    "temperature": 0,
+    "maxTokens": 1500
+  },
+  "level": "mate3",
+  "runId": "bench-2026-01-03T08-46-49-911Z",
+  "runAt": "2026-01-03T08:46:49.911Z",
+  "promptVersion": "v1.1",
+  "score": 20.0,
+  "avgLatencyMs": 967,
+  "results": {
+    "mate3-SygLP": {
+      "move": "f7f2",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "san",
+      "rawOutput": "The position features an exposed white king on d2, with rooks on c2 and d3 that are vulnerable to black's active rooks on f7 and h8. Black's king on d5 and pawn on d4 control key squares, preventing certain white king escapes. The tactical theme is a ladder-like series of rook checks on the second and first ranks, forcing the white king to the queenside edge, where black captures the loose rook on c2 with checkmate.\n\nThe forcing checkmate sequence is Rf7-f2+, Kc1, Rh8-h1+, Kb2, Rf2-c2#.\n\n[RESULT] f7f2 h8h1 f2c2 [/RESULT]",
+      "latencyMs": 709,
+      "promptTokens": 506,
+      "completionTokens": 47592,
+      "totalTokens": 48098
+    },
+    "mate3-UdGdL": {
+      "move": "e5e8 b8e8 e1e8 b5e8 g5d8",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "### Analysis\nThe position shows a powerful rook battery on the e-file, with White's rooks on e1 and e5 targeting the Black rook on e8. The e8 rook is protected by the rook on b8 (along the 8th rank) and the bishop on b5 (along the diagonal). White's queen on g5 eyes the 8th rank, and the bishop on h6 supports key squares near the king. Black's king on g8 is vulnerable on the open kingside, with limited escape squares (f8 attacked by the bishop, g7 attacked by the bishop, f7 potentially covered). The black queen on c2 is out of play and distracting, but irrelevant to the tactic. The opponent's last move (d8e8) placed the rook on e8, completing the target for the battery.\n\nThe tactical theme is a **rook battery with clearance and final pin**. White sacrifices the rooks to clear the e-file and force Black's protectors to recapture, positioning the bishop on e8. This blocks Black's own escape and sets up the queen to deliver a pinning check on the 8th rank, where the bishop cannot move without exposing the king, resulting in checkmate.\n\n### Forcing Checkmate Sequence\nWhite starts with Re5xe8+, forcing Black to recapture (best is Rb8xe8, as B b5xe8 allows similar continuation with tempo loss). White then recaptures with Re1xe8+, forcing the second recapture (Bb5xe8). White's third move Qg5-d8 pins the bishop on e8 to the king along the 8th rank (path f8 empty), checking the king. The bishop cannot capture the queen (pinned), the king has no safe squares (f8/g7 attacked by Bh6, h8/f7 blocked or attacked by the queen), and no other pieces can resolve the check, leading to mate.\n\n[RESULT] e5e8 b8e8 e1e8 b5e8 g5d8 [/RESULT]",
+      "latencyMs": 776,
+      "promptTokens": 515,
+      "completionTokens": 76894,
+      "totalTokens": 77409
+    },
+    "mate3-gOHbt": {
+      "move": "f1h1 c1h1 a1h1 g3h2 h1h2",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "### Position Analysis\nThe position is sharp, with White's rooks on the first rank eyeing the open h-file, but Black's rook on c1 controls the rank, preventing Rh1+ from being safe. Black's king on h7 is vulnerable on the h-file, with escape squares limited (g8 attacked by White's Ba2 along the long diagonal, h6/h8 on the checking line, g6 blocked by own pawn). Black's queen on g3 is active but can be drawn into a fatal interposition. The tactical theme is a rook sacrifice to eliminate the c1 rook and force the queen to block, leading to a decisive capture.\n\n### Forcing Checkmate Sequence\n1. White plays Rh1+, sacrificing the rook to force Black's rook from c1 to h1 (the only capture; king has no legal moves, as g8 is attacked by Ba2, h6/h8 remain in check).  \n2. White recaptures with Raxh1+, now checking the king along the open h-file (first rank clear). Black cannot recapture h1 and has no king moves.  \n3. Black's only legal response is Qg3-h2 (interposing on the h-file).  \n4. White captures with Rxh2#, checking again; Black's king remains trapped, and h2 is unprotected, leading to mate.\n\n[RESULT] f1h1 c1h1 a1h1 g3h2 h1h2 [/RESULT]",
+      "latencyMs": 522,
+      "promptTokens": 518,
+      "completionTokens": 14234,
+      "totalTokens": 14752
+    },
+    "mate3-Fq50G": {
+      "move": "b7b8 f8g7 f7f8q g7h7 f8h8",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position is critical for Black, with the white pawn on f7 one step from promotion, supported by the rook on b7 and active king on f5. Black's king on f8 is exposed on the 8th rank, and the rook on b1 is trapped behind its own pawn on b2. The tactical theme is a check on the 8th rank to force the king from the promotion square, followed by a protected promotion to queen, leading to a forcing mate on the edge.\n\nThe forcing checkmate sequence is 1. Rb8+ Kg7 (main line; Ke7 leads to similar promotion and mate with Qd8#) 2. f8=Q+ Kh7 3. Qh8# (the queen is protected by the rook on b8, and all escape squares are covered by the queen, rook, and king).\n\n[RESULT] b7b8 f8g7 f7f8q g7h7 f8h8 [/RESULT]",
+      "latencyMs": 584,
+      "promptTokens": 510,
+      "completionTokens": 49091,
+      "totalTokens": 49601
+    },
+    "mate3-kWIdD": {
+      "move": "c8g4 g1f1 g4g2 f1e1 h4f3",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "The position shows the white king exposed on g1, with the queen on e2 and the f3 pawn aligned on the diagonal from g4. Black can exploit this with Qg4+, delivering check and simultaneously pinning the f3 pawn to the e2 queen along the diagonal. The tactical theme is the pin (the pawn cannot capture the queen without exposing the white queen to immediate capture on the now-open diagonal, losing the queen for a pawn). This forces the king to f1 (the h1 move leads to a quicker mate with Qg2# , as the only escape g1 is attacked by the queen and g2 is protected by the knight). Black then plays Qg2+, forcing the king to e1 (the only legal move, as g1 is attacked by the queen and g2 is protected by the knight). Finally, Nh4f3# mates, as the knight checks the king, the escape squares are covered (f1 attacked by the queen, d1 and d2 attacked by the queen's influence and the position's constraints), and the white queen's capture of the knight is refuted by the queen recapturing on f3 (winning the white queen, as f3 is protected and the check is resolved only temporarily but the position is lost).\n\n[RESULT] c8g4 g1f1 g4g2 f1e1 h4f3 [/RESULT]",
+      "latencyMs": 691,
+      "promptTokens": 524,
+      "completionTokens": 64487,
+      "totalTokens": 65011
+    },
+    "mate3-DCWyy": {
+      "move": "e5g6",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "san",
+      "rawOutput": "The position shows White with a dominant queen on f7 close to the black king on h8, supported by a centralized knight on e5 and an active bishop on f4. The rook on d1 eyes the d8 rook but is blocked by the d4 pawn. Black's king is vulnerable on the edge, with the g7 pawn blocking some lines but also a target. The tactical theme is a series of forcing sacrifices: a knight sacrifice to draw the king out, another knight sacrifice to force a capture, and a final queen sacrifice to deliver mate.\n\nThe forcing checkmate sequence is N e5 to g6 check, forcing K h8 to h7 (g8 attacked by the queen); then N g6 to f8 check, forcing R d8 to f8 (other takes or king moves lead to quicker loss); then Q f7 to g7 checkmate (the king cannot take due to the position's net, with escape squares covered by the remaining pieces and the rook on f8 unable to aid).\n\n[RESULT] e5g6 g6f8 f7g7 [/RESULT]",
+      "latencyMs": 652,
+      "promptTokens": 518,
+      "completionTokens": 65656,
+      "totalTokens": 66174
+    },
+    "mate3-hrEU6": {
+      "move": "f6a1 d7d1 e4e1 d1e1 a1e1",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "### Position Analysis\nThe position features an open first rank for White, with the rook on a1 hanging and the king exposed on g1. Black's queen on f6 dominates, and the rook on e4 eyes the e-file. White's rook on d7 is active but sidelined for defense. The recent queen move to b3 (from g3) doesn't directly help White. Black has a forcing sequence exploiting the open rank 1, sacrificing the rook to draw out White's defenders while the queen delivers the final blow. The tactical theme is a **supported rook sacrifice on an open file, combined with a queen infiltration on the back rank**, leading to inescapable checkmate.\n\n### Forcing Checkmate Sequence\nBlack starts with 1. Qxa1+, capturing the rook with check along the open first rank. White's strongest reply is 1... Rd1, blocking the check. Black continues with 2. Re1+, sacrificing the rook (protected by the queen on a1). White must capture with 2... Rxe1. Black then recaptures with 3. Qxe1#, delivering mate: the queen checks the king along rank 1, cannot be captured (White's queen on b3 doesn't attack e1, and other pieces are gone), cannot be blocked (only f1 intervenes, but no piece can move there), and the king has no legal safe squares (f1 and h1 attacked by the queen; others occupied or invalid).\n\nOther White replies to 1. Qxa1+ lead to faster mates:\n- 1... Kf1 2. Re1# (king trapped, rook protected).\n- 1... Qb1 2. Qxb1+; if 2... Rd1, then 3. Qxd1# (White's queen already lost, no recapture).\n\nAll lines force mate in at most 3 moves.\n\n[RESULT] f6a1 d7d1 e4e1 d1e1 a1e1 [/RESULT]",
+      "latencyMs": 640,
+      "promptTokens": 515,
+      "completionTokens": 13671,
+      "totalTokens": 14186
+    },
+    "mate3-8aztK": {
+      "move": "f2h3",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "san",
+      "rawOutput": "### Analysis\nThe position features Black's knight on f2 blocking a powerful diagonal from Black's queen on b6 to White's king on g1. White's king is somewhat exposed after castling, with undeveloped queenside pieces. Black's queen on e7 is strong but doesn't immediately threaten the Black king. The tactical theme is a discovered double check by moving the knight, forcing the White king to the edge, followed by a queen sacrifice to lure the rook away, enabling a decisive knight fork/checkmate. This is a classic example of a deflection/sacrifice sequence combined with discovery.\n\n### Forcing Checkmate Sequence\nBlack starts with 1. Nf2-h3+, a double check (knight attacks the king directly, and uncovers the queen's attack along the b6-g1 diagonal). White's king must move to h1 (the only legal square; f2 is attacked by the queen). Black then plays 2. Qb6-g1+, checking the king on h1. White's king cannot capture (protected by the knight on h3), and has no other moves, so must capture with 3. Rf1-g1. Finally, Black delivers 3. Nh3-f2#, checking the king on h1. The knight cannot be captured (no White piece attacks f2), the king has no escape squares (g1 blocked by own rook, others occupied or off-board), and knight checks cannot be blocked—checkmate.\n\n[RESULT] f2h3 b6g1 h3f2 [/RESULT]",
+      "latencyMs": 596,
+      "promptTokens": 508,
+      "completionTokens": 20154,
+      "totalTokens": 20662
+    },
+    "mate3-tbeHw": {
+      "move": "d2f3 d5f3 b2f2",
+      "isCorrect": false,
+      "isLegal": false,
+      "parseMethod": "san",
+      "rawOutput": "The position is critical for black, with the rook on b2 dominating the second rank near the white king on g1, but the own knight on d2 blocks the path to f2. The white bishop on d5 is attacked by the black king, but the square d5 is guarded by the white knight on f4, making the capture illegal. The tactical theme is a clearance sacrifice: the knight sacrifices itself on f3 to force the white bishop to capture, clearing the d2 square and removing the bishop from d5 (though the latter is secondary). This opens the second rank for the rook to slide to f2 for checkmate.\n\nThe forcing checkmate sequence is Nd2-f3+ (check, attacking the king), Bd5xf3 (forced capture, the only way to resolve the check), Rb2-f2# (mate, the rook delivers mate on the second rank).\n\n[RESULT] d2f3 d5f3 b2f2 [/RESULT]",
+      "latencyMs": 3810,
+      "promptTokens": 517,
+      "completionTokens": 52145,
+      "totalTokens": 52662
+    },
+    "mate3-nrN1h": {
+      "move": "c2g6 e8f8 g6f6 g7f6 f4h6",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "### Analysis of the Position\nThe position is dynamic, with white having strong central control and active pieces (queen on c2, knights on d2 and f3, bishop on f4), while black's king on e8 is vulnerable after the pawn advance f7 to g6, which hangs the pawn on g6 and opens key lines. Black's knight on f6 and bishop on g7 are potential targets, but the king lacks good defenses. White has castling rights, but the attack is immediate. The tactical theme is **clearance sacrifice**: white forces the capture of its queen on f6 by the black bishop, clearing the g7 square to open the h6-g7-f8 diagonal for the light-squared bishop to deliver mate.\n\n### Forcing Checkmate Sequence\n1. Qc2xg6+ The queen captures the undefended pawn on g6 with check (path clear, no recaptures possible). Black's only legal move is Ke8 to f8 (other king squares occupied or attacked; no interpositions or captures).\n\n2. Qg6xf6+ The queen captures the knight on f6 with check (vertical to f8, f7 empty). Black recaptures with Bg7xf6 (the pawn e7xf6 is possible but leads to material loss and similar fate; the line assumes the bishop recapture to open the diagonal).\n\n3. Bf4 to h6# The bishop moves to h6 with checkmate (path g5 empty; attacks f8 along the now-clear diagonal h6-g7-f8, g7 emptied by the bishop's previous move). Black's king has no safe squares, cannot capture the bishop, and the rook on h8 cannot recapture safely without loss.\n\n[RESULT] c2g6 e8f8 g6f6 g7f6 f4h6 [/RESULT]",
+      "latencyMs": 685,
+      "promptTokens": 525,
+      "completionTokens": 53327,
+      "totalTokens": 53852
+    }
+  }
+}

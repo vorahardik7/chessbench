@@ -1,0 +1,130 @@
+{
+  "model": {
+    "id": "openai/gpt-5.2-pro",
+    "name": "OpenAI GPT-5.2 Pro",
+    "temperature": 0,
+    "maxTokens": 1500
+  },
+  "runId": "bench-2025-12-23T00-22-38-739Z",
+  "runAt": "2025-12-23T00:22:38.739Z",
+  "promptVersion": "v1.1",
+  "score": 70.0,
+  "breakdown": {
+    "mate1": 70,
+    "mate2": 0,
+    "mate3": 0
+  },
+  "avgLatencyMs": 314,
+  "results": {
+    "mate1-HR783": {
+      "move": "g5h4",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "san",
+      "rawOutput": "Black’s king on **h2** is boxed in: the white king on **f1** controls the key flight squares **g1** and **g2**, and White’s queen is already close enough to deliver a direct mating net.  \n**Tactical theme:** *Mate by restricting escape squares (queen mate with king support).*\n\nThe immediate finishing move is **Qh4#**, giving check along the h-file; all king escapes (**g1, g2, g3, h1, h3**) are covered.\n\n[RESULT]g",
+      "latencyMs": 366,
+      "promptTokens": 369,
+      "completionTokens": 1500,
+      "totalTokens": 1869
+    },
+    "mate1-w3Xtv": {
+      "move": "d5e6",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "san",
+      "rawOutput": "**Evaluating chess moves**\n\nI need to look at the black king on e7 and see how it can be checked. The white queen at d5 doesn’t currently check it because of the pieces on the board. However, the white knight at e5 does attack a few squares, including d7. If the queen moves to e6 from d5, it can check the king. I need to look for possible checkmates like Qe6# or Qf7#. I should also consider moves like Qd7+.**Analyzing the board setup**\n\nLooking at the diagonal from d5 to f7, I see the squares e6 and f7 are both empty, so Qf7+ gives check on e7. The black king on e7 could capture the queen, but the knight on e5 protects f7, preventing that. I check if any other black pieces can capture the queen, but they can’t reach it. With Qf7+ looking strong, I assess the king's possible moves. It seems those are illegal or still in check. Qd7# might be a checkmate option, but I need to see if d7 is protected.**Reviewing piece interactions**\n\nThe knight on e5 does attack d7, so the king can't capture the queen. But could another black piece do it? The black bishop on c8 can attack d7, so it could capture the queen there, removing the check. However, I need to check if the bishop is pinned. It seems it's not pinned by the white rook, so Qd7+ wouldn’t be a mate. \n\nI also checked Qf7+ and other moves but didn’t find a different capture. Moving to Qe6+ could be a check too, but I need to see if e6 is protected. The e5 knight doesn’t protect e6, so that's a possibility!**Exploring moves and protections**\n\nI’m analyzing the white bishop on c1, but it doesn't threaten anything significant nearby, and neither do the rooks or pawns. The pawn structure indicates that e6 might be unprotected. However, if the queen is on e6 giving a check, the black king could capture it unless it’s protected. \n\nUsing Qf7# seems promising: it gives check on f7, and the black king can't capture if the knight on e5 protects it. I need to consider where the king can move. I should evaluate Qf7+ and the squares available to the king, ensuring they're covered by white pieces!**Assessing move options**\n\nAfter playing Qf7, the queen attacks both e7 and e8. I need to check if there's any possible block or capture. Since the queen is right next to the king, it can’t be blocked. The only options are to capture the queen or move the king. It seems the king can't capture, but I need to see if any other black pieces can take the queen. None of them can capture, so the king will need to move instead.**Evaluating king's options**\n\nWhen the king is on e7 and checked by the queen on f7, I need to see where it can legally move. The possible squares are d6, e6, f6, d7, f7, d8, e8, and f8. F7 is occupied by the checking queen, so the king can’t go there. I need to evaluate the other squares to see if they’re attacked or occupied. \n\nLooking at d6, it doesn't seem threatened by any white pieces, including the queen, knight, or bishop. I should check further to confirm it’s safe for the king to move there.**Analyzing square safety**\n\nAlright, I need to confirm whether d6 is safe for the king to escape from e7, as it’s under check from the queen on f7. The queen does attack d7 and e6 but not d6. This means d6 could potentially be a safe escape, which means it’s not a checkmate situation.\n\nI just need to ensure d6 isn’t controlled by any other white pieces. The knight on e5 and the pawns don’t attack d6 either. After checking, it seems d6 is indeed not attacked, so the king can move there!**Finalizing king's movement options**\n\nSo, it looks like moving to d6 is indeed legal. I just need to double-check that d6 isn't in check from the queen on f7, but the checks along those diagonals don’t include d6. This means the king can safely move there, confirming that Qf7+ isn’t a mate.\n\nNow, checking other potential moves for a mate in one: both Qe6+ and Qd7+ don't work, and I can't move Qf5+ because the knight blocks e5. So Qd6+ is an option that gives check to the king!",
+      "latencyMs": 342,
+      "promptTokens": 380,
+      "completionTokens": 2048,
+      "totalTokens": 2428
+    },
+    "mate1-Amf99": {
+      "move": "h2h1",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "san",
+      "rawOutput": "**Analyzing chess moves**\n\nI'm thinking through the move \"Rh1,\" which puts the black king on c1 in check. The rook attacks horizontally on empty squares c1 through g1. So yes, it's definitely check! But is it checkmate? The black king on c1 can’t capture the rook on h1 because it’s too far. It could also block the check using a piece between h1 and c1, like a bishop or a pawn, moving from c7. There are options to consider!**Evaluating block and escape options**\n\nTo block the check, a piece would need to move to d1, e1, f1, or g1. The bishop could potentially move to d6, e5, f4, g3, or h2, but none of those squares would be viable for blocking. As for pawns, b3 could go to b2, but c5’s pawn can't move to c4 because it’s occupied. The king is the only one who could capture the attacker if adjacent, but it's not, so it can only move. From c1, the king's potential escape squares would be b2, c2, and d2, but none avoid check.**Examining square attacks**\n\nLet’s break down the squares! Starting with b1, it is indeed attacked by the rook on h1 since the rook moves unobstructed along rank 1. D1 is also empty and attacked, but b2 is not directly attacked by the rook. The white king on e3 doesn’t reach b2 either. Other white pawns are targeting different squares, and b2 remains unoccupied. Since the king can move diagonally from c1 to b2, and b2 itself isn't in check, it appears to be a legal move. Plus, b2 is empty of black pawns!**Evaluating possible moves**\n\nAlright, I need to analyze the b2 square. It isn't controlled by the white rook on h1, so the king could escape there, meaning the move Rh1+ doesn't result in checkmate. Now, considering the rook from h2 to c2, it checks along the c-file since all squares from g2 to c2 are empty. When on c2, it attacks c1 and puts the king in check. \n\nHowever, since the king can capture the rook on c2 and that square isn't protected by any white pieces, it won't be a checkmate either. The rook on h1 really doesn't lead to a mate.**Exploring check possibilities**\n\nOkay, I’m checking if rook moves like to h2, h1, c2, or d2 can give check. But they don’t seem to. I’ll consider pawn moves as well. For instance, the pawn on f5 can’t move to f6 due to a black pawn occupying that space. Moving f4 to f5 is also blocked by a white pawn. \n\nThe white king on e3 can move to d2, giving check to the black king on c1. This is legal since d2 is empty, but if the king moves there, the black king could capture it. However, the rook on h2 protects d2, making that capture impossible!**Checking king's escape routes**\n\nSo, I realize Kxd2 is illegal. Now, I wonder if the black king can move to other squares to escape check. If the white king is at d2, the black king must move away from it and avoid other threats. From c1, possible escape squares include b1, b2, c2, d1, d2, and d0. But d2 is occupied by the white king, and c2 is also attacked by the white king, making those moves illegal. \n\nB2 isn't attacked by the white king, and it’s not directly under threat from the rook on h2 since the king's presence blocks that line.",
+      "latencyMs": 346,
+      "promptTokens": 375,
+      "completionTokens": 1500,
+      "totalTokens": 1875
+    },
+    "mate1-CjHvU": {
+      "move": "e4h4",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "san",
+      "rawOutput": "**Analyzing checkmate tactics**\n\nIt's black's turn, and I'm looking for an immediate mate. I see the black queen on e4 could check the white king on h3 by moving to h4. Moving Qh4+ is possible since f4 and g4 are empty, and it attacks h3, giving check. However, I need to think about white's response. The king can capture the queen, but it might be protected by the black king or a pawn. The king on h5 indeed attacks h4 and is close enough to safeguard the queen.**Evaluating potential moves**\n\nI need to clarify if the white king can capture on h4. Since that square is protected by the black king, they can’t be adjacent, so Kxh4 isn't possible. Could a white pawn capture instead? The pawn on h2 can't capture g3, and it seems there's no option there. The rook on f2 isn't in a position to help either. If the queen on h4 gives check, the white king needs to move to g2, g3, or h2, but can't block the check. I’ll review the king's legal moves next.**Assessing king's legal moves**\n\nI need to ensure the king doesn’t move into check. Let’s look at the options: starting with Kh2, but that's blocked by its own pawn. Moving to Kg2 might work since that square is empty. Now, I need to check if g2 is attacked. The black queen on h4 attacks g3 but not g2. Also, the black king threatens squares around it but not g2 either, making Kg2 a legal move. However, if Kg2 is legal, then Qxh4+ wouldn’t be a mate. But I also need to note that the white rook on f2 is in line with the queen, applying pressure there.**Examining possible checks**\n\nI’m checking if g2 is attacked by the black queen along the diagonal from h4. It isn't, which means it doesn't lead to a mate. Now, what if the queen from e4 moves to f3? That would be a check since f3 is empty and would then attack h3. However, the white king can’t capture f3 from h3. The queen on f7 could capture on f3, but the path is clear to do so.\n\nNow, if queen e4 moves to g2, it gives check, as g2 is empty and attacks h3 too. The white queen on f7 can’t respond by moving to g7, but the rook on f2 can capture on g2 since it’s adjacent.**Analyzing check possibilities**\n\nI’m assessing legality if the queen is pinned. It seems like that wouldn’t result in a mate. If the queen on e4 moves to d3, it could check since d3 is empty, and it would still attack h3. However, the white queen on f7 isn’t in a position to capture d3. The king can’t capture either, but pieces can block the line.\n\nCould a move like Qe6 block? No, but moving the rook from f2 to f3 to block could work since f3 is available. If the queen moves to e3, it would again check the king on h3, as it still attacks along that line.",
+      "latencyMs": 318,
+      "promptTokens": 367,
+      "completionTokens": 1500,
+      "totalTokens": 1867
+    },
+    "mate1-pU7ND": {
+      "move": "b8c8",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "White can force mate immediately by removing the blocker on c8 and giving a direct rank check. The key tactical theme is **pin**: the black knight on e7 is pinned by the rook on e1, so it cannot capture the checking queen on c8 to relieve the mate.\n\n[RESULT]b8c8[/RESULT]",
+      "latencyMs": 345,
+      "promptTokens": 378,
+      "completionTokens": 1451,
+      "totalTokens": 1829
+    },
+    "mate1-vdzFN": {
+      "move": "g6g7",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "White has an immediate forcing check on the exposed black king. The tactical theme is **supported queen mate**: the queen delivers check on the diagonal to h8, and the **rook on a7** covers the key capture square g7, leaving the king with no legal responses.\n\n[RESULT]g6g7[/RESULT]",
+      "latencyMs": 289,
+      "promptTokens": 381,
+      "completionTokens": 1234,
+      "totalTokens": 1615
+    },
+    "mate1-b8B0x": {
+      "move": "c6c7",
+      "isCorrect": false,
+      "isLegal": true,
+      "parseMethod": "san",
+      "rawOutput": "**Analyzing chess moves**\n\nI'm considering the moves for the bishop. From d6, it can attack c7, b8, and e7. Moving to e7 is not possible due to the pawn there. Promotion seems key, especially if I can promote a pawn to a queen that checks the king on c8 from e8. Then I find a pawn on e7 can capture the rook on d8 by moving diagonally. This leads to capturing the rook, putting me in check. I need to consider whether the king can capture my queen if d8 is protected by my pieces like the bishop on b6.**Examining chess positions**\n\nSo, the bishop protects d8, but the king on b4 can't capture. I wonder about the rook on e4 — could it capture on d4? No, that doesn’t apply here. The rook on e4 can’t intervene either, as there’s nothing to capture on d4. Checking moves, black can't block the check from the queen on d8 to the king on c8, and there are no squares between them. \n\nThe king can only move to b7, c7, d7, or b8. I need to confirm that these moves don't leave the king in check from my pieces, especially since the bishop on b6 controls a few squares, including c7 and d8.",
+      "latencyMs": 238,
+      "promptTokens": 364,
+      "completionTokens": 1500,
+      "totalTokens": 1864
+    },
+    "mate1-ZmOQt": {
+      "move": "c2f2",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Black’s queen on c2 has a direct, forcing check by capturing on f2. The tactical theme is **supported queen sacrifice/check** against a **trapped king**: the check cannot be blocked, the queen cannot be captured (f2 is protected by the bishop on c5), and the king has no escape squares (e2 is covered by the bishop on h5; g1 is covered by both the queen and the bishop c5).\n\nForcing mate in 1:\n- **24... Qxf2#**\n\n[RESULT]c2f2[/RESULT]",
+      "latencyMs": 281,
+      "promptTokens": 381,
+      "completionTokens": 1193,
+      "totalTokens": 1574
+    },
+    "mate1-S3tXw": {
+      "move": "d4g1",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "Black’s queen has a clear diagonal to **g1**, and the key tactical theme is a **corner mate with protected queen**: after the check, White’s king cannot capture because **…h2** protects **g1**, and there are no blocks or interpositions possible against an adjacent queen check.\n\nForcing mate sequence (1 ply): **…Qg1#**\n\n[RESULT]d4g1[/RESULT]",
+      "latencyMs": 307,
+      "promptTokens": 373,
+      "completionTokens": 1306,
+      "totalTokens": 1679
+    },
+    "mate1-fVTm6": {
+      "move": "f5f8",
+      "isCorrect": true,
+      "isLegal": true,
+      "parseMethod": "uci",
+      "rawOutput": "White’s queen already has a direct line to the 8th rank. Capturing on **f8** delivers a back-rank style mate: the black king on **h8** has no escape squares (g8 and g7 are controlled by the queen), and there’s no way to capture the checking queen or block the check.\n\n[RESULT]f5f8[/RESULT]",
+      "latencyMs": 311,
+      "promptTokens": 371,
+      "completionTokens": 1476,
+      "totalTokens": 1847
+    }
+  }
+}

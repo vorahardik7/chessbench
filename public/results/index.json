@@ -1,6 +1,6 @@
 {
-  "runId": "bench-2025-12-23T23-02-21-577Z",
-  "runAt": "2025-12-23T23:02:21.577Z",
+  "runId": "bench-2026-01-03T19-58-13-288Z",
+  "runAt": "2026-01-03T19:58:13.288Z",
   "promptVersion": "v1.1",
   "puzzles": [
     {
@@ -201,42 +201,429 @@
         "rating": 1507,
         "gameId": "bzaPNSHD"
       }
+    },
+    {
+      "id": "mate2-erHnt",
+      "level": "mate2",
+      "fen": "5k2/5p2/5Npp/p7/4Pn2/P1R4P/3r4/7K w - - 4 39",
+      "lastMoveUci": "g2f4",
+      "solutionUci": "c3c8 f8e7 c8e8",
+      "fullSolutionUci": "c3c8 f8e7 c8e8",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "erHnt",
+        "url": "https://lichess.org/training/erHnt",
+        "themes": [
+          "hookMate",
+          "short",
+          "endgame",
+          "mateIn2"
+        ],
+        "rating": 1543,
+        "gameId": "zgOZCnz8"
+      }
+    },
+    {
+      "id": "mate2-586ra",
+      "level": "mate2",
+      "fen": "6R1/1p3p2/p4N1k/2P1P1pp/PP6/4Q2n/4R2q/5K2 b - - 1 32",
+      "lastMoveUci": "e1e2",
+      "solutionUci": "h2h1 e3g1 h1g1",
+      "fullSolutionUci": "h2h1 e3g1 h1g1",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "586ra",
+        "url": "https://lichess.org/training/586ra",
+        "themes": [
+          "short",
+          "endgame",
+          "mateIn2"
+        ],
+        "rating": 1345,
+        "gameId": "rRhG9ZVL"
+      }
+    },
+    {
+      "id": "mate2-1MJyG",
+      "level": "mate2",
+      "fen": "7k/3N2b1/7p/3Q2p1/2BP4/1p4K1/3q2PP/8 b - - 2 44",
+      "lastMoveUci": "f2g3",
+      "solutionUci": "d2f4 g3h3 f4h4",
+      "fullSolutionUci": "d2f4 g3h3 f4h4",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "1MJyG",
+        "url": "https://lichess.org/training/1MJyG",
+        "themes": [
+          "short",
+          "endgame",
+          "mateIn2"
+        ],
+        "rating": 1297,
+        "gameId": "oUKDDfpz"
+      }
+    },
+    {
+      "id": "mate2-yflXj",
+      "level": "mate2",
+      "fen": "4k3/1p2br2/2p1Q3/8/pP1BP3/8/1qPK2PP/3R3R b - - 0 28",
+      "lastMoveUci": "e3d4",
+      "solutionUci": "f7f2 e2e1 d4e3",
+      "fullSolutionUci": "f7f2 e2e1 d4e3",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "yflXj",
+        "url": "https://lichess.org/training/yflXj",
+        "themes": [
+          "short",
+          "endgame",
+          "mateIn2"
+        ],
+        "rating": 1574,
+        "gameId": "IGe02RUi"
+      }
+    },
+    {
+      "id": "mate2-8hruM",
+      "level": "mate2",
+      "fen": "r5k1/2R2pr1/1nQ1p3/8/4P2R/1PN1q3/1PP5/1KN5 b - - 2 34",
+      "lastMoveUci": "e2c1",
+      "solutionUci": "e3c1 b1a2 c1a1",
+      "fullSolutionUci": "e3c1 b1a2 c1a1",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "8hruM",
+        "url": "https://lichess.org/training/8hruM",
+        "themes": [
+          "mateIn2",
+          "middlegame",
+          "short",
+          "pin"
+        ],
+        "rating": 1322,
+        "gameId": "BsNHBTJV"
+      }
+    },
+    {
+      "id": "mate2-LUhO0",
+      "level": "mate2",
+      "fen": "8/p4ppk/2p5/3p2p1/q7/8/1R2Q3/1K6 w - - 0 46",
+      "lastMoveUci": "g6g5",
+      "solutionUci": "e2h5 h7g8 b2b8",
+      "fullSolutionUci": "e2h5 h7g8 b2b8",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "LUhO0",
+        "url": "https://lichess.org/training/LUhO0",
+        "themes": [
+          "short",
+          "endgame",
+          "mateIn2"
+        ],
+        "rating": 1658,
+        "gameId": "QFRtvfrL"
+      }
+    },
+    {
+      "id": "mate2-CGHtY",
+      "level": "mate2",
+      "fen": "1Q6/5k2/b3p2p/3pPp2/P1pP2pP/1p4P1/1Rrq1PB1/R5K1 b - - 0 34",
+      "lastMoveUci": "d6b8",
+      "solutionUci": "d2f2 g1h2 f2g2",
+      "fullSolutionUci": "d2f2 g1h2 f2g2",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "CGHtY",
+        "url": "https://lichess.org/training/CGHtY",
+        "themes": [
+          "mateIn2",
+          "middlegame",
+          "short",
+          "kingsideAttack"
+        ],
+        "rating": 1316,
+        "gameId": "i5sKntXc"
+      }
+    },
+    {
+      "id": "mate2-OxSvI",
+      "level": "mate2",
+      "fen": "r7/4kpb1/1Q1p3p/4p3/1B3p2/Pb4nP/6PK/1q6 w - - 0 36",
+      "lastMoveUci": "d3b1",
+      "solutionUci": "b6d6 e7e8 d6e7",
+      "fullSolutionUci": "b6d6 e7e8 d6e7",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "OxSvI",
+        "url": "https://lichess.org/training/OxSvI",
+        "themes": [
+          "mateIn2",
+          "middlegame",
+          "short"
+        ],
+        "rating": 1532,
+        "gameId": "XAeTYRM5"
+      }
+    },
+    {
+      "id": "mate2-BHs2O",
+      "level": "mate2",
+      "fen": "4r3/2p4p/p2br3/1p2kpBP/8/2P1p3/PP2KP2/3R2R1 w - - 3 36",
+      "lastMoveUci": "f6e5",
+      "solutionUci": "f2f4 e5e4 d1d4",
+      "fullSolutionUci": "f2f4 e5e4 d1d4",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "BHs2O",
+        "url": "https://lichess.org/training/BHs2O",
+        "themes": [
+          "short",
+          "endgame",
+          "mateIn2"
+        ],
+        "rating": 1446,
+        "gameId": "KPhrysHt"
+      }
+    },
+    {
+      "id": "mate2-JPUvD",
+      "level": "mate2",
+      "fen": "b1k5/p6p/1pP5/1P1Q4/2n2P2/2P2K1P/Pq6/4r3 w - - 0 34",
+      "lastMoveUci": "e4e1",
+      "solutionUci": "d5d7 c8b8 d7d8",
+      "fullSolutionUci": "d5d7 c8b8 d7d8",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "JPUvD",
+        "url": "https://lichess.org/training/JPUvD",
+        "themes": [
+          "short",
+          "endgame",
+          "mateIn2"
+        ],
+        "rating": 1333,
+        "gameId": "czZdZair"
+      }
+    },
+    {
+      "id": "mate3-SygLP",
+      "level": "mate3",
+      "fen": "7r/5r2/8/PP1k4/3p4/3R4/2RK4/8 b - - 4 50",
+      "lastMoveUci": "e2d2",
+      "solutionUci": "f7f2 d2d3 h1d1 c2d2 d1d2",
+      "fullSolutionUci": "f7f2 d2d3 h1d1 c2d2 d1d2",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "SygLP",
+        "url": "https://lichess.org/training/SygLP",
+        "themes": [
+          "exposedKing",
+          "endgame",
+          "master",
+          "rookEndgame",
+          "long",
+          "mateIn3"
+        ],
+        "rating": 1376,
+        "gameId": "trk8v6tC"
+      }
+    },
+    {
+      "id": "mate3-UdGdL",
+      "level": "mate3",
+      "fen": "1r2r1k1/7p/p5pB/1b2RpQ1/8/8/PPq4P/4R1K1 w - - 2 31",
+      "lastMoveUci": "d8e8",
+      "solutionUci": "e5e8 b8e8 e1e8 b5e8 f6f8",
+      "fullSolutionUci": "e5e8 b8e8 e1e8 b5e8 f6f8",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "UdGdL",
+        "url": "https://lichess.org/training/UdGdL",
+        "themes": [
+          "middlegame",
+          "long",
+          "mateIn3"
+        ],
+        "rating": 1335,
+        "gameId": "bQRx0iYY"
+      }
+    },
+    {
+      "id": "mate3-gOHbt",
+      "level": "mate3",
+      "fen": "5r2/6pk/bn4p1/Bp2p3/3pPP2/P2P2q1/BP2K3/R1r2R2 w - - 0 32",
+      "lastMoveUci": "c8c1",
+      "solutionUci": "f1h1 c1h1 a1h1 g3h2 h1h2",
+      "fullSolutionUci": "f1h1 c1h1 a1h1 g3h2 h1h2",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "gOHbt",
+        "url": "https://lichess.org/training/gOHbt",
+        "themes": [
+          "middlegame",
+          "xRayAttack",
+          "long",
+          "mateIn3"
+        ],
+        "rating": 1347,
+        "gameId": "aUEd4zxX"
+      }
+    },
+    {
+      "id": "mate3-Fq50G",
+      "level": "mate3",
+      "fen": "5k2/1R3P2/8/5K2/7p/5P2/1p6/1r6 w - - 1 49",
+      "lastMoveUci": "g8f8",
+      "solutionUci": "f5f6 b1c1 b7b8 c1c8 b8c8",
+      "fullSolutionUci": "f5f6 b1c1 b7b8 c1c8 b8c8",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "Fq50G",
+        "url": "https://lichess.org/training/Fq50G",
+        "themes": [
+          "exposedKing",
+          "endgame",
+          "rookEndgame",
+          "long",
+          "mateIn3"
+        ],
+        "rating": 1421,
+        "gameId": "1cJVhXzZ"
+      }
+    },
+    {
+      "id": "mate3-kWIdD",
+      "level": "mate3",
+      "fen": "r1q2rk1/2p1bppp/1p1P4/pN1Pp3/1P2P2n/P3BP2/4QP1P/R1R3K1 b - - 0 18",
+      "lastMoveUci": "g2f3",
+      "solutionUci": "c8h3 e2f1 h4f3 g1h1 h3h2",
+      "fullSolutionUci": "c8h3 e2f1 h4f3 g1h1 h3h2",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "kWIdD",
+        "url": "https://lichess.org/training/kWIdD",
+        "themes": [
+          "middlegame",
+          "long",
+          "mateIn3",
+          "kingsideAttack"
+        ],
+        "rating": 1417,
+        "gameId": "xnx7dbTG"
+      }
+    },
+    {
+      "id": "mate3-DCWyy",
+      "level": "mate3",
+      "fen": "2rr3k/pp3Qp1/7p/1qb1N3/1P1p1B2/P3P3/5PPP/3R2K1 w - - 1 26",
+      "lastMoveUci": "g8h8",
+      "solutionUci": "e5g6 h8h7 g6f8 d8f8 f7g7",
+      "fullSolutionUci": "e5g6 h8h7 g6f8 d8f8 f7g7",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "DCWyy",
+        "url": "https://lichess.org/training/DCWyy",
+        "themes": [
+          "middlegame",
+          "long",
+          "mateIn3",
+          "kingsideAttack",
+          "pin"
+        ],
+        "rating": 1341,
+        "gameId": "sQ7Ruis5"
+      }
+    },
+    {
+      "id": "mate3-hrEU6",
+      "level": "mate3",
+      "fen": "6k1/3R1p1p/5qp1/2p5/2P1r3/1Q6/P4PPP/R5K1 b - - 0 27",
+      "lastMoveUci": "g3b3",
+      "solutionUci": "f6a1 d7d1 e4e1 d1e1 a1e1",
+      "fullSolutionUci": "f6a1 d7d1 e4e1 d1e1 a1e1",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "hrEU6",
+        "url": "https://lichess.org/training/hrEU6",
+        "themes": [
+          "endgame",
+          "xRayAttack",
+          "long",
+          "mateIn3",
+          "hangingPiece"
+        ],
+        "rating": 1389,
+        "gameId": "gI77At8i"
+      }
+    },
+    {
+      "id": "mate3-8aztK",
+      "level": "mate3",
+      "fen": "r4rk1/pp2Qppp/1qp5/8/8/1BP5/PP3nPP/RNB2RK1 b - - 2 17",
+      "lastMoveUci": "h1g1",
+      "solutionUci": "f2h3 g1h1 b6g1 f1g1 h3f2",
+      "fullSolutionUci": "f2h3 g1h1 b6g1 f1g1 h3f2",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "8aztK",
+        "url": "https://lichess.org/training/8aztK",
+        "themes": [
+          "middlegame",
+          "discoveredCheck",
+          "long",
+          "mateIn3",
+          "sacrifice",
+          "doubleCheck",
+          "kingsideAttack",
+          "smotheredMate"
+        ],
+        "rating": 1423,
+        "gameId": "lrgcd77C"
+      }
+    },
+    {
+      "id": "mate3-tbeHw",
+      "level": "mate3",
+      "fen": "8/1P2p3/8/2kB1b2/5N2/6PP/1r1n1P2/3R2K1 b - - 0 42",
+      "lastMoveUci": "b6b7",
+      "solutionUci": "b2b1 d2d1 b1d1 g1h2 d1h1",
+      "fullSolutionUci": "b2b1 d2d1 b1d1 g1h2 d1h1",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "tbeHw",
+        "url": "https://lichess.org/training/tbeHw",
+        "themes": [
+          "endgame",
+          "long",
+          "mateIn3"
+        ],
+        "rating": 1410,
+        "gameId": "ctzSZz6p"
+      }
+    },
+    {
+      "id": "mate3-nrN1h",
+      "level": "mate3",
+      "fen": "r2qk2r/pb1np1b1/1pp2np1/3p3p/2PP1B1P/4PN2/PPQN1PP1/R3K2R w KQkq - 0 11",
+      "lastMoveUci": "f7g6",
+      "solutionUci": "f3g5 d8e8 g5e6 f8g8 g6g7",
+      "fullSolutionUci": "f3g5 d8e8 g5e6 f8g8 g6g7",
+      "source": {
+        "provider": "lichess",
+        "puzzleId": "nrN1h",
+        "url": "https://lichess.org/training/nrN1h",
+        "themes": [
+          "middlegame",
+          "quietMove",
+          "long",
+          "mateIn3"
+        ],
+        "rating": 1455,
+        "gameId": "4A6KJ5kI"
+      }
     }
   ],
   "models": [
-    {
-      "id": "x-ai/grok-4-fast",
-      "name": "Grok 4 Fast",
-      "score": 100,
-      "breakdown": {
-        "mate1": 100,
-        "mate2": 0,
-        "mate3": 0
-      },
-      "avgLatencyMs": 765
-    },
-    {
-      "id": "x-ai/grok-4.1-fast",
-      "name": "Grok 4.1 Fast",
-      "score": 100,
-      "breakdown": {
-        "mate1": 100,
-        "mate2": 0,
-        "mate3": 0
-      },
-      "avgLatencyMs": 528
-    },
-    {
-      "id": "google/gemini-3-flash-preview",
-      "name": "Gemini 3 Flash Preview",
-      "score": 90,
-      "breakdown": {
-        "mate1": 90,
-        "mate2": 0,
-        "mate3": 0
-      },
-      "avgLatencyMs": 1102
-    },
     {
       "id": "openai/gpt-5.2-pro",
       "name": "OpenAI GPT-5.2 Pro",
@@ -249,15 +636,37 @@
       "avgLatencyMs": 314
     },
     {
-      "id": "google/gemini-3-pro-preview",
-      "name": "Gemini 3 Pro Preview",
-      "score": 70,
+      "id": "x-ai/grok-4.1-fast",
+      "name": "Grok 4.1 Fast",
+      "score": 56.7,
       "breakdown": {
-        "mate1": 70,
-        "mate2": 0,
+        "mate1": 100,
+        "mate2": 70,
         "mate3": 0
       },
-      "avgLatencyMs": 4126
+      "avgLatencyMs": 581
+    },
+    {
+      "id": "x-ai/grok-4-fast",
+      "name": "Grok 4 Fast",
+      "score": 53.3,
+      "breakdown": {
+        "mate1": 100,
+        "mate2": 40,
+        "mate3": 20
+      },
+      "avgLatencyMs": 815
+    },
+    {
+      "id": "google/gemini-3-flash-preview",
+      "name": "Gemini 3 Flash Preview",
+      "score": 46.7,
+      "breakdown": {
+        "mate1": 90,
+        "mate2": 40,
+        "mate3": 10
+      },
+      "avgLatencyMs": 1088
     },
     {
       "id": "openai/gpt-5.2",
@@ -282,15 +691,15 @@
       "avgLatencyMs": 259
     },
     {
-      "id": "anthropic/claude-opus-4.5",
-      "name": "Claude Opus 4.5",
-      "score": 40,
+      "id": "google/gemini-3-pro-preview",
+      "name": "Gemini 3 Pro Preview",
+      "score": 36.7,
       "breakdown": {
-        "mate1": 40,
-        "mate2": 0,
-        "mate3": 0
+        "mate1": 70,
+        "mate2": 30,
+        "mate3": 10
       },
-      "avgLatencyMs": 1966
+      "avgLatencyMs": 4031
     },
     {
       "id": "openai/gpt-5.1-codex-max",
@@ -315,6 +724,17 @@
       "avgLatencyMs": 858
     },
     {
+      "id": "anthropic/claude-opus-4.5",
+      "name": "Claude Opus 4.5",
+      "score": 16.7,
+      "breakdown": {
+        "mate1": 40,
+        "mate2": 0,
+        "mate3": 10
+      },
+      "avgLatencyMs": 1742
+    },
+    {
       "id": "openai/gpt-5.1-codex",
       "name": "OpenAI GPT-5.1 Codex",
       "score": 10,
@@ -324,6 +744,17 @@
         "mate3": 0
       },
       "avgLatencyMs": 286
+    },
+    {
+      "id": "minimax/minimax-m2.1",
+      "name": "Minimax M2.1",
+      "score": 10,
+      "breakdown": {
+        "mate1": 10,
+        "mate2": 0,
+        "mate3": 0
+      },
+      "avgLatencyMs": 1051
     },
     {
       "id": "nex-agi/deepseek-v3.1-nex-n1:free",
@@ -359,17 +790,6 @@
       "avgLatencyMs": 2189
     },
     {
-      "id": "z-ai/glm-4.7",
-      "name": "Z-AI GLM 4.7",
-      "score": 10,
-      "breakdown": {
-        "mate1": 10,
-        "mate2": 0,
-        "mate3": 0
-      },
-      "avgLatencyMs": 3804
-    },
-    {
       "id": "anthropic/claude-3.5-haiku",
       "name": "Claude 3.5 Haiku",
       "score": 10,
@@ -381,15 +801,15 @@
       "avgLatencyMs": 740
     },
     {
-      "id": "minimax/minimax-m2.1",
-      "name": "Minimax M2.1",
-      "score": 10,
+      "id": "z-ai/glm-4.7",
+      "name": "Z-AI GLM-4.7",
+      "score": 3.3,
       "breakdown": {
         "mate1": 10,
         "mate2": 0,
         "mate3": 0
       },
-      "avgLatencyMs": 1051
+      "avgLatencyMs": 2146
     },
     {
       "id": "google/gemini-2.5-pro",
@@ -459,6 +879,7 @@
     "mistralai/devstral-2512:free": "/results/models/mistralai__devstral-2512__free.json",
     "google/gemini-3-pro-preview": "/results/models/google__gemini-3-pro-preview.json",
     "openai/gpt-5.2": "/results/models/openai__gpt-5.2.json",
+    "minimax/minimax-m2.1": "/results/models/minimax__minimax-m2.1.json",
     "nex-agi/deepseek-v3.1-nex-n1:free": "/results/models/nex-agi__deepseek-v3.1-nex-n1__free.json",
     "moonshotai/kimi-k2-thinking": "/results/models/moonshotai__kimi-k2-thinking.json",
     "openai/gpt-5": "/results/models/openai__gpt-5.json",
@@ -467,8 +888,87 @@
     "z-ai/glm-4.7": "/results/models/z-ai__glm-4.7.json",
     "allenai/olmo-3.1-32b-think:free": "/results/models/allenai__olmo-3.1-32b-think__free.json",
     "google/gemini-2.5-flash": "/results/models/google__gemini-2.5-flash.json",
-    "anthropic/claude-opus-4.5": "/results/models/anthropic__claude-opus-4.5.json",
     "anthropic/claude-3.5-haiku": "/results/models/anthropic__claude-3.5-haiku.json",
-    "minimax/minimax-m2.1": "/results/models/minimax__minimax-m2.1.json"
+    "anthropic/claude-opus-4.5": "/results/models/anthropic__claude-opus-4.5.json"
+  },
+  "levelFiles": {
+    "anthropic/claude-haiku-4.5": {
+      "mate1": "/results/levels/mate1/anthropic__claude-haiku-4.5.json"
+    },
+    "x-ai/grok-4-fast": {
+      "mate1": "/results/levels/mate1/x-ai__grok-4-fast.json",
+      "mate2": "/results/levels/mate2/x-ai__grok-4-fast.json",
+      "mate3": "/results/levels/mate3/x-ai__grok-4-fast.json"
+    },
+    "x-ai/grok-4.1-fast": {
+      "mate1": "/results/levels/mate1/x-ai__grok-4.1-fast.json",
+      "mate2": "/results/levels/mate2/x-ai__grok-4.1-fast.json",
+      "mate3": "/results/levels/mate3/x-ai__grok-4.1-fast.json"
+    },
+    "openai/gpt-5.2-pro": {
+      "mate1": "/results/levels/mate1/openai__gpt-5.2-pro.json"
+    },
+    "openai/gpt-5.1-codex": {
+      "mate1": "/results/levels/mate1/openai__gpt-5.1-codex.json"
+    },
+    "google/gemini-2.5-pro": {
+      "mate1": "/results/levels/mate1/google__gemini-2.5-pro.json"
+    },
+    "google/gemini-3-flash-preview": {
+      "mate1": "/results/levels/mate1/google__gemini-3-flash-preview.json",
+      "mate2": "/results/levels/mate2/google__gemini-3-flash-preview.json",
+      "mate3": "/results/levels/mate3/google__gemini-3-flash-preview.json"
+    },
+    "openai/gpt-5-codex": {
+      "mate1": "/results/levels/mate1/openai__gpt-5-codex.json"
+    },
+    "mistralai/devstral-2512:free": {
+      "mate1": "/results/levels/mate1/mistralai__devstral-2512__free.json"
+    },
+    "google/gemini-3-pro-preview": {
+      "mate1": "/results/levels/mate1/google__gemini-3-pro-preview.json",
+      "mate2": "/results/levels/mate2/google__gemini-3-pro-preview.json",
+      "mate3": "/results/levels/mate3/google__gemini-3-pro-preview.json"
+    },
+    "openai/gpt-5.2": {
+      "mate1": "/results/levels/mate1/openai__gpt-5.2.json"
+    },
+    "minimax/minimax-m2.1": {
+      "mate1": "/results/levels/mate1/minimax__minimax-m2.1.json"
+    },
+    "nex-agi/deepseek-v3.1-nex-n1:free": {
+      "mate1": "/results/levels/mate1/nex-agi__deepseek-v3.1-nex-n1__free.json"
+    },
+    "moonshotai/kimi-k2-thinking": {
+      "mate1": "/results/levels/mate1/moonshotai__kimi-k2-thinking.json"
+    },
+    "openai/gpt-5": {
+      "mate1": "/results/levels/mate1/openai__gpt-5.json"
+    },
+    "openai/gpt-5.1-codex-max": {
+      "mate1": "/results/levels/mate1/openai__gpt-5.1-codex-max.json"
+    },
+    "anthropic/claude-sonnet-4.5": {
+      "mate1": "/results/levels/mate1/anthropic__claude-sonnet-4.5.json"
+    },
+    "z-ai/glm-4.7": {
+      "mate1": "/results/levels/mate1/z-ai__glm-4.7.json",
+      "mate2": "/results/levels/mate2/z-ai__glm-4.7.json",
+      "mate3": "/results/levels/mate3/z-ai__glm-4.7.json"
+    },
+    "allenai/olmo-3.1-32b-think:free": {
+      "mate1": "/results/levels/mate1/allenai__olmo-3.1-32b-think__free.json"
+    },
+    "google/gemini-2.5-flash": {
+      "mate1": "/results/levels/mate1/google__gemini-2.5-flash.json"
+    },
+    "anthropic/claude-opus-4.5": {
+      "mate1": "/results/levels/mate1/anthropic__claude-opus-4.5.json",
+      "mate2": "/results/levels/mate2/anthropic__claude-opus-4.5.json",
+      "mate3": "/results/levels/mate3/anthropic__claude-opus-4.5.json"
+    },
+    "anthropic/claude-3.5-haiku": {
+      "mate1": "/results/levels/mate1/anthropic__claude-3.5-haiku.json"
+    }
   }
 }

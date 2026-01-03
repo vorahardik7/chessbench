@@ -1,7 +1,7 @@
 [
   {
-    "id": "minimax/minimax-m2.1",
-    "name": "Minimax M2.1",
+    "id": "anthropic/claude-opus-4.5",
+    "name": "Claude Opus 4.5",
     "temperature": 0,
     "maxTokens": 1500
   }
